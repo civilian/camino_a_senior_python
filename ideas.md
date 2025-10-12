@@ -1,0 +1,3 @@
+- que hable de la historia de la computación de la ingeniería. cómo se genera cada concepto y de que evoluciona 
+- que ponga chistes bien geeks con memes. 
+- lo que he visto es que tiene que ser más homogénea menos fragmentado
