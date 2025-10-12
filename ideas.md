@@ -3,3 +3,6 @@
 - lo que he visto es que tiene que ser más homogénea menos fragmentado
 - primero debo organizar los temas para que tengan sentido con respecto al contexto histórico. 
 - organizar estas ideas en un design doc que se use en el prompt de cada tema. y uno para las cosas generales.
+- una carpeta de cosas definitivas que se quedan en el libro y las cuales hay que adjuntar, otras de cosas que se pueden reescribir.
+- decirle la inteligencia artificial que ordene las ideas para que tengan sentido en contexto histórico. 
+- que haga chistes de historia chistes de ingeniería y chistes de cultura pop.
