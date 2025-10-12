@@ -10,3 +10,4 @@
 - no demasiados chistes pero mantenerlo interesante.
 - que cada vez que se genere un tema se vayan guardando las partes más importantes y los mejores chistes para referenciarlos luego
 - que para las pruebas se generen cuatro temas para leerlos y probar.
+- tener en cuenta el público 
