@@ -6,3 +6,5 @@
 - una carpeta de cosas definitivas que se quedan en el libro y las cuales hay que adjuntar, otras de cosas que se pueden reescribir.
 - decirle la inteligencia artificial que ordene las ideas para que tengan sentido en contexto histórico. 
 - que haga chistes de historia chistes de ingeniería y chistes de cultura pop.
+- chistes de poemas.
+- no demasiados chistes pero mantenerlo interesante.
