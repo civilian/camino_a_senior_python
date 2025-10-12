@@ -1,3 +1,5 @@
 - que hable de la historia de la computación de la ingeniería. cómo se genera cada concepto y de que evoluciona 
 - que ponga chistes bien geeks con memes. 
 - lo que he visto es que tiene que ser más homogénea menos fragmentado
+- primero debo organizar los temas para que tengan sentido con respecto al contexto histórico. 
+- organizar estas ideas en un design doc que se use en el prompt de cada tema. y uno para las cosas generales.
