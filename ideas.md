@@ -8,3 +8,4 @@
 - que haga chistes de historia chistes de ingeniería y chistes de cultura pop.
 - chistes de poemas.
 - no demasiados chistes pero mantenerlo interesante.
+- que cada vez que se genere un tema se vayan guardando las partes más importantes y los mejores chistes para referenciarlos luego
