@@ -13,3 +13,4 @@
 - tener en cuenta el público, osea chistes de cultura de programadores.
 - numerar los capítulos.
 - dejar el plan, y lo que debe ir en una estructura en el.md
+- incluir <!-- Nota para AI: Añade ejemplos prácticos en este capítulo siguiendo la misma línea --> para generar y también incluir archivos yjsons dentro de las notas
