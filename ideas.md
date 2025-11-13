@@ -15,3 +15,6 @@
 - dejar el plan, y lo que debe ir en una estructura en el.md
 - incluir <!-- Nota para AI: Añade ejemplos prácticos en este capítulo siguiendo la misma línea --> para generar y también incluir archivos yjsons dentro de las notas
 - ir generando un solo archivo maestro que incluya cosas de IA
+- varias versiones del libro: 100 páginas, 300 página, todas las páginas. 
+- En el libro escribir para que la inteligencia artificial completa en noticias actuales
+- Tengo dos años para escribir el libro antes de hacer lo de prestación de servicios
