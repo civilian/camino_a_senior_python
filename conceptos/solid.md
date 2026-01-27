@@ -1,558 +1,521 @@
 # SOLID
 
-Absolutamente. Para alcanzar un nivel de "seniority", no basta con saber la definición de cada principio SOLID. Hay que entender su *propósito*, la *filosofía* subyacente, cómo se *interrelacionan* y, lo más importante, cuándo y por qué aplicarlos (y cuándo su aplicación puede ser un exceso).
-
-Este documento está diseñado para ser esa guía profunda.
-
-***
-
-# Guía Profunda de los Principios SOLID: De la Teoría a la Maestría
-
-## Introducción: Más Allá del Acrónimo
-
-SOLID no es una ley, ni un framework, ni una receta mágica. Es una **filosofía de diseño** orientada a objetos que nos guía para crear software más **comprensible, mantenible, flexible y testeable**. Su objetivo principal es la gestión de la **dependencia** y la reducción del **acoplamiento**.
-
-El acrónimo fue introducido por **Michael Feathers**, basándose en los principios recopilados por **Robert C. Martin ("Uncle Bob")** a principios de los 2000, principalmente en su libro *Agile Software Development, Principles, Patterns, and Practices*.
-
-> "No son reglas. Son heurísticas. Son guías que te ayudan a escribir mejor código." - Robert C. Martin
-
-Un desarrollador senior no solo recita los principios, sino que entiende que el objetivo final es combatir la **rigidez** (el sistema es difícil de cambiar), la **fragilidad** (los cambios rompen partes inesperadas) y la **inmovilidad** (el código es difícil de reutilizar).
+¡Absolutamente! Acomódense, futuros arquitectos del software. Hoy no vamos a aprender un simple acrónimo; vamos a desenterrar los cimientos filosóficos y prácticos que separan a un mero codificador de un verdadero ingeniero de software. Como un viejo maestro artesano que enseña a su aprendiz no solo a usar el martillo, sino a entender la veta de la madera, vamos a desglosar **SOLID** hasta su misma esencia.
 
 ---
 
-## 1. (S) - Single Responsibility Principle (SRP) - Principio de Responsabilidad Única
+## Guía Definitiva de SOLID: De Programador a Arquitecto de Software
 
-### La Definición Formal
+### 1. Introducción Profunda: El Génesis de un Manifiesto
 
-> "A class should have only one reason to change."
->
-> — Robert C. Martin, *Agile Software Development, Principles, Patterns, and Practices*
+Imaginen el salvaje oeste de la programación a finales de los 80 y principios de los 90. La Programación Orientada a Objetos (POO) era la nueva frontera, una promesa de código reutilizable y organizado. Sin embargo, en lugar de ciudades planificadas, muchos proyectos se convertían en "grandes bolas de lodo" (Big Balls of Mud), un término acuñado por Brian Foote y Joseph Yoder para describir sistemas sin arquitectura discernible. El código era un laberinto de dependencias, frágil como el cristal y rígido como el acero oxidado. Un pequeño cambio en un lugar podía provocar una cascada de fallos en lugares insospechados.
 
-### Desmitificando la Definición
+En este caos, un hombre llamado **Robert C. Martin**, conocido en la comunidad como "Uncle Bob", comenzó a escribir y a hablar, no sobre un nuevo lenguaje o framework, sino sobre *disciplina*. A través de una serie de artículos para la revista *The C++ Report* y discusiones en los albores de la web, Martin empezó a destilar principios de diseño que observaba en sistemas de software robustos y mantenibles.
 
-Esta es la definición más malinterpretada. "Una sola cosa" es ambiguo. La clave está en la frase **"una razón para cambiar"**.
+**El Problema que Resuelve:** SOLID no nació en un vacío académico. Surgió de la necesidad de combatir los "malos olores" del diseño de software que Martin identificó:
 
-Una "razón para cambiar" está ligada a un **actor** o a un **rol** dentro del sistema. Por ejemplo, el departamento de Finanzas es un actor, el de Recursos Humanos es otro. Si una clase `Employee` calcula el salario (regla de Finanzas) y también registra las horas de vacaciones (regla de RRHH), tiene **dos razones para cambiar**. Un cambio en la política de impuestos (Finanzas) la afectará. Un cambio en la política de vacaciones (RRHH) también. Esto viola el SRP.
+*   **Rigidez:** Un sistema es difícil de cambiar porque cada cambio afecta a muchas otras partes.
+*   **Fragilidad:** Un cambio rompe partes del sistema que no tienen relación conceptual.
+*   **Inmovilidad:** Es difícil reutilizar componentes en otros sistemas porque están demasiado enredados en su contexto actual.
+*   **Viscosidad:** Es más fácil hacer las cosas "mal" (hackear) que hacerlas "bien" (seguir el diseño).
 
-**En esencia:** Agrupa el código que cambia por las mismas razones (sirve al mismo actor) y separa el código que cambia por razones diferentes (sirve a actores diferentes).
+SOLID es un conjunto de cinco principios que actúan como una vacuna contra estos problemas, promoviendo la creación de software que es comprensible, mantenible y extensible.
 
-### ¿Por Qué es Crucial?
-
-*   **Reduce el Acoplamiento:** Al separar responsabilidades, las clases dependen menos unas de otras.
-*   **Mejora la Cohesión:** Una clase con alta cohesión hace un trabajo bien definido y relacionado. El SRP promueve esto.
-*   **Facilita las Pruebas:** Es mucho más fácil probar una clase que hace una sola cosa bien que una "clase Dios" (God Class) que hace de todo.
-*   **Evita Conflictos de Fusión (Merge Conflicts):** Si dos desarrolladores de equipos diferentes (Finanzas y RRHH) necesitan cambiar la misma clase `Employee`, es muy probable que generen conflictos. Si las responsabilidades estuvieran separadas, trabajarían en archivos diferentes.
-
-### Ejemplo Práctico (C#)
-
-**Mal (Violando SRP):**
-
-```csharp
-// Esta clase tiene TRES responsabilidades:
-// 1. Lógica de negocio del empleado (propiedades).
-// 2. Persistencia en la base de datos.
-// 3. Generación de informes.
-public class Employee
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-
-    // Responsabilidad de persistencia
-    public void SaveToDatabase()
-    {
-        // Lógica para conectar a la BD y guardar el empleado...
-        Console.WriteLine($"Saving {Name} to the database.");
-    }
-
-    // Responsabilidad de informes
-    public string GenerateReport(string reportType)
-    {
-        // Lógica para formatear un informe...
-        if (reportType == "CSV")
-        {
-            return $"{Id},{Name}";
-        }
-        return $"ID: {Id}, Name: {Name}";
-    }
-}
-```
-*   **Razón para cambiar 1:** Cambia el esquema de la base de datos (Actor: DBA).
-*   **Razón para cambiar 2:** Cambia el formato del informe (Actor: Analista de Negocio).
-*   **Razón para cambiar 3:** Se añade un nuevo atributo al empleado (Actor: RRHH).
-
-**Bien (Aplicando SRP):**
-
-```csharp
-// 1. Responsabilidad: Contener los datos del empleado (POCO/DTO)
-public class Employee
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-}
-
-// 2. Responsabilidad: Persistencia
-public class EmployeeRepository
-{
-    public void Save(Employee employee)
-    {
-        // Lógica de persistencia...
-        Console.WriteLine($"Saving {employee.Name} to the database.");
-    }
-}
-
-// 3. Responsabilidad: Informes
-public class EmployeeReportGenerator
-{
-    public string Generate(Employee employee, string reportType)
-    {
-        // Lógica de informes...
-        if (reportType == "CSV")
-        {
-            return $"{employee.Id},{employee.Name}";
-        }
-        return $"ID: {employee.Id}, Name: {employee.Name}";
-    }
-}
-```
-Ahora, si el formato del informe cambia, solo modificamos `EmployeeReportGenerator`. Si la base de datos cambia, solo tocamos `EmployeeRepository`. Cada clase tiene una única y cohesiva razón para cambiar.
+**Evolución:** Los principios no nacieron juntos bajo el acrónimo SOLID. Eran ideas individuales que Martin fue articulando. El momento decisivo llegó alrededor de 2004, cuando **Michael Feathers**, otro gigante de la industria, observó que las iniciales de estos cinco principios, reordenadas, formaban el acrónimo **SOLID**. Fue un golpe de genialidad de marketing que empaquetó estas ideas en una forma memorable y las catapultó a la fama, convirtiéndolas en un pilar del movimiento de la Artesanía del Software (Software Craftsmanship) y el desarrollo Ágil.
 
 ---
 
-## 2. (O) - Open/Closed Principle (OCP) - Principio Abierto/Cerrado
+### 2. Fundamentos Teóricos y Matemáticos: El Alma en la Máquina
 
-### La Definición Formal
+Aunque SOLID se presenta como un conjunto de principios prácticos, sus raíces se hunden en conceptos más profundos de la informática y la ingeniería.
 
-> "Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification."
->
-> — Bertrand Meyer, *Object-Oriented Software Construction*
+**Base Teórica: Acoplamiento y Cohesión**
+La espina dorsal teórica de SOLID es la gestión de **acoplamiento** (el grado de interdependencia entre módulos) y **cohesión** (el grado en que los elementos de un módulo pertenecen juntos).
 
-### Desmitificando la Definición
+*   **Alta Cohesión:** Un módulo (una clase, una función) debe hacer una sola cosa y hacerla bien. Este es el corazón del **Principio de Responsabilidad Única (SRP)**.
+*   **Bajo Acoplamiento:** Los módulos deben ser lo más independientes posible. Si cambias uno, no deberías tener que cambiar otros. Este es el objetivo final de **Liskov (LSP)**, **Inversión de Dependencias (DIP)** y **Segregación de Interfaces (ISP)**.
 
-Este principio es el corazón de una arquitectura robusta. Significa que deberías poder **añadir nueva funcionalidad sin cambiar el código existente que ya funciona y ha sido probado**.
+> "La cohesión es la medida en que las tareas realizadas por un módulo están funcionalmente relacionadas. El acoplamiento es la medida de la fuerza de la asociación establecida por una conexión de un módulo a otro." — **Glenford J. Myers**, *Composite/Structured Design* (1974)
 
-¿Cómo se logra esto? A través de la **abstracción**. En lugar de depender de implementaciones concretas, dependemos de interfaces o clases base. La "extensión" se logra creando nuevas clases que implementan esa interfaz, y la "clausura" se logra porque el código original que usa la interfaz no necesita ser modificado para aceptar la nueva implementación.
+**Principios Subyacentes: Abstracción y Polimorfismo**
+SOLID es, en esencia, una guía de campo para aplicar correctamente los pilares de la POO. El **Principio de Abierto/Cerrado (OCP)** y el de **Inversión de Dependencias (DIP)** son imposibles sin **abstracciones** (interfaces, clases abstractas). El **Principio de Sustitución de Liskov (LSP)** es la definición formal de cómo debe funcionar el **polimorfismo** de subtipos para que sea seguro y predecible.
 
-### ¿Por Qué es Crucial?
+**Relación con la Historia de la Computación:**
+La idea de modularidad y separación de preocupaciones no es nueva. Se remonta a los trabajos de **David Parnas** en los años 70 sobre "descomposición de sistemas de software". Parnas argumentaba que los módulos debían ocultar decisiones de diseño ("information hiding"). SOLID es la encarnación de estas ideas en el paradigma orientado a objetos.
 
-*   **Estabilidad:** El código existente y probado no se toca, reduciendo el riesgo de introducir nuevos bugs en funcionalidades antiguas.
-*   **Flexibilidad:** Permite que el sistema evolucione de manera elegante. Es la base de los sistemas de "plugins".
-*   **Mantenibilidad:** El código es más fácil de entender, ya que las políticas de alto nivel no están plagadas de `if/else` o `switch` para cada nuevo tipo.
+> "Sostenemos que el criterio para descomponer un sistema en módulos debe ser el ocultamiento de información." — **David L. Parnas**, *On the Criteria To Be Used in Decomposing Systems into Modules* (1972)
 
-### Ejemplo Práctico (C#)
-
-**Mal (Violando OCP):**
-
-```csharp
-// Cada vez que añadimos un nuevo tipo de pago, TENEMOS que modificar esta clase.
-public class PaymentProcessor
-{
-    public void ProcessPayment(decimal amount, string paymentType)
-    {
-        if (paymentType == "CreditCard")
-        {
-            Console.WriteLine($"Processing credit card payment of {amount:C}");
-            // Lógica específica de tarjeta de crédito...
-        }
-        else if (paymentType == "PayPal")
-        {
-            Console.WriteLine($"Processing PayPal payment of {amount:C}");
-            // Lógica específica de PayPal...
-        }
-        else if (paymentType == "Bitcoin") // ¡NUEVO REQUISITO! Tuvimos que modificar la clase.
-        {
-            Console.WriteLine($"Processing Bitcoin payment of {amount:C}");
-            // Lógica específica de Bitcoin...
-        }
-    }
-}
-```
-Esta clase no está cerrada a la modificación. Es un imán de cambios.
-
-**Bien (Aplicando OCP con el Patrón Strategy):**
-
-```csharp
-// 1. Creamos una abstracción (la parte "cerrada")
-public interface IPaymentMethod
-{
-    void Process(decimal amount);
-}
-
-// 2. Creamos extensiones (la parte "abierta")
-public class CreditCardPayment : IPaymentMethod
-{
-    public void Process(decimal amount)
-    {
-        Console.WriteLine($"Processing credit card payment of {amount:C}");
-    }
-}
-
-public class PayPalPayment : IPaymentMethod
-{
-    public void Process(decimal amount)
-    {
-        Console.WriteLine($"Processing PayPal payment of {amount:C}");
-    }
-}
-
-// ¡NUEVO REQUISITO! Creamos una nueva clase sin tocar el código existente.
-public class BitcoinPayment : IPaymentMethod
-{
-    public void Process(decimal amount)
-    {
-        Console.WriteLine($"Processing Bitcoin payment of {amount:C}");
-    }
-}
-
-// 3. El procesador ahora depende de la abstracción y está cerrado a modificaciones.
-public class PaymentProcessor
-{
-    public void ProcessPayment(decimal amount, IPaymentMethod paymentMethod)
-    {
-        paymentMethod.Process(amount);
-    }
-}
-
-// Uso:
-var processor = new PaymentProcessor();
-processor.ProcessPayment(100, new CreditCardPayment());
-processor.ProcessPayment(200, new BitcoinPayment()); // Añadimos funcionalidad sin cambiar PaymentProcessor
-```
+Podemos incluso trazar una línea hasta la obra del arquitecto **Christopher Alexander** y su libro *A Pattern Language*, que influyó enormemente en el pensamiento de los diseñadores de software (incluido el famoso "Gang of Four") al proponer que las buenas soluciones a problemas recurrentes (patrones) pueden ser documentadas y reutilizadas. SOLID proporciona los principios para construir los "ladrillos" con los que se construyen esos patrones.
 
 ---
 
-## 3. (L) - Liskov Substitution Principle (LSP) - Principio de Sustitución de Liskov
+### 3. Evolución Histórica Detallada: Un Viaje en el Tiempo
 
-### La Definición Formal
-
-> "Let Φ(x) be a property provable about objects x of type T. Then Φ(y) should be true for objects y of type S where S is a subtype of T."
->
-> — Barbara Liskov & Jeannette Wing, *A Behavioral Notion of Subtyping*
-
-### Desmitificando la Definición
-
-En palabras sencillas: **Si tienes una función que acepta un objeto de tipo `T`, deberías poder pasarle un objeto de cualquier subtipo `S` de `T` sin que la función se rompa o se comporte de manera inesperada.**
-
-Un subtipo debe ser semánticamente sustituible por su tipo base. No se trata solo de la herencia sintáctica (`class Square : Rectangle`), sino del **comportamiento contractual**. El subtipo no debe requerir más (precondiciones más fuertes) ni prometer menos (postcondiciones más débiles) que su supertipo.
-
-**La analogía del "Pato":** Si parece un pato, grazna como un pato, pero necesita baterías, probablemente tienes una abstracción equivocada.
-
-### ¿Por Qué es Crucial?
-
-*   **Confianza en la Herencia:** Garantiza que la herencia se usa correctamente, manteniendo la integridad del modelo.
-*   **Evita el Código Condicional:** Previene la necesidad de hacer `if (obj is Square)` para tratar casos especiales, lo cual es una violación directa del OCP.
-*   **Polimorfismo Fiable:** Permite que el polimorfismo funcione como se espera, haciendo el código más limpio y predecible.
-
-### Ejemplo Práctico (C#) - El Clásico Problema del Cuadrado/Rectángulo
-
-**Mal (Violando LSP):**
-
-```csharp
-public class Rectangle
-{
-    public virtual int Width { get; set; }
-    public virtual int Height { get; set; }
-
-    public int Area => Width * Height;
-}
-
-// Un cuadrado ES un rectángulo matemáticamente, pero no conductualmente aquí.
-public class Square : Rectangle
-{
-    private int _side;
-
-    public override int Width
-    {
-        get => _side;
-        set { _side = value; base.Height = value; } // Efecto secundario inesperado
-    }
-
-    public override int Height
-    {
-        get => _side;
-        set { _side = value; base.Width = value; } // Efecto secundario inesperado
-    }
-}
-
-public class AreaCalculator
-{
-    // Este método espera un comportamiento de Rectángulo.
-    public void PrintArea(Rectangle r)
-    {
-        r.Width = 5;
-        r.Height = 10;
-        // El programador espera que el área sea 50.
-        Console.WriteLine($"Expected Area: 50, Actual Area: {r.Area}");
-    }
-}
-
-// Uso:
-var rect = new Rectangle();
-var square = new Square();
-var calculator = new AreaCalculator();
-
-calculator.PrintArea(rect);   // Salida: Expected Area: 50, Actual Area: 50 (CORRECTO)
-calculator.PrintArea(square); // Salida: Expected Area: 50, Actual Area: 100 (¡INCORRECTO!)
-```
-El `Square` viola el contrato de `Rectangle` porque cambiar su `Height` tiene el efecto secundario de cambiar su `Width`. El cliente (`AreaCalculator`) no espera esto, y el programa se rompe lógicamente. `Square` no es sustituible por `Rectangle`.
-
-**Bien (Respetando LSP):**
-
-La solución a menudo es **repensar la jerarquía de herencia**. Quizás `Square` no debería heredar de `Rectangle`. O quizás la abstracción correcta es una figura geométrica con un método `GetArea()`.
-
-```csharp
-public interface IShape
-{
-    int Area { get; }
-}
-
-public class Rectangle : IShape
-{
-    public int Width { get; }
-    public int Height { get; }
-
-    public Rectangle(int width, int height)
-    {
-        Width = width;
-        Height = height;
-    }
-
-    public int Area => Width * Height;
-}
-
-public class Square : IShape
-{
-    public int Side { get; }
-
-    public Square(int side)
-    {
-        Side = side;
-    }
-
-    public int Area => Side * Side;
-}
-```
-Aquí, hemos favorecido la **composición sobre la herencia** y una abstracción más adecuada. Ya no hay posibilidad de violar el contrato.
+| Fecha | Hito Clave | Figura(s) Clave | Contexto Histórico |
+| :--- | :--- | :--- | :--- |
+| **1972** | Publicación del paper sobre "Information Hiding". | David Parnas | La crisis del software está en pleno apogeo. Se buscan métodos para gestionar la complejidad. |
+| **1987** | Barbara Liskov define el Principio de Sustitución en una conferencia. | Barbara Liskov | La POO está ganando tracción, pero se necesita rigor formal para la herencia. |
+| **1988** | Bertrand Meyer publica "Object-Oriented Software Construction". | Bertrand Meyer | Introduce formalmente el Principio de Abierto/Cerrado en el contexto del lenguaje Eiffel. |
+| **1996** | Robert C. Martin publica "The Dependency Inversion Principle". | Robert C. Martin | El software empresarial se vuelve más complejo. Los frameworks empiezan a aparecer. |
+| **2000** | Martin agrupa varios principios en su paper "Design Principles and Design Patterns". | Robert C. Martin | El Manifiesto Ágil está a punto de nacer. Hay un fuerte movimiento hacia prácticas más ligeras y adaptables. |
+| **~2004** | Michael Feathers acuña el acrónimo "SOLID". | Michael Feathers | El término se populariza rápidamente en blogs y conferencias, dándole a los principios una identidad unificada. |
+| **2008** | Publicación de "Clean Code" de Robert C. Martin. | Robert C. Martin | SOLID se consolida como un pilar fundamental de la escritura de código limpio y profesional. |
 
 ---
 
-## 4. (I) - Interface Segregation Principle (ISP) - Principio de Segregación de Interfaces
+### 4. Implementación Práctica: De la Teoría al Teclado (en Python)
 
-### La Definición Formal
+Aquí es donde la goma se encuentra con el camino. Veremos cada principio con analogías, código "malo" (antes) y código "bueno" (después).
 
-> "Clients should not be forced to depend on methods they do not use."
->
-> — Robert C. Martin
+#### S - Single Responsibility Principle (SRP)
+*El principio del "yonofuista".* Una clase debe tener una, y solo una, razón para cambiar.
 
-### Desmitificando la Definición
+**Analogía:** Un cuchillo suizo es genial para acampar, pero en una cocina profesional, tienes un cuchillo para el pan, otro para la carne y otro para las verduras. Cada uno es experto en su única responsabilidad.
 
-Este principio trata sobre la creación de interfaces **cohesivas y específicas para el cliente**. En lugar de tener una gran interfaz "para todo", es mejor tener varias interfaces más pequeñas y especializadas.
+**Mal (Antes):**
 
-Si una clase implementa una interfaz pero deja uno o más de sus métodos vacíos o lanzando una `NotImplementedException`, es un síntoma claro de que la interfaz es demasiado "gorda" (fat interface) y está violando el ISP.
+```python
+# MAL: Esta clase tiene dos responsabilidades: gestionar la data del diario y guardarlo.
+class Journal:
+    def __init__(self):
+        self.entries = []
+        self.count = 0
 
-### ¿Por Qué es Crucial?
+    def add_entry(self, text):
+        self.count += 1
+        self.entries.append(f"{self.count}: {text}")
 
-*   **Mejora la Cohesión y Reduce el Acoplamiento:** Las clases solo dependen de los métodos que realmente necesitan.
-*   **Evita la "Contaminación":** Un cambio en un método de una interfaz "gorda" puede forzar la recompilación de todas las clases que la implementan, incluso si no usan ese método. Con interfaces segregadas, el impacto del cambio es mucho menor.
-*   **Claridad del Diseño:** Interfaces pequeñas y con un propósito claro hacen que el sistema sea más fácil de entender.
+    def remove_entry(self, pos):
+        del self.entries[pos]
 
-### Ejemplo Práctico (C#)
+    # ¡Segunda responsabilidad!
+    def save(self, filename):
+        with open(filename, "w") as f:
+            f.write(str(self))
+    
+    def __str__(self):
+        return "\n".join(self.entries)
 
-**Mal (Violando ISP):**
-
-```csharp
-// Interfaz "gorda"
-public interface IWorker
-{
-    void Work();
-    void Eat();
-    void Sleep();
-}
-
-public class HumanWorker : IWorker
-{
-    public void Work() => Console.WriteLine("Human working...");
-    public void Eat() => Console.WriteLine("Human eating...");
-    public void Sleep() => Console.WriteLine("Human sleeping...");
-}
-
-// Un robot no come ni duerme. Se ve forzado a implementar métodos que no necesita.
-public class RobotWorker : IWorker
-{
-    public void Work() => Console.WriteLine("Robot working...");
-    public void Eat() => throw new NotImplementedException("Robots don't eat!");
-    public void Sleep() => throw new NotImplementedException("Robots don't sleep!");
-}
+# Uso
+j = Journal()
+j.add_entry("Hoy aprendí sobre SRP.")
+j.add_entry("Es fundamental para un buen diseño.")
+# La clase Journal sabe cómo guardarse a sí misma. Mal.
+j.save("journal.txt")
 ```
+**¿Por qué es malo?** Si mañana queremos guardar en una base de datos, o en la nube, o en formato JSON, tenemos que modificar la clase `Journal`. Su responsabilidad principal (gestionar entradas) no ha cambiado, pero la estamos modificando por una razón secundaria (persistencia).
 
-**Bien (Aplicando ISP):**
+**Bien (Después):**
 
-```csharp
-// Segregamos la interfaz en roles más pequeños y cohesivos.
-public interface IWorkable
-{
-    void Work();
-}
+```python
+# BIEN: La clase Journal solo gestiona entradas.
+class Journal:
+    def __init__(self):
+        self.entries = []
+        self.count = 0
 
-public interface IFeedable
-{
-    void Eat();
-}
+    def add_entry(self, text):
+        self.count += 1
+        self.entries.append(f"{self.count}: {text}")
 
-public interface ISleepable
-{
-    void Sleep();
-}
+    def remove_entry(self, pos):
+        del self.entries[pos]
 
-// Ahora los clientes implementan solo lo que necesitan.
-public class HumanWorker : IWorkable, IFeedable, ISleepable
-{
-    public void Work() => Console.WriteLine("Human working...");
-    public void Eat() => Console.WriteLine("Human eating...");
-    public void Sleep() => Console.WriteLine("Human sleeping...");
-}
+    def __str__(self):
+        return "\n".join(self.entries)
 
-public class RobotWorker : IWorkable
-{
-    public void Work() => Console.WriteLine("Robot working...");
-}
+# BIEN: Una clase separada para la persistencia. Su única responsabilidad.
+class PersistenceManager:
+    @staticmethod
+    def save_to_file(journal, filename):
+        with open(filename, "w") as f:
+            f.write(str(journal))
+
+# Uso
+j = Journal()
+j.add_entry("Hoy aprendí sobre SRP.")
+j.add_entry("Ahora mi código es más limpio.")
+
+# La responsabilidad de guardar está en otro lugar.
+p = PersistenceManager()
+p.save_to_file(j, "journal.txt")
 ```
-El diseño es ahora más flexible, preciso y no fuerza a los clientes a depender de abstracciones que no les corresponden.
+Ahora, si necesitamos guardar en una base de datos, creamos una clase `DatabasePersistenceManager` sin tocar `Journal` en absoluto.
+
+#### O - Open/Closed Principle (OCP)
+*El principio del "plugin".* Las entidades de software (clases, módulos, funciones) deben estar abiertas para la extensión, pero cerradas para la modificación.
+
+**Analogía:** Tu smartphone. No lo abres y le sueldas un nuevo chip para añadir funcionalidad. Le instalas una app. El teléfono está "cerrado" a la modificación, pero "abierto" a la extensión a través de apps.
+
+**Mal (Antes):**
+
+```python
+# MAL: Si añadimos un nuevo tipo de producto, tenemos que modificar esta función.
+from enum import Enum
+
+class ProductType(Enum):
+    BOOK = 1
+    ELECTRONIC = 2
+
+class Product:
+    def __init__(self, name, product_type, price):
+        self.name = name
+        self.product_type = product_type
+        self.price = price
+
+def calculate_shipping_cost(product: Product):
+    if product.product_type == ProductType.BOOK:
+        return product.price * 0.05  # 5% para libros
+    elif product.product_type == ProductType.ELECTRONIC:
+        return product.price * 0.1 + 20 # 10% + 20€ para electrónicos
+    # ¿Y si añadimos un tipo "FURNITURE"? ¡Hay que modificar esta función!
+```
+**¿Por qué es malo?** Cada nuevo tipo de producto requiere añadir un `elif` a la función `calculate_shipping_cost`. Esto es una modificación. El riesgo de introducir un bug en la lógica existente es alto.
+
+**Bien (Después):**
+
+```python
+from abc import ABC, abstractmethod
+
+# BIEN: Creamos una abstracción (interfaz) para la estrategia de envío.
+class ShippingStrategy(ABC):
+    @abstractmethod
+    def calculate(self, product):
+        pass
+
+# BIEN: Implementaciones concretas para cada tipo.
+class BookShipping(ShippingStrategy):
+    def calculate(self, product):
+        return product.price * 0.05
+
+class ElectronicShipping(ShippingStrategy):
+    def calculate(self, product):
+        return product.price * 0.1 + 20
+
+# Podemos añadir más estrategias sin tocar el código existente.
+class FurnitureShipping(ShippingStrategy):
+    def calculate(self, product):
+        # Lógica compleja basada en volumen y peso
+        return 100 + product.weight * 0.2
+
+class Product:
+    def __init__(self, name, price, shipping_strategy: ShippingStrategy, weight=0):
+        self.name = name
+        self.price = price
+        self.shipping_strategy = shipping_strategy
+        self.weight = weight
+
+    def get_shipping_cost(self):
+        # Delegamos el cálculo a la estrategia.
+        return self.shipping_strategy.calculate(self)
+
+# Uso
+book = Product("Clean Code", 30, BookShipping())
+tv = Product("OLED 55", 1200, ElectronicShipping())
+sofa = Product("Sofa Cama", 400, FurnitureShipping(), weight=50)
+
+print(f"Envío libro: {book.get_shipping_cost()}€")
+print(f"Envío TV: {tv.get_shipping_cost()}€")
+print(f"Envío sofá: {sofa.get_shipping_cost()}€")
+```
+Ahora, para añadir un nuevo tipo de envío, solo creamos una nueva clase que implemente `ShippingStrategy`. El código existente (`Product` y las otras estrategias) no se modifica. Está **abierto** a nuevas estrategias, **cerrado** a modificaciones. Este es el Patrón de Diseño Strategy en acción.
+
+#### L - Liskov Substitution Principle (LSP)
+*El principio del "pato".* Si parece un pato, grazna como un pato, pero necesita baterías, probablemente tienes un problema de abstracción. Formalmente: los subtipos deben ser sustituibles por sus tipos base sin alterar la corrección del programa.
+
+**Analogía:** El famoso problema del Rectángulo y el Cuadrado. Matemáticamente, un cuadrado es un rectángulo. Pero en POO, si una clase `Square` hereda de `Rectangle` y `Rectangle` tiene métodos `set_width(w)` y `set_height(h)`, se rompe el LSP. Si cambias el ancho de un cuadrado, su altura también debe cambiar, un comportamiento que un usuario de la clase `Rectangle` no esperaría.
+
+> "Lo que se quiere aquí es algo parecido a la siguiente propiedad de sustitución: Si para cada objeto o1 de tipo S hay un objeto o2 de tipo T tal que para todos los programas P definidos en términos de T, el comportamiento de P no cambia cuando o1 es sustituido por o2, entonces S es un subtipo de T." — **Barbara Liskov, Jeannette Wing**, *A Behavioral Notion of Subtyping* (1994)
+
+**Mal (Antes):**
+
+```python
+# MAL: Un cuadrado no se comporta como un rectángulo genérico.
+class Rectangle:
+    def __init__(self, width, height):
+        self._width = width
+        self._height = height
+
+    @property
+    def area(self):
+        return self._width * self._height
+
+    def set_width(self, width):
+        self._width = width
+
+    def set_height(self, height):
+        self._height = height
+
+class Square(Rectangle):
+    def __init__(self, size):
+        super().__init__(size, size)
+
+    # Rompemos el comportamiento esperado de los setters
+    def set_width(self, width):
+        self._width = width
+        self._height = width
+
+    def set_height(self, height):
+        self._width = height
+        self._height = height
+
+def use_it(rect: Rectangle):
+    w = 10
+    h = 20
+    rect.set_width(w)
+    rect.set_height(h)
+    # El usuario de esta función ESPERA que el área sea w * h
+    expected_area = w * h
+    actual_area = rect.area
+    print(f"Área esperada: {expected_area}, Área obtenida: {actual_area}")
+    assert expected_area == actual_area
+
+r = Rectangle(2, 3)
+use_it(r) # Funciona
+
+sq = Square(5)
+use_it(sq) # Falla! AssertionError. El cuadrado no es sustituible por un rectángulo.
+```
+**¿Por qué es malo?** La clase `Square` viola el "contrato" de la clase `Rectangle`. Un cliente que espera un `Rectangle` se sorprenderá (y su código fallará) si le pasas un `Square`.
+
+**Bien (Después):**
+La solución no es forzar la herencia. Es reconocer que no tienen una relación de subtipo conductual. Se puede crear una clase base más abstracta si comparten alguna lógica.
+
+```python
+# BIEN: Reconocemos que son formas diferentes, no una subclase de la otra.
+class Shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+class Rectangle(Shape):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+class Square(Shape):
+    def __init__(self, size):
+        self.size = size
+    
+    def area(self):
+        return self.size ** 2
+
+# El código cliente ahora debe depender de la abstracción `Shape`
+# y tratar a cada forma según su tipo concreto si necesita manipular dimensiones.
+```
+La herencia debe modelar el *comportamiento* ("is a substitute for"), no solo el conocimiento del dominio ("is a kind of").
+
+#### I - Interface Segregation Principle (ISP)
+*El principio del "no me obligues".* Ningún cliente debería ser forzado a depender de métodos que no usa. Es mejor tener muchas interfaces pequeñas y específicas que una grande y genérica.
+
+**Analogía:** Un restaurante con un menú de 500 páginas (interfaz "gorda") vs. un restaurante que te da un menú para desayunos, otro para almuerzos y otro para cenas (interfaces segregadas). Solo usas el que necesitas.
+
+**Mal (Antes):**
+
+```python
+# MAL: Interfaz "gorda" que obliga a todos los trabajadores a implementarla.
+class IWorker(ABC):
+    @abstractmethod
+    def work(self): pass
+    
+    @abstractmethod
+    def eat(self): pass
+
+class HumanWorker(IWorker):
+    def work(self):
+        print("Humano trabajando...")
+    def eat(self):
+        print("Humano comiendo...")
+
+class RobotWorker(IWorker):
+    def work(self):
+        print("Robot trabajando...")
+    
+    def eat(self):
+        # Un robot no come. Esta implementación es forzada y sin sentido.
+        # Podríamos poner 'pass' o lanzar una excepción, ambas son malas señales.
+        raise NotImplementedError("Los robots no comen")
+```
+**¿Por qué es malo?** `RobotWorker` es forzado a implementar un método `eat` que no tiene sentido para él. Esto es una señal de que la abstracción `IWorker` es demasiado grande.
+
+**Bien (Después):**
+
+```python
+# BIEN: Interfaces pequeñas y específicas (en Python, usamos Protocolos o ABCs).
+class IWorkable(ABC):
+    @abstractmethod
+    def work(self): pass
+
+class IEatable(ABC):
+    @abstractmethod
+    def eat(self): pass
+
+# Las clases implementan solo las interfaces que necesitan.
+class HumanWorker(IWorkable, IEatable):
+    def work(self):
+        print("Humano trabajando...")
+    def eat(self):
+        print("Humano comiendo...")
+
+class RobotWorker(IWorkable):
+    def work(self):
+        print("Robot trabajando...")
+
+# El código cliente ahora puede depender de la capacidad específica que requiere.
+def manage_work(worker: IWorkable):
+    worker.work()
+
+manage_work(HumanWorker())
+manage_work(RobotWorker())
+```
+Ahora, nuestro sistema es más flexible. Podemos tener `IEatable` para un `Animal`, o `IWorkable` para una `Impresora3D`.
+
+#### D - Dependency Inversion Principle (DIP)
+*El principio de "no me llames, yo te llamo" (The Hollywood Principle).* Los módulos de alto nivel no deben depender de los módulos de bajo nivel. Ambos deben depender de abstracciones. Además, las abstracciones no deben depender de los detalles; los detalles deben depender de las abstracciones.
+
+**Analogía:** No sueldas una lámpara directamente a los cables de la pared. Usas un enchufe (una abstracción). La lámpara (módulo de alto nivel) no depende del cableado específico de la pared (módulo de bajo nivel). Ambos dependen del estándar del enchufe.
+
+**Diagrama ASCII:**
+
+**Mal:** `[Módulo de Alto Nivel] ---> [Módulo de Bajo Nivel Concreto]`
+**Bien:** `[Módulo de Alto Nivel] ---> [Interfaz] <--- [Módulo de Bajo Nivel Concreto]`
+
+**Mal (Antes):**
+
+```python
+# MAL: El módulo de alto nivel (Research) depende directamente del de bajo nivel (Relationships).
+from enum import Enum
+
+class Relationship(Enum):
+    PARENT = 0
+    CHILD = 1
+    SIBLING = 2
+
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+# Módulo de bajo nivel (almacenamiento de datos)
+class Relationships:
+    def __init__(self):
+        self.relations = []
+    
+    def add_parent_and_child(self, parent, child):
+        self.relations.append((parent, Relationship.PARENT, child))
+        self.relations.append((child, Relationship.CHILD, parent))
+
+# Módulo de alto nivel (lógica de negocio)
+class Research:
+    def __init__(self, relationships: Relationships):
+        # ¡Dependencia directa de una clase concreta y su implementación interna!
+        relations = relationships.relations
+        for r in relations:
+            if r[0].name == "John" and r[1] == Relationship.PARENT:
+                print(f"John es padre de {r[2].name}")
+```
+**¿Por qué es malo?** `Research` está fuertemente acoplado a la implementación interna de `Relationships` (su lista `relations`). Si `Relationships` decide cambiar su forma de almacenar datos (a un diccionario, una base de datos), la clase `Research` se romperá y tendrá que ser modificada.
+
+**Bien (Después):**
+
+```python
+# BIEN: Ambos módulos dependen de una abstracción.
+class RelationshipBrowser(ABC):
+    @abstractmethod
+    def find_all_children_of(self, name):
+        pass
+
+# Módulo de bajo nivel, ahora implementa la abstracción.
+class Relationships(RelationshipBrowser): # <--- Depende de la abstracción
+    def __init__(self):
+        self.relations = []
+    
+    def add_parent_and_child(self, parent, child):
+        self.relations.append((parent, Relationship.PARENT, child))
+        self.relations.append((child, Relationship.CHILD, parent))
+
+    def find_all_children_of(self, name):
+        for r in self.relations:
+            if r[0].name == name and r[1] == Relationship.PARENT:
+                yield r[2]
+
+# Módulo de alto nivel, ahora depende de la abstracción.
+class Research:
+    def __init__(self, browser: RelationshipBrowser): # <--- Depende de la abstracción
+        for p in browser.find_all_children_of("John"):
+            print(f"John es padre de {p.name}")
+
+# Uso
+parent = Person("John")
+child1 = Person("Chris")
+child2 = Person("Matt")
+
+relationships = Relationships()
+relationships.add_parent_and_child(parent, child1)
+relationships.add_parent_and_child(parent, child2)
+
+# Inyectamos la dependencia
+research = Research(relationships)
+```
+Ahora `Research` no sabe ni le importa cómo `Relationships` almacena los datos. Solo le importa que cumpla el contrato de `RelationshipBrowser`. Podemos cambiar `Relationships` por `DatabaseRelationships` sin tocar `Research` en absoluto. Esto es la base de la **Inyección de Dependencias**.
 
 ---
 
-## 5. (D) - Dependency Inversion Principle (DIP) - Principio de Inversión de Dependencia
+### 5. Nivel Senior - Conceptos Avanzados: Más Allá del Acrónimo
 
-### La Definición Formal
+Un programador intermedio conoce los principios. Un senior sabe cuándo aplicarlos, cuándo doblarlos y cuáles son sus consecuencias.
 
-> A. High-level modules should not depend on low-level modules. Both should depend on abstractions (e.g., interfaces).
->
-> B. Abstractions should not depend on details. Details (concrete implementations) should depend on abstractions.
->
-> — Robert C. Martin, *Clean Architecture*
+#### Trade-offs: La Navaja de Ockham del Código
 
-### Desmitificando la Definición
+SOLID no es una ley divina. Es una herramienta. Aplicar SOLID ciegamente puede llevar a una "sobre-ingeniería".
 
-Este es el principio que une todo. Es la estrategia clave para desacoplar el software.
+*   **Complejidad vs. Flexibilidad:** Aplicar OCP y DIP introduce más clases e interfaces. Para un script simple o un prototipo, esto es un exceso de complejidad (viola el principio YAGNI - "You Ain't Gonna Need It"). Para un sistema empresarial a largo plazo, esta flexibilidad es crucial.
+*   **Rendimiento:** La indirección introducida por DIP (a través de interfaces) puede tener un costo de rendimiento minúsculo. En el 99.9% de las aplicaciones, es irrelevante. En sistemas de ultra-baja latencia (como el trading de alta frecuencia), cada salto de puntero cuenta y podría ser un trade-off a considerar.
+*   **Cohesión vs. SRP:** A veces, dividir una clase por SRP puede llevar a dos clases que están tan íntimamente ligadas que es más difícil entenderlas por separado que juntas. La clave de SRP es "una razón para cambiar". Si dos responsabilidades siempre cambian juntas, podrían pertenecer a la misma clase.
 
-*   **Módulo de alto nivel:** Código que contiene la lógica de negocio importante, las políticas. (Ej: `OrderProcessor`).
-*   **Módulo de bajo nivel:** Código que contiene detalles de implementación, infraestructura. (Ej: `SqlServerLogger`, `EmailNotifier`).
+**¿Cuándo NO usar SOLID (o usarlo con moderación)?**
+*   **Prototipos y MVPs:** La velocidad es clave. La rigidez no es un problema si vas a tirar el código.
+*   **Código muy específico y estable:** Si estás escribiendo un driver para un hardware que no cambiará en 10 años, la extensibilidad de OCP es menos crítica.
+*   **Módulos de datos puros (DTOs):** Las clases que solo contienen datos no suelen beneficiarse de la mayoría de los principios SOLID.
 
-Tradicionalmente, el flujo de dependencia es: `Alto Nivel -> Bajo Nivel`. El DIP **invierte** esta dirección de dependencia: `Alto Nivel -> Abstracción <- Bajo Nivel`.
+#### Anti-Patrones: El Lado Oscuro
 
-El módulo de alto nivel **define la interfaz** que necesita (es el "dueño" de la abstracción), y el módulo de bajo nivel la **implementa**. La dependencia ahora fluye desde el detalle hacia la abstracción.
+| Principio | Anti-Patrón Común | Descripción |
+| :--- | :--- | :--- |
+| **SRP** | **God Object / The Blob** | Una clase masiva que hace de todo: lógica de negocio, acceso a datos, UI. Es el epicentro de la rigidez y fragilidad. |
+| **OCP** | **Cascadas de `if/elif/else` o `switch`** | El código que comprueba un tipo o una enumeración y se ramifica es una señal de que debería estar usando polimorfismo. |
+| **LSP** | **Herencia por Reutilización de Código** | Heredar de una clase solo para usar un par de sus métodos, pero rompiendo su contrato conductual. |
+| **LSP** | **Métodos que lanzan `NotImplementedError`** | Una subclase que anula un método de la clase base para decir "no hago esto" está violando el contrato. |
+| **ISP** | **Interfaz Gorda (Fat Interface)** | Una interfaz con docenas de métodos, obligando a los clientes a implementar cosas que no necesitan. |
+| **DIP** | **Acoplamiento a Concreciones (Concrete Coupling)** | Módulos de alto nivel que importan y crean instancias de módulos de bajo nivel directamente, en lugar de recibir abstracciones. |
 
-Esto se logra comúnmente mediante la **Inyección de Dependencias (Dependency Injection)**, donde las dependencias (objetos de bajo nivel) se "inyectan" en los objetos de alto nivel, en lugar de que estos últimos los creen directamente con `new`.
+#### Integración con Otros Conceptos Avanzados
 
-### ¿Por Qué es Crucial?
-
-*   **Desacoplamiento Máximo:** Los módulos de alto nivel son inmunes a los cambios en los detalles de bajo nivel. Puedes cambiar tu base de datos de SQL Server a PostgreSQL sin tocar la lógica de negocio.
-*   **Testeabilidad Extrema:** Permite sustituir dependencias reales (como una base de datos) por dobles de prueba (mocks, stubs) en los tests unitarios, aislando el componente a probar.
-*   **Reusabilidad:** Los módulos de alto nivel, al no depender de detalles concretos, son mucho más fáciles de reutilizar en diferentes contextos.
-
-### Ejemplo Práctico (C#)
-
-**Mal (Violando DIP):**
-
-```csharp
-// Módulo de bajo nivel (detalle)
-public class EmailNotifier
-{
-    public void Send(string message)
-    {
-        Console.WriteLine($"Sending email: {message}");
-    }
-}
-
-// Módulo de alto nivel (política)
-// NotificationService DEPENDE DIRECTAMENTE de EmailNotifier.
-// ¡Alto nivel depende de bajo nivel!
-public class NotificationService
-{
-    private readonly EmailNotifier _notifier;
-
-    public NotificationService()
-    {
-        _notifier = new EmailNotifier(); // ¡Acoplamiento fuerte!
-    }
-
-    public void Notify(string message)
-    {
-        _notifier.Send(message);
-    }
-}
-```
-Si ahora queremos notificar por SMS, tenemos que modificar `NotificationService`. Es rígido y difícil de probar.
-
-**Bien (Aplicando DIP):**
-
-```csharp
-// 1. El módulo de alto nivel define la abstracción que necesita.
-public interface INotifier
-{
-    void Send(string message);
-}
-
-// 2. El módulo de alto nivel depende de esa abstracción.
-public class NotificationService
-{
-    private readonly INotifier _notifier;
-
-    // La dependencia se "inyecta" a través del constructor.
-    public NotificationService(INotifier notifier)
-    {
-        _notifier = notifier;
-    }
-
-    public void Notify(string message)
-    {
-        _notifier.Send(message);
-    }
-}
-
-// 3. Los módulos de bajo nivel (detalles) implementan la abstracción.
-public class EmailNotifier : INotifier
-{
-    public void Send(string message)
-    {
-        Console.WriteLine($"Sending email: {message}");
-    }
-}
-
-public class SmsNotifier : INotifier
-{
-    public void Send(string message)
-    {
-        Console.WriteLine($"Sending SMS: {message}");
-    }
-}
-
-// Uso (normalmente gestionado por un Contenedor de Inyección de Dependencias):
-INotifier emailNotifier = new EmailNotifier();
-var notificationService1 = new NotificationService(emailNotifier);
-notificationService1.Notify("Hello via Email!");
-
-INotifier smsNotifier = new SmsNotifier();
-var notificationService2 = new NotificationService(smsNotifier);
-notificationService2.Notify("Hello via SMS!");
-```
-Ahora `NotificationService` no sabe nada sobre emails o SMS. Solo conoce la interfaz `INotifier`. Hemos invertido la dependencia.
+*   **Arquitectura Limpia (Clean Architecture):** DIP es la piedra angular de la Arquitectura Limpia/Hexagonal/Cebolla. La "Regla de la Dependencia" (las dependencias solo apuntan hacia adentro, hacia las abstracciones) es una aplicación de DIP a nivel de arquitectura.
+*   **Domain-Driven Design (DDD):** SOLID ayuda a crear agregados y entidades cohesivas (SRP) y a desacoplar el dominio de la infraestructura (DIP).
+*   **Patrones de Diseño (Design Patterns):** Muchos patrones son implementaciones de principios SOLID. El patrón **Strategy** y **Template Method** son encarnaciones de OCP. El patrón **Adapter** puede usarse para reparar violaciones de LSP. El patrón **Factory** y la **Inyección de Dependencias** son la forma de implementar DIP.
 
 ---
 
-## Conclusión: La Visión de un Senior
+### 6. Referencias y Citaciones Académicas: Los Hombros de Gigantes
 
-Un desarrollador senior entiende que SOLID no es un dogma.
+1.  > "The single responsibility principle (SRP) states that a class should have one and only one reason to change." — **Robert C. Martin**, *Agile Software Development, Principles, Patterns, and Practices* (2002)
+2.  > "Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification." — **Bertrand Meyer**, *Object-Oriented Software Construction* (1988)
+3.  > "Subtypes must be substitutable for their base types." — **Barbara Liskov**, *Keynote at OOPSLA'87, "Data Abstraction and Hierarchy"* (1987)
+4.  > "Clients should not be forced to depend upon interfaces that they do not use." — **Robert C. Martin**, *Agile Software Development, Principles, Patterns, and Practices* (2002)
+5.  > "A. High-level modules should not depend on low-level modules. Both should depend on abstractions. B. Abstractions should not depend on details. Details should depend on abstractions." — **Robert C. Martin**, *The Dependency Inversion Principle*, The C++ Report (1996)
+6.  > "We must be able to change our minds. That’s what agility is all about. The purpose of a software architecture is to create options." — **Robert C. Martin**, *Clean Architecture: A Craftsman's Guide to Software Structure and Design* (2017) [Link](https://www.oreilly.com/library/view/clean-architecture-a/9780134494166/)
+7.  > "A design is a big ball of mud if it does not have a discernible architecture." — **Brian Foote, Joseph Yoder**, *Big Ball of Mud* (1999) [Link](http://www.laputan.org/mud/)
+8.  > "The primary mechanisms for implementing the OCP are abstraction and polymorphism." — **Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides**, *Design Patterns: Elements of Reusable Object-Oriented Software* (1994)
+9.  > "The criteria for decomposing a system into modules is information hiding." — **David L. Parnas**, *On the Criteria To Be Used in Decomposing Systems into Modules*, Communications of the ACM (1972) [Link](https://dl.acm.org/doi/10.1145/361598.361623)
+10. > "Working with legacy code is like being a surgeon. You have to be careful and precise, and you need to know the anatomy of the system you are working on." — **Michael C. Feathers**, *Working Effectively with Legacy Code* (2004)
+11. > "Every high-quality architectural structure is made of a set of smaller patterns, and these patterns in turn are made of even smaller patterns." — **Christopher Alexander**, *A Pattern Language: Towns, Buildings, Construction* (1977)
+12. > "The Law of Demeter for functions/methods requires that a method M of an object O may only invoke the methods of the following kinds of objects: O itself; M's parameters; Any objects created/instantiated within M; O's direct component objects." — **Karl Lieberherr, Ian Holland**, *Assuring Good Style for Object-Oriented Programs*, IEEE Software (1989) [Este principio, aunque no es parte de SOLID, está profundamente relacionado con el bajo acoplamiento].
 
-*   **SOLID es una herramienta, no el objetivo.** El objetivo es un software funcional y mantenible. A veces, para un script simple o un prototipo, aplicar SOLID es sobre-ingeniería (YAGNI - You Ain't Gonna Need It).
-*   **Los principios se refuerzan mutuamente.** El OCP se logra a menudo a través del DIP. El LSP garantiza que las abstracciones del OCP sean fiables. El ISP evita que las abstracciones del DIP sean demasiado grandes. El SRP hace que todo sea más fácil de manejar.
-*   **El contexto es el rey.** En una arquitectura de microservicios, el SRP se puede aplicar a nivel de servicio entero. En programación funcional, los conceptos se traducen a funciones puras y composición.
-*   **El coste del cambio.** El verdadero propósito de SOLID es hacer que el coste de cambiar el software se mantenga lo más bajo posible a lo largo del tiempo. Es una inversión en el futuro del proyecto.
+---
 
-Dominar SOLID es entender esta filosofía y saber aplicarla con juicio, creando sistemas que no solo funcionan hoy, sino que están preparados para evolucionar mañana.
+**Conclusión:**
 
-### Referencias Clave
-
-*   Martin, Robert C. *Agile Software Development, Principles, Patterns, and Practices*. Prentice Hall, 2002.
-*   Martin, Robert C. *Clean Architecture: A Craftsman's Guide to Software Structure and Design*. Prentice Hall, 2017.
-*   Meyer, Bertrand. *Object-Oriented Software Construction*. Prentice Hall, 1988.
-*   Liskov, Barbara H., and Jeannette M. Wing. "A behavioral notion of subtyping." *ACM Transactions on Programming Languages and Systems (TOPLAS)* 16.6 (1994): 1811-1841.
+SOLID no es un dogma, es una brújula. No te dirá exactamente cómo construir tu sistema, pero te señalará la dirección correcta: hacia un software que sea un placer mantener, que pueda crecer y adaptarse, y que resista la entropía inevitable del tiempo. Dominar estos principios es dar el salto de escribir código que *funciona* a crear software que *perdura*. Ahora, ve y construye catedrales, no bolas de lodo.
