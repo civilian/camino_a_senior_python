@@ -1,5 +1,3 @@
-AQUI**
-
 Entender la teoría es una cosa, pero ¿cómo se ve la seguridad en el día a día? Un simple error al llamar a `subprocess` o al usar `pickle` puede abrir una brecha de seguridad catastrófica. Veamos cómo transformar la teoría en una defensa de hierro para tu código.
 
 # Bandit

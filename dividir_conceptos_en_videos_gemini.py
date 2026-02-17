@@ -7,7 +7,7 @@ Mantiene secciones completas y genera títulos representativos usando IA.
 import os
 import re
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Tuple
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 import json
@@ -220,13 +220,21 @@ def dividir_con_gemini(contenido: str, titulo_principal: str, llm: ChatGoogleGen
         return []
 
 
+def limpiar_titulo_principal(titulo_principal: str) -> str:
+    """
+    Limpia el título principal para generar nombres de archivo consistentes.
+    """
+    titulo_limpio = re.sub(r'[^\w\s-]', '', titulo_principal)
+    titulo_limpio = re.sub(r'\s+', '_', titulo_limpio.strip())
+    return titulo_limpio
+
+
 def generar_titulo_archivo(titulo_principal: str, titulo_chunk: str, num_chunk: int, total_chunks: int) -> str:
     """
     Genera un título representativo para el archivo de video.
     """
     # Limpiar título principal
-    titulo_limpio = re.sub(r'[^\w\s-]', '', titulo_principal)
-    titulo_limpio = re.sub(r'\s+', '_', titulo_limpio.strip())
+    titulo_limpio = limpiar_titulo_principal(titulo_principal)
     
     # Limpiar título del chunk
     titulo_chunk_limpio = re.sub(r'[^\w\s-]', '', titulo_chunk)
@@ -243,9 +251,61 @@ def generar_titulo_archivo(titulo_principal: str, titulo_chunk: str, num_chunk: 
         return f"{titulo_limpio}.md"
 
 
-def procesar_archivo(ruta_archivo: Path, carpeta_salida: Path, llm: ChatGoogleGenerativeAI) -> Dict[str, Any]:
+def verificar_archivo_procesado(ruta_archivo: Path, carpeta_salida: Path, titulo_principal: str) -> Tuple[bool, int]:
+    """
+    Verifica si un archivo ya fue procesado completamente.
+    Retorna (ya_procesado, num_chunks_encontrados).
+    """
+    titulo_limpio = limpiar_titulo_principal(titulo_principal)
+    
+    # Buscar archivos existentes que empiecen con el título limpio
+    archivos_existentes = list(carpeta_salida.glob(f"{titulo_limpio}_Parte_*.md"))
+    
+    # Si no hay archivos con el patrón "Parte_XX", verificar si hay un archivo sin número
+    if not archivos_existentes:
+        archivo_sin_parte = carpeta_salida / f"{titulo_limpio}.md"
+        if archivo_sin_parte.exists():
+            archivos_existentes = [archivo_sin_parte]
+            return True, 1
+    
+    # Si no hay archivos, no está procesado
+    if not archivos_existentes:
+        return False, 0
+    
+    # Contar archivos con patrón "Parte_XX"
+    num_archivos_existentes = len(archivos_existentes)
+    
+    # Para saber si está completamente procesado, estimamos cuántos chunks debería tener
+    # basándonos en el tamaño del archivo
+    try:
+        with open(ruta_archivo, 'r', encoding='utf-8') as f:
+            contenido = f.read()
+        
+        palabras_totales = contar_palabras(contenido)
+        num_chunks_esperados = max(1, round(palabras_totales / PALABRAS_OBJETIVO))
+        
+        # Si el número de archivos existentes es igual o mayor al esperado (con margen de ±1),
+        # asumimos que está completamente procesado
+        if num_archivos_existentes >= max(1, num_chunks_esperados - 1):
+            return True, num_archivos_existentes
+        
+        return False, num_archivos_existentes
+        
+    except Exception as e:
+        print(f"  ⚠️  Error verificando archivo procesado: {e}")
+        # Si hay archivos pero no podemos verificar, asumimos que está procesado
+        return True, num_archivos_existentes
+
+
+def procesar_archivo(ruta_archivo: Path, carpeta_salida: Path, llm: ChatGoogleGenerativeAI, forzar_reprocesar: bool = False) -> Dict[str, Any]:
     """
     Procesa un archivo de concepto y lo divide en scripts de video usando Gemini.
+    
+    Args:
+        ruta_archivo: Ruta al archivo de concepto a procesar
+        carpeta_salida: Carpeta donde guardar los archivos generados
+        llm: Instancia de ChatGoogleGenerativeAI
+        forzar_reprocesar: Si True, procesa el archivo aunque ya esté procesado
     """
     print(f"\nProcesando: {ruta_archivo.name}")
     
@@ -266,6 +326,20 @@ def procesar_archivo(ruta_archivo: Path, carpeta_salida: Path, llm: ChatGoogleGe
     
     palabras_totales = contar_palabras(contenido)
     print(f"  📊 Total de palabras: {palabras_totales}")
+    
+    # Verificar si ya está procesado
+    if not forzar_reprocesar:
+        ya_procesado, num_chunks_esperados = verificar_archivo_procesado(
+            ruta_archivo, carpeta_salida, titulo_principal
+        )
+        if ya_procesado:
+            print(f"  ⏭️  Archivo ya procesado ({num_chunks_esperados} chunks encontrados). Saltando...")
+            return {
+                "archivo": ruta_archivo.name,
+                "chunks": num_chunks_esperados,
+                "saltado": True,
+                "archivos_generados": []
+            }
     
     # Dividir usando Gemini
     print(f"  🤖 Consultando Gemini para dividir el contenido...")
@@ -365,10 +439,25 @@ def main():
     print("📊 RESUMEN")
     print("=" * 80)
     total_chunks = sum(r.get("chunks", 0) for r in resultados)
-    total_archivos = len([r for r in resultados if r.get("chunks", 0) > 0])
-    print(f"✅ Archivos procesados: {total_archivos}/{len(archivos)}")
-    print(f"📦 Total de scripts de video generados: {total_chunks}")
+    archivos_procesados = len([r for r in resultados if r.get("chunks", 0) > 0 and not r.get("saltado", False)])
+    archivos_saltados = len([r for r in resultados if r.get("saltado", False)])
+    archivos_con_error = len([r for r in resultados if r.get("error")])
+    archivos_nuevos = len([r for r in resultados if r.get("archivos_generados") and len(r.get("archivos_generados", [])) > 0])
+    
+    print(f"✅ Archivos procesados (nuevos): {archivos_procesados}/{len(archivos)}")
+    if archivos_saltados > 0:
+        print(f"⏭️  Archivos saltados (ya procesados): {archivos_saltados}")
+    if archivos_con_error > 0:
+        print(f"❌ Archivos con error: {archivos_con_error}")
+    print(f"📦 Total de scripts de video generados en esta ejecución: {archivos_nuevos}")
     print(f"📁 Carpeta de salida: {carpeta_salida.absolute()}")
+    
+    # Mostrar archivos saltados si los hay
+    if archivos_saltados > 0:
+        print("\n📋 Archivos saltados (ya procesados):")
+        for r in resultados:
+            if r.get("saltado", False):
+                print(f"   - {r['archivo']} ({r.get('chunks', 0)} chunks)")
 
 
 if __name__ == "__main__":
