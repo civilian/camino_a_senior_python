@@ -1,6 +1,8 @@
+¿Alguna vez has ejecutado una consulta que parecía no terminar nunca?
+El culpable a menudo no es tu código, sino la forma en que la base de datos busca los datos: un problema de "fuerza bruta" que se resolvió con una idea brillante en los años 70.
+
 # Indexing
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a rascar la superficie; vamos a descender a las entrañas de la máquina, donde los bits se ordenan y la velocidad nace de la estructura. Esta no es solo una guía sobre *indexing*; es la crónica de una de las ideas más fundamentales y poderosas de la computación.
 
 ---
 

@@ -1,6 +1,9 @@
+Si alguna vez has cruzado los dedos al ejecutar `pip install -r requirements.txt`, sabes exactamente de qué caos estoy hablando.
+
+¿Y si te dijera que ese ritual de "esperanza y rezo" puede desaparecer para siempre gracias a una filosofía más humana para gestionar dependencias?
+
 # pipenv
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo al corazón de la gestión de dependencias en Python. No vamos a aprender simplemente comandos; vamos a desentrañar la filosofía, la historia y la ingeniería que hacen de `pipenv` una herramienta tan significativa.
 
 ---
 

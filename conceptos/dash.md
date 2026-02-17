@@ -1,6 +1,8 @@
+¿Tus análisis de Python se quedan atrapados en un notebook, sin poder compartirlos de forma interactiva?
+Existe un puente entre el mundo de los datos y el desarrollo web, y te permite construir aplicaciones completas sin escribir una sola línea de JavaScript.
+
 # Dash
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar Dash; vamos a desensamblarlo, entender su alma y reconstruirlo en nuestra mente como lo haría un ingeniero senior.
 
 ***
 

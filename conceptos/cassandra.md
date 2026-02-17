@@ -1,6 +1,7 @@
+En la mayoría de los sistemas, la caída de un servidor es una catástrofe. ¿Pero qué tal una arquitectura donde la pérdida de un centro de datos entero es un evento trivial, casi imperceptible?
+
 # Cassandra
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar Cassandra; vamos a desentrañar su alma, a entender las fuerzas cósmicas de la computación distribuida que le dieron forma, y a dominarla como un verdadero arquitecto de sistemas.
 
 ***
 

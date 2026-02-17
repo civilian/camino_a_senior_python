@@ -1,6 +1,9 @@
+Cada vez que un usuario hace clic en tu app de Streamlit, todo tu script se ejecuta de nuevo. Suena como una locura ineficiente, ¿verdad?
+
+Pues resulta que este paradigma, inspirado en los videojuegos, es precisamente el secreto de su poder y simplicidad.
+
 # Streamlit
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de Streamlit. No nos quedaremos en la superficie; descenderemos a las capas tectónicas de su diseño, exploraremos su historia y emergeremos con una comprensión que distingue a un verdadero arquitecto de software.
 
 ***
 

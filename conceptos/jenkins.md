@@ -1,6 +1,9 @@
+El famoso "¡funciona en mi máquina!" no es solo un meme; es el problema que obsesionó al creador de Jenkins.
+
+Para dominar la herramienta, primero hay que entender la frustración y la rebelión que le dieron vida.
+
 # Jenkins
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender a hacer clic en botones; vamos a desentrañar el alma de la máquina, el mayordomo digital que ha servido a generaciones de desarrolladores.
 
 ***
 

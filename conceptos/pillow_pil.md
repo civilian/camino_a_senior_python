@@ -1,6 +1,7 @@
+¿Sabías que la librería de imágenes más importante de Python estuvo "muerta" durante años? Su historia no es solo sobre píxeles y código, sino sobre un proyecto abandonado y rescatado por su comunidad.
+
 # Pillow (PIL)
 
-¡Absolutamente! Ponte cómodo, prepárate una taza de tu bebida preferida y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una biblioteca; vamos a desentrañar su historia, su alma matemática y el arte de su dominio. Esto no es un tutorial, es una clase magistral.
 
 ---
 

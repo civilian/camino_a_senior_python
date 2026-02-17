@@ -1,6 +1,7 @@
+¿Alguna vez has visto un proyecto empezar limpio y, con el tiempo, convertirse en una "gran bola de lodo" donde da miedo hacer un cambio? Esa degradación no es inevitable; es un problema de diseño que podemos solucionar.
+
 # SOLID
 
-¡Absolutamente! Acomódense, futuros arquitectos del software. Hoy no vamos a aprender un simple acrónimo; vamos a desenterrar los cimientos filosóficos y prácticos que separan a un mero codificador de un verdadero ingeniero de software. Como un viejo maestro artesano que enseña a su aprendiz no solo a usar el martillo, sino a entender la veta de la madera, vamos a desglosar **SOLID** hasta su misma esencia.
 
 ---
 

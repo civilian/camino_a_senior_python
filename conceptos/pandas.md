@@ -1,6 +1,7 @@
+Todos sabemos que pandas es mucho más rápido que un bucle `for`, pero ¿entiendes realmente el porqué? La respuesta no es "Python es lento", sino una combinación brillante de la arquitectura de memoria de NumPy y la teoría de bases de datos de 1970.
+
 # pandas
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de pandas. No nos quedaremos en la superficie del `import pandas as pd`; descenderemos a las capas tectónicas de su diseño, exploraremos su historia y emergeremos con la sabiduría de un arquitecto de datos.
 
 ---
 

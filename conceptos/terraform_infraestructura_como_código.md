@@ -1,6 +1,7 @@
+¿Por qué una aplicación que funciona perfecto en staging explota misteriosamente en producción? A menudo, el culpable no está en el código, sino en un fantasma llamado "deriva de configuración".
+
 # Terraform (infraestructura como código)
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar una filosofía que ha redefinido la forma en que construimos el mundo digital.
 
 ---
 

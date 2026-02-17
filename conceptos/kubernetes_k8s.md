@@ -1,6 +1,8 @@
+¿Por qué la filosofía de tratar a los servidores como **ganado en lugar de mascotas** cambió por completo la forma en que construimos sistemas?
+Este cambio de mentalidad, nacido en Google, es el verdadero secreto detrás del poder y la resiliencia de Kubernetes.
+
 # Kubernetes (k8s)
 
-¡Absolutamente! Ponte cómodo, colega. Vamos a embarcarnos en un viaje. No se trata solo de aprender comandos `kubectl`, sino de comprender el alma de la máquina. Imagina que no estamos aprendiendo a usar una herramienta, sino a dirigir una orquesta sinfónica de procesos computacionales. Kubernetes no es un simple software; es una filosofía sobre cómo construir y gestionar sistemas resilientes en un mundo caótico.
 
 Aquí tienes tu guía definitiva hacia la maestría en Kubernetes.
 

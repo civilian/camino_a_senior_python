@@ -1,3 +1,5 @@
+Tus tests pasan al 100%, pero ¿qué partes de tu código no se han ejecutado *nunca*? Esa es la pregunta que puede salvar tu próximo despliegue a producción.
+
 # Code Coverage (coverage)
 
 Absolutamente. Abróchate el cinturón. Vamos a emprender un viaje desde los albores de la crisis del software hasta las complejidades de las modernas pipelines de CI/CD. No solo aprenderás qué es el Code Coverage; entenderás su alma, su matemática y su lugar en el panteón de la ingeniería de software.

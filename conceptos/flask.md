@@ -1,6 +1,7 @@
+¿Sabías que uno de los frameworks más influyentes de Python nació como una broma del Día de los Inocentes? La historia de cómo ese chiste se convirtió en Flask define por completo su filosofía de diseño minimalista.
+
 # Flask
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de Flask. No nos quedaremos en la superficie; descenderemos a las capas tectónicas de su diseño, exploraremos su historia y emergeremos con una comprensión que define a un verdadero arquitecto de software.
 
 ---
 

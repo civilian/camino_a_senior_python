@@ -1,3 +1,7 @@
+Llamar a una función en otra máquina solía ser una pesadilla de sockets y serialización manual. RPC nació de un deseo casi poético: hacer que esa llamada remota se sintiera *exactamente* igual que una local.
+
+Vamos a desentrañar cómo funciona esta poderosa ilusión y por qué es el pilar de los sistemas distribuidos modernos.
+
 # RPC
 
 Absolutamente. Prepárate para un viaje profundo al corazón de la computación distribuida. No vamos a rozar la superficie; vamos a sumergirnos en las trincheras donde se forjaron los sistemas modernos. Olvida las definiciones de Wikipedia. Hoy, entenderás el **RPC** como lo entienden los arquitectos de sistemas que mueven petabytes de datos cada segundo.

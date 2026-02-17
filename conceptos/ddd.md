@@ -1,6 +1,8 @@
+Muchos proyectos de software fracasan no por errores técnicos, sino porque se convierten en una temida **"Gran Bola de Lodo"**.
+¿La causa raíz? Un abismo de comunicación entre el código y la estrategia del negocio que el software debe servir.
+
 # DDD
 
-¡Absolutamente! Ponte cómodo, prepara tu bebida preferida y prepárate para un viaje profundo. No vamos a aprender simplemente qué es DDD; vamos a desentrañar su alma, a entender su filosofía y a forjar en ti la mentalidad de un arquitecto de software senior.
 
 ---
 

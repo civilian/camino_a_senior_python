@@ -1,6 +1,7 @@
+Cualquiera puede definir una función. Pero un verdadero *artesano* del código sabe cómo modificarla, decorarla y especializarla sin alterar su esencia. Esa es la filosofía detrás de `functools`.
+
 # functools
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo al corazón de la elegancia funcional de Python. No vamos a ver `functools` como una simple colección de utilidades; lo trataremos como el taller de un maestro artesano, lleno de herramientas de precisión para moldear y refinar nuestro material más fundamental: las funciones.
 
 ---
 

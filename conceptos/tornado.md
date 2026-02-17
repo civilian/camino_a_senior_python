@@ -1,6 +1,7 @@
+Tu servidor Python pasa la mayor parte de su tiempo esperando por la red o la base de datos. ¿Y si en lugar de esperar, pudiera usar ese mismo tiempo para atender a miles de conexiones más?
+
 # Tornado
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de la concurrencia en Python. No solo aprenderás a usar Tornado; entenderás su alma, su historia y su lugar en el panteón de las herramientas de ingeniería de software.
 
 ***
 

@@ -1,6 +1,9 @@
+Es muy probable que ya uses Starlette sin siquiera saberlo, porque es el motor que impulsa a FastAPI.
+
+¿Pero qué es exactamente este *toolkit* y cómo te permite construir servicios web increíblemente rápidos desde cero?
+
 # Starlette
 
-¡Absolutamente! Ponte cómodo, toma tu bebida preferida y prepárate para un viaje profundo al corazón de la web asíncrona de Python. No solo aprenderemos a usar Starlette; desentrañaremos su filosofía, su historia y su lugar en el panteón de las herramientas de desarrollo web.
 
 ---
 

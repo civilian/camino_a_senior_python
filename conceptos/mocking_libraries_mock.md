@@ -1,6 +1,7 @@
+¿Sabías que para que tus pruebas digan la verdad sobre tu código, a veces necesitas engañarlas? Suena contradictorio, pero es la idea central detrás de los mocks y la clave para tests rápidos y aislados.
+
 # Mocking Libraries (Mock)
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar una filosofía de diseño y pruebas que ha moldeado el software moderno.
 
 ---
 

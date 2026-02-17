@@ -1,8 +1,9 @@
+A finales de los 90, los sistemas de gigantes como Microsoft y Sun eran como imperios en guerra, incapaces de comunicarse. ¿Cómo se logró un tratado de paz digital que, aún hoy, sostiene a bancos y gobiernos?
+
 # SOAP
 
 ¡Excelente! Acepto el desafío. Prepárate para un viaje a las profundidades de la arquitectura de servicios, a una época en que la web maduraba y las grandes corporaciones necesitaban un lenguaje común para sus sistemas dispares. Nos sumergiremos en SOAP, no como una reliquia, sino como una pieza fundamental de la historia de la computación cuya comprensión distingue a un programador senior.
 
-Ponte cómodo, sírvete un café y abramos el capó de este protocolo robusto, formal y, a menudo, incomprendido.
 
 ***
 

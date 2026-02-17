@@ -1,6 +1,7 @@
+¿Alguna vez tu aplicación se ha congelado mientras procesaba algo en segundo plano? El problema a menudo no es la falta de potencia, sino un malentendido fundamental. La solución está en la sutil pero crucial diferencia entre concurrencia y paralelismo.
+
 # Threading & Multiprocessing
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida) y prepárate para un viaje profundo. No vamos a arañar la superficie; vamos a sumergirnos en las profundidades de la concurrencia y el paralelismo, explorando no solo el "cómo", sino el "por qué" fundamental que separa a un programador competente de un verdadero arquitecto de software.
 
 ***
 

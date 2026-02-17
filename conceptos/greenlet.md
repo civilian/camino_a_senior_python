@@ -1,6 +1,7 @@
+¿Cómo gestionas decenas de miles de tareas concurrentes en un solo hilo, como en el motor del videojuego EVE Online? La respuesta no está en los hilos ni en `asyncio`, sino en dominar el arte de pausar y reanudar la ejecución a voluntad.
+
 # Greenlet
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), porque vamos a emprender un viaje profundo. No solo aprenderemos sobre `greenlet`, sino que desentrañaremos su alma, su historia y su lugar en el panteón de la concurrencia. Esta no es una guía para principiantes; es un mapa para el arquitecto de software que busca el dominio.
 
 ---
 

@@ -1,6 +1,8 @@
+Todos hemos sentido ese pánico al pensar: *“¿acabo de subir esa clave a Git?”*.
+Existe una arquitectura para eliminar ese miedo por completo, y se basa en un principio de criptografía sorprendentemente elegante que usan servicios como Vault o AWS.
+
 # Secrets Manager (AWS, GCP, Vault)
 
-¡Absolutamente! Ponte cómodo, colega. Vamos a embarcarnos en un viaje que va más allá de la simple recuperación de una clave de API. Exploraremos las criptas digitales donde residen los secretos de nuestras aplicaciones, entenderemos la criptografía que las protege y aprenderemos el arte de manejarlas como un verdadero maestro. Esta no es solo una guía técnica; es la crónica de una de las batallas más cruciales en la ingeniería de software moderna: la guerra contra el secreto expuesto.
 
 ---
 

@@ -1,6 +1,7 @@
+Todos conocemos la potencia de XGBoost, pero también su gran problema: la lentitud en datasets masivos. ¿Cómo es que LightGBM logra ser drásticamente más rápido sin sacrificar precisión? La clave no está en la fuerza bruta, sino en dos técnicas geniales que deciden qué datos ignorar.
+
 # LightGBM
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a arañar la superficie; vamos a descender a las profundidades de la maquinaria que impulsa uno de los algoritmos más potentes del Machine Learning moderno. Esta no es solo una guía; es un mapa para el territorio de **LightGBM**.
 
 ***
 

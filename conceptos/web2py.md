@@ -1,6 +1,9 @@
+¿Qué sucede cuando un físico teórico, no un ingeniero de software, se frustra con la complejidad de los frameworks web?
+
+Crea su propia solución, una obsesionada con la simplicidad y donde la seguridad no es una opción, sino el punto de partida. Así nació Web2py.
+
 # Web2py
 
-¡Absolutamente! Ponte cómodo, colega programador. Vamos a embarcarnos en un viaje profundo. No solo aprenderemos a usar una herramienta, sino que diseccionaremos su alma, entenderemos su nacimiento en un contexto de titanes y descubriremos la filosofía que la convirtió en una joya única en el panteón de los frameworks web. Esta no es una guía para construir tu primer "Hola Mundo"; es la crónica para forjar a un maestro artesano de Web2py.
 
 ***
 

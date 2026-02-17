@@ -1,3 +1,6 @@
+Si piensas que un módulo es simplemente un archivo, estás viendo solo la superficie.
+La verdadera genialidad está en el principio que ocultan: una idea de los años 70 que salvó a la ingeniería de software del **caos**.
+
 # Modules
 
 Absolutamente. Prepárate para un viaje profundo al corazón de la organización del software. No veremos los módulos como simples archivos, sino como la encarnación de décadas de lucha contra el caos, una herramienta fundamental para la cognición humana aplicada a la ingeniería.

@@ -1,6 +1,7 @@
+Todos hemos recurrido a `cron` para tareas periódicas, pero siempre se siente como un parche externo, ¿verdad? ¿Y si el "reloj" que dispara tus tareas viviera *dentro* de tu aplicación, con acceso a todo su contexto y configuración?
+
 # Celery Beat
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), porque estamos a punto de embarcarnos en un viaje profundo. No solo aprenderemos a usar Celery Beat; vamos a desentrañar su esencia, su historia y su lugar en el gran tapiz de la computación.
 
 ---
 

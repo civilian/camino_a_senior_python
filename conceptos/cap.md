@@ -1,6 +1,8 @@
+¿Qué es peor: un sistema que a veces da datos incorrectos o uno que a veces no responde?
+Esta no es una pregunta filosófica, es el dilema central que todo arquitecto de sistemas distribuidos debe resolver.
+
 # CAP
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a rozar la superficie; vamos a sumergirnos en las fosas abisales del Teorema CAP, de donde emergerás con la sabiduría de un arquitecto de sistemas distribuidos.
 
 ***
 

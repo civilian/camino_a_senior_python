@@ -1,6 +1,7 @@
+¿Y si te dijera que la clave para construir APIs flexibles y escalables no es la libertad, sino un conjunto de **restricciones estrictas**? Esa es la idea central de REST que muchos equipos pasan por alto, y es lo que separa un sistema robusto de uno frágil.
+
 # RESTful Best Practices
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente un conjunto de reglas; vamos a desentrañar una filosofía de diseño que ha moldeado la web moderna. Esta no es una guía para pasar una entrevista; es una guía para liderar un equipo de arquitectura.
 
 ---
 

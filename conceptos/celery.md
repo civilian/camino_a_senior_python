@@ -1,6 +1,9 @@
+Tu aplicación está atrapada en la tiranía de la petición-respuesta: el usuario hace clic y el mundo se detiene hasta que una tarea pesada termina.
+
+¿Y si pudieras liberarla, delegando todo ese trabajo para que se ejecute en segundo plano y respondiendo al instante?
+
 # Celery
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo al corazón de la computación asíncrona. No vamos a aprender simplemente a usar Celery; vamos a desentrañar su esencia, a entender su alma, para que puedas manejarlo con la maestría de un director de orquesta sinfónica.
 
 ---
 

@@ -1,6 +1,7 @@
+La flexibilidad de Python es su superpoder, pero en sistemas a gran escala, también es su talón de Aquiles. ¿Es posible obtener la seguridad del tipado estático sin sacrificar la esencia que hace a Python... **pythónico**?
+
 # mypy
 
-¡Absolutamente! Acomódate, colega. Vamos a embarcarnos en un viaje profundo. No solo aprenderemos a usar `mypy`; vamos a desentrañar su alma, a comprender su filosofía y a dominarlo como el artesano domina su herramienta más preciada. Olvida los tutoriales superficiales. Hoy, descendemos a las profundidades.
 
 ***
 

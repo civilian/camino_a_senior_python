@@ -1,6 +1,8 @@
+Todos hemos luchado contra la "Torre de Babel" de las APIs con documentación desactualizada.
+Pero, ¿y si la solución no fuera escribir *mejor* documentación, sino generar una que sea imposible de desactualizar?
+
 # Swagger UI / ReDoc (complementarios)
 
-¡Absolutamente! Ponte cómodo, prepárate una taza de tu bebida preferida y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar la filosofía, la historia y la maestría detrás de la documentación de APIs moderna. Olvida los tutoriales superficiales. Hoy, nos convertimos en arquitectos de la comunicación entre máquinas y humanos.
 
 ***
 

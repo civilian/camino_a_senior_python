@@ -1,6 +1,7 @@
+En 1968, se declaró la "crisis del software" porque los proyectos eran tardíos, costosos y a menudo no funcionaban. ¿Por qué, más de 50 años después, este problema nos resulta tan familiar? La clave no está en el código, sino en cómo dominamos la incertidumbre.
+
 # Estimación / Prioridades / Riesgos / Go-live Support
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender solo un conjunto de técnicas; vamos a desentrañar la filosofía y la ciencia de entregar software de manera predecible y robusta. Esta no es una guía de gestión de proyectos, es un manual de supervivencia y liderazgo técnico para el ingeniero de software senior.
 
 ***
 

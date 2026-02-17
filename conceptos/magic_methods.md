@@ -1,3 +1,5 @@
+¿Alguna vez te has preguntado qué sucede realmente cuando escribes `objeto1 + objeto2` en Python? No es magia, es un protocolo que permite a tus clases hablar el mismo idioma que el intérprete.
+
 # Magic Methods
 
 Absolutamente. Prepárate para un viaje profundo al corazón de Python, donde la sintaxis se encuentra con la semántica y el código se convierte en poesía. Abróchate el cinturón; esto no es un tutorial, es una iniciación.

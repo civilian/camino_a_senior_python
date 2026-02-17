@@ -1,6 +1,8 @@
+Tu aplicación muere sin dejar rastro, víctima de un asesino silencioso: el consumo de memoria.
+¿Y si pudieras saber exactamente qué línea de código fue la culpable?
+
 # memory-profiler
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar la filosofía, la historia y la ciencia detrás del control de la memoria en Python.
 
 ---
 

@@ -1,6 +1,9 @@
+Si alguna vez has bloqueado la interfaz de tu aplicación con una tarea pesada, has chocado de frente con el corazón de Qt: el bucle de eventos.
+
+Entender cómo funciona este mecanismo no solo evitará que tus apps se congelen, sino que es el secreto para dominar de verdad el framework.
+
 # PyQt / PySide
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a arrastrar y soltar botones; vamos a desentrañar el alma de la máquina que impulsa algunas de las aplicaciones de escritorio más robustas del mundo. Esta no es una guía para principiantes, es una forja para seniors.
 
 ***
 

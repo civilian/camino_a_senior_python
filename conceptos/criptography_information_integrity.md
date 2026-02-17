@@ -1,6 +1,9 @@
+En criptografía, a menudo nos obsesionamos con la confidencialidad: ¿pueden leer mi mensaje?
+
+Pero la pregunta más peligrosa es otra: ¿puedo confiar en que este mensaje es *realmente* el que me enviaron y no ha sido alterado?
+
 # Criptography & Information Integrity
 
-¡Absolutamente! Ponte cómodo, prepara tu bebida preferida y prepárate para un viaje profundo. No vamos a arañar la superficie; vamos a sumergirnos en las profundidades donde residen la confianza y la certeza en el mundo digital.
 
 ---
 

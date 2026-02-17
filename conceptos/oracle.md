@@ -1,6 +1,9 @@
+Desde tu banco hasta la aerolínea en la que viajas, es casi seguro que tus datos han pasado por una base de datos Oracle.
+
+Pero, ¿qué la hizo **tan dominante**, superando incluso a gigantes como IBM que tenían la idea original?
+
 # Oracle
 
-¡Absolutamente! Ponte cómodo, programador. Vamos a embarcarnos en un viaje profundo. No solo aprenderemos sobre un software; desentrañaremos la historia, la teoría y la ingeniería de una de las piezas de tecnología más influyentes y duraderas de la historia de la computación. Esto no es solo una guía sobre Oracle; es la crónica de cómo una idea académica se convirtió en una fortaleza digital que impulsa la economía mundial.
 
 ***
 

@@ -1,6 +1,9 @@
+Los modelos de lenguaje son como cerebros brillantes, pero están completamente aislados. No pueden consultar tu base de datos ni leer un PDF por sí solos.
+
+¿Cómo rompemos esa barrera para que un LLM pueda usar tus propias herramientas y datos?
+
 # LangChain
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente una API; vamos a desentrañar una filosofía de ingeniería que está definiendo la forma en que construimos la próxima generación de software.
 
 ***
 

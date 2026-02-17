@@ -1,3 +1,7 @@
+En el desarrollo web, a menudo nos enfrentamos a una falsa elección: la **Catedral** monolítica o el **Bazar** caótico.
+
+¿Y si te dijera que existe una tercera opción, el taller del maestro artesano, diseñado para empezar simple y escalar hasta el infinito?
+
 # Pyramid
 
 ¡Excelente! Acepto el desafío. Prepárate para un viaje profundo al corazón de uno de los frameworks más elegantes y subestimados del ecosistema Python. No solo aprenderemos a usar Pyramid, sino que entenderemos su alma, su filosofía y el linaje de ideas que lo convirtieron en la herramienta de precisión que es hoy.

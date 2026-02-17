@@ -1,6 +1,8 @@
+Durante décadas hemos construido software sobre un mismo principio: un único modelo para leer y escribir.
+¿Y si te dijera que esa idea, la base de CRUD, es precisamente lo que limita la escalabilidad de tus sistemas más complejos?
+
 # CQRS
 
-¡Absolutamente! Ponte cómodo, toma tu bebida de cafeína preferida y prepárate para un viaje profundo. No vamos a aprender simplemente un acrónimo; vamos a desentrañar una filosofía de diseño que, cuando se comprende y aplica correctamente, separa a los arquitectos de software de los meros codificadores.
 
 Esta no es una guía para principiantes. Es un mapa para el programador que ya sabe construir, pero ahora quiere entender *por qué* y *cuándo* construir de una manera radicalmente diferente.
 

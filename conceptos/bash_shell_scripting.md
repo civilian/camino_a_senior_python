@@ -1,6 +1,7 @@
+Muchos ven la terminal como una simple pantalla negra para dar órdenes. Pero su diseño esconde una filosofía revolucionaria de los años 70: combinar herramientas pequeñas y afiladas para lograr resultados extraordinarios.
+
 # Bash / Shell scripting
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o un té, si eres más de la escuela de Brian Kernighan), y prepárate para un viaje profundo al corazón de la interacción con el sistema operativo. No vamos a aprender a escribir un par de bucles; vamos a entender el alma de la máquina.
 
 ***
 

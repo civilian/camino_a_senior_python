@@ -1,8 +1,11 @@
+Todos hemos usado `cron` y scripts de shell para automatizar tareas. Pero, ¿qué sucede cuando tienes miles de trabajos que dependen entre sí y esa frágil cadena se rompe a las 3 de la mañana?
+
+Así es como se sentía el Big Data antes de tener un verdadero director de orquesta.
+
 # Apache Oozie
 
 ¡Excelente! Acepto el desafío. Prepárate para un viaje profundo al corazón de la orquestación de datos en el ecosistema Hadoop. No solo aprenderás a usar Apache Oozie; entenderás su alma, su propósito y su lugar en la gran sinfonía de la computación distribuida.
 
-Ponte cómodo, futuro maestro de Oozie. La orquesta está a punto de comenzar.
 
 ---
 

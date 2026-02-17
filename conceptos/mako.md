@@ -1,6 +1,10 @@
+La mayoría de los motores de plantillas te dan un lenguaje *restringido* que se parece a Python.
+Pero, ¿y si en lugar de interpretar, compiláramos la plantilla directamente a código Python puro?
+
+Este es el secreto detrás del poder y la velocidad de Mako.
+
 # Mako
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de Mako. No solo aprenderemos su sintaxis, sino que desentrañaremos su filosofía, su historia y las decisiones de ingeniería que lo convierten en una herramienta tan potente y, a veces, peligrosamente afilada. Abróchate el cinturón; esto no es un tutorial, es una clase magistral.
 
 ---
 

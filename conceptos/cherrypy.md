@@ -1,3 +1,6 @@
+La mayoría de frameworks te hacen pensar en rutas, vistas y controladores.
+¿Pero y si pudieras ignorar todo eso y simplemente exponer un objeto de Python directamente a la web?
+
 # CherryPy
 
 ¡Excelente! Acepto el desafío. Prepárate para un viaje profundo al corazón de uno de los frameworks más elegantes y perdurables de Python. No solo aprenderás a usar CherryPy; aprenderás a *pensar* en CherryPy, a entender su alma y su lugar en la gran catedral de la ingeniería de software.

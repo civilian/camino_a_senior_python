@@ -1,6 +1,9 @@
+¿Cómo le das acceso a petabytes de datos a un equipo que solo habla SQL?
+No les pides que aprendan a programar complejos jobs en Java.
+Creas un traductor, y eso es exactamente lo que Facebook hizo al inventar Apache Hive.
+
 # Apache Hive
 
-¡Absolutamente! Ponte cómodo, prepárate una taza de café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a rozar la superficie; vamos a bucear en las profundidades de Apache Hive, desde sus orígenes en los pasillos de Facebook hasta las optimizaciones que separan a un ingeniero de datos senior del resto.
 
 ---
 

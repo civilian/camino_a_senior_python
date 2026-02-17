@@ -1,6 +1,7 @@
+Piensa en los inicios de la web: páginas estáticas y lentas. ¿Qué pieza del rompecabezas permitió la explosión de sitios dinámicos como Facebook o YouTube? Sorprendentemente, fue una base de datos gratuita que nació para desafiar a los gigantes de la época.
+
 # MySQL
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), porque estamos a punto de embarcarnos en un viaje profundo. No solo aprenderemos a usar MySQL; vamos a desentrañar su alma, a entender las decisiones de ingeniería que lo forjaron y a dominarlo como un verdadero artesano del software.
 
 ---
 

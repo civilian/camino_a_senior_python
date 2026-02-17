@@ -1,6 +1,8 @@
+¿Alguna vez has luchado con un `crontab` gigante que se ha vuelto inmanejable y frágil?
+En 2014, **Airbnb** tenía el mismo problema a una escala masiva, y su solución interna se convirtió en el estándar de la industria para la orquestación de datos.
+
 # Apache Airflow
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar Airflow; vamos a desentrañar su esencia, su historia y su alma para que puedas manejarlo con la maestría de un director de orquesta sinfónica en la era del Big Data.
 
 ---
 

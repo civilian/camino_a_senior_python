@@ -1,6 +1,9 @@
+Todos hemos llenado el código de `print()` para cazar un bug, solo para tener que borrarlos después.
+
+¿Y si pudieras detener el tiempo justo en la línea del error y simplemente *preguntarle* a tus variables qué está pasando?
+
 # pdb
 
-¡Absolutamente! Prepárate para un viaje al corazón de la ejecución de Python. No veremos a `pdb` como una simple herramienta, sino como un microscopio y una máquina del tiempo para nuestro código. Como un viejo maestro relojero que desarma un mecanismo complejo pieza por pieza, aprenderemos a dominar el flujo del tiempo dentro de nuestros programas.
 
 ***
 

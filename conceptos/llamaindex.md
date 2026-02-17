@@ -1,3 +1,7 @@
+Un LLM es un motor de razonamiento increíble, pero no conoce tus datos y puede "alucinar" respuestas.
+
+¿Cómo lo conectamos de forma segura a tu información para que sea realmente útil y fiable?
+
 # LlamaIndex
 
 ¡Excelente! Acepto el desafío. Prepárate para un viaje profundo al corazón de LlamaIndex, donde no solo aprenderás a usar la herramienta, sino a pensar como un arquitecto de sistemas de IA. Abrocha tu cinturón, porque vamos a descender desde la filosofía de la información hasta los bits y bytes de la implementación.

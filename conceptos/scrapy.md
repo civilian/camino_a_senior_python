@@ -1,6 +1,7 @@
+¿Por qué tu script de scraping pasa el 99% del tiempo sin hacer nada? No es un error en tu código, es el cuello de botella de la red. Scrapy se diseñó desde cero para destruir ese límite.
+
 # Scrapy
 
-¡Absolutamente! Ponte cómodo, prepárate una taza de café (o tu bebida de compilación preferida), porque estamos a punto de embarcarnos en un viaje profundo. No solo aprenderemos a usar Scrapy; vamos a desensamblarlo, entender su alma y dominar su filosofía. Esta no es una guía para copiar y pegar código; es una forja para un maestro artesano del web scraping.
 
 ---
 

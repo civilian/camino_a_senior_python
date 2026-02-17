@@ -1,6 +1,7 @@
+Seguro que usas `type hints` para el análisis estático, pero ¿sabías que pueden ser tu mejor defensa contra datos corruptos en producción? Así es como se convierten en un validador inteligente y a prueba de balas en tiempo de ejecución.
+
 # pydantic
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de Pydantic. No será un simple tutorial, sino una expedición a los fundamentos, la filosofía y el dominio de una de las bibliotecas más influyentes del ecosistema Python moderno. Abróchate el cinturón.
 
 ---
 

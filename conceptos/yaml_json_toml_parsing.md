@@ -1,6 +1,9 @@
+Usamos JSON para APIs, YAML para pipelines y TOML para configuración. ¿Pero es solo una cuestión de preferencia?
+
+Detrás de cada formato hay una filosofía de diseño que impacta directamente en la robustez y mantenibilidad de tu código.
+
 # YAML / JSON / TOML parsing
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a rascar la superficie; vamos a descender a las minas de la serialización de datos, donde se forjan las decisiones de los arquitectos de software.
 
 ***
 

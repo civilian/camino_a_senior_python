@@ -1,6 +1,7 @@
+Desplegar en múltiples servidores no tiene por qué ser un ritual manual de `ssh` y comandos repetidos. ¿Y si pudieras orquestar toda tu flota de máquinas con la misma simplicidad con la que escribes un script de Python?
+
 # Fabric
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de la automatización. No solo aprenderemos a usar una herramienta, sino que entenderemos el alma de la máquina que estamos orquestando. Como un maestro relojero que no solo ensambla las piezas, sino que comprende la física de cada engranaje, nos sumergiremos en **Fabric** para dominar el arte de la ejecución remota.
 
 ---
 

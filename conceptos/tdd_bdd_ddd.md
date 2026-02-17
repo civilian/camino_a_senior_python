@@ -1,6 +1,7 @@
+A menudo nos enfocamos en construir el software *correctamente* con TDD, pero ¿estamos construyendo la *cosa correcta*? Ahí es donde entra BDD, y para entender el *contexto* completo del problema, necesitamos la visión que nos da DDD.
+
 # TDD / BDD / DDD
 
-¡Absolutamente! Ponte cómodo, prepara tu bebida preferida y afila tu mente. Vamos a emprender un viaje que no solo te enseñará tres acrónimos, sino que te revelará una filosofía de construcción de software robusto, significativo y duradero. No estamos aquí para aprender a usar una herramienta; estamos aquí para aprender a pensar como un maestro artesano del software.
 
 ---
 

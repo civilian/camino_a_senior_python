@@ -1,6 +1,7 @@
+Seguramente usas `virtualenv` casi por instinto, pero ¿entiendes la "magia" que ocurre al activarlo? No es virtualización, es un truco brillante que "secuestra" las llamadas a tu intérprete de Python para poner orden en el caos.
+
 # virtualenv / virtualenvwrapper
 
-¡Absolutamente! Prepárate para un viaje profundo. No vamos a aprender simplemente comandos; vamos a desentrañar la filosofía, la historia y la ingeniería que convierten a un simple script en una de las herramientas más fundamentales del ecosistema Python. Abróchate el cinturón, porque vamos a transformar tu comprensión de los entornos virtuales de un conocimiento práctico a una maestría estratégica.
 
 ***
 

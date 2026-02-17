@@ -1,6 +1,7 @@
+¿Sabes cuál fue el **arma secreta** que dominó casi todas las competiciones de Kaggle a mediados de la década de 2010? No era una arquitectura de red neuronal revolucionaria, sino la reimplementación obsesivamente optimizada de una idea ya existente.
+
 # XGBoost
 
-¡Absolutamente! Ponte cómodo, prepara tu IDE mental y una buena taza de café. Vamos a emprender un viaje profundo al corazón de una de las herramientas más revolucionarias del machine learning moderno. No solo aprenderás a usar XGBoost; entenderás su alma, su historia y su poder para que puedas manejarlo con la destreza de un maestro.
 
 ---
 

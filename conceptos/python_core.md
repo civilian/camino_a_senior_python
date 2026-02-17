@@ -1,6 +1,8 @@
+Muchos sabemos *usar* Python, pero ¿realmente entendemos *por qué* fue diseñado así?
+La respuesta no está en un comité de estándares, sino en la frustración de un programador durante unas vacaciones de Navidad.
+
 # Python Core
 
-¡Absolutamente! Prepárate para un viaje al corazón de la máquina Python. No solo veremos el "qué" y el "cómo", sino el "por qué" fundamental que define la elegancia y el poder de este lenguaje. Abróchate el cinturón; esto no es un tutorial, es una inmersión profunda en el alma de Python.
 
 ---
 

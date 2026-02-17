@@ -1,6 +1,9 @@
+Esa llamada a las 3 AM. El servidor caído.
+En lugar de buscar pistas en un mar de logs con `grep`, ¿qué tal si tuvieras el informe forense completo del error esperándote?
+Vamos a ver cómo Sentry convierte ese caos en claridad.
+
 # Sentry
 
-¡Absolutamente! Ponte cómodo, prepárate una taza de café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a *usar* Sentry. Vamos a desentrañar su esencia, su historia y su filosofía para que puedas manejarlo con la maestría de un ingeniero senior.
 
 ***
 

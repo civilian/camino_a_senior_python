@@ -1,6 +1,7 @@
+¿Cómo es que una simple app de recetas para un chef se convirtió en la tecnología de búsqueda que impulsa a Netflix y a la NASA? La historia detrás de Elasticsearch es mucho más interesante de lo que imaginas.
+
 # ElasticSearch
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar la filosofía, la ciencia y el arte detrás de una de las piezas de ingeniería más influyentes de la era de los datos.
 
 ---
 

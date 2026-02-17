@@ -1,6 +1,7 @@
+Piensa en un objeto complejo en tu código, con todas sus referencias y conexiones. ¿Cómo lo conviertes en una simple secuencia de bytes para enviarlo por la red y reconstruirlo **idéntico** al otro lado, sin perder absolutamente nada en la traducción?
+
 # I/O, Serialization
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida) y prepárate para un viaje profundo. No vamos a arañar la superficie; vamos a descender a las capas tectónicas de la computación donde los datos se encuentran con la realidad física. Esta es la historia de cómo damos forma y persistencia a los fantasmas en la máquina.
 
 ***
 

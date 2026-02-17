@@ -1,6 +1,8 @@
+La pregunta clave en la ingeniería de datos no es "¿funcionó mi código?", sino **"¿qué hago cuando mi código *no* funciona?"**.
+Esta es la idea central detrás de la "ingeniería negativa" y la razón por la que herramientas como `cron` ya no son suficientes.
+
 # Prefect
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar su alma, su historia y la filosofía de ingeniería que la impulsa. Al final de esta guía, no solo escribirás flujos de Prefect, sino que pensarás en *orquestación*.
 
 ---
 

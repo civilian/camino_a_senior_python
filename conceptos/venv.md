@@ -1,6 +1,7 @@
+Tu Proyecto A necesita una versión antigua de una librería, mientras que el Proyecto B requiere la más nueva en la misma máquina. ¿Cómo evitas que la instalación de una rompa la otra? Este es el "infierno de las dependencias" en acción.
+
 # venv
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje a las profundidades de un concepto que parece simple en la superficie, pero que es el pilar de la sanidad en el desarrollo moderno de Python. No hablaremos solo de comandos; hablaremos de historia, de filosofía y del arte de la ingeniería de software.
 
 ***
 

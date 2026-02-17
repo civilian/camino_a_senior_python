@@ -1,6 +1,7 @@
+Tu microservicio no necesita un ORM ni un motor de plantillas, ¿verdad? Entonces, ¿por qué tu framework te obliga a cargar con ellos, añadiendo peso y latencia a cada petición?
+
 # Falcon
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de la ingeniería de software de alto rendimiento. No vamos a aprender simplemente a usar Falcon; vamos a desensamblarlo, entender su alma y aprender a pensar como sus creadores. Abróchate el cinturón, porque esto va más allá de un simple tutorial.
 
 ---
 

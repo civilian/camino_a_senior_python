@@ -1,3 +1,5 @@
+La mayoría de los sistemas se construyen como una orquesta con un director central: un monolito. ¿Pero qué pasaría si pudieras construirlo como una banda de jazz, donde los servicios colaboran de forma autónoma y elegante?
+
 # Nameko
 
 ¡Excelente! Acepto el desafío. Prepárate para un viaje profundo al corazón de los microservicios en Python. No solo aprenderás a usar Nameko; aprenderás a *pensar* con Nameko. Como un maestro de ajedrez que no solo conoce las reglas sino que entiende la estrategia profunda de cada movimiento, al final de esta guía, verás la arquitectura de software de una manera nueva.

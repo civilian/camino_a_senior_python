@@ -1,6 +1,9 @@
+La mayoría de los sistemas distribuidos sufren de una tiranía silenciosa: el *acoplamiento*. Un servicio falla y arrastra a todos los demás en una cascada.
+
+¿Cómo rompemos estas cadenas para construir sistemas verdaderamente resilientes e independientes?
+
 # RabbitMQ
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o un té, si eres más del tipo Alan Turing), y prepárate para un viaje profundo al corazón del conejo blanco de la mensajería. No solo vamos a ver cómo funciona RabbitMQ, vamos a desentrañar su alma, su historia y su filosofía. Al final de esta guía, no solo sabrás usarlo, sabrás *pensar* en RabbitMQ.
 
 ---
 

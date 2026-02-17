@@ -1,6 +1,7 @@
+¿Por qué los servidores web tradicionales se colapsaban con 10,000 usuarios? La solución a ese problema, el famoso C10k, es la razón exacta por la que existe y necesitas entender `aiohttp`.
+
 # aiohttp
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente una biblioteca; vamos a desentrañar una filosofía de diseño de software que ha redefinido la concurrencia en Python.
 
 ---
 

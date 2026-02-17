@@ -1,6 +1,8 @@
+¿Por qué tus elegantes objetos de Python y tus rígidas tablas de SQL parecen hablar idiomas diferentes?
+Este conflicto tiene un nombre, y entender cómo SQLAlchemy lo resuelve es la clave para dominar la interacción con bases de datos.
+
 # SQLAlchemy
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de SQLAlchemy. No serás un simple usuario; te convertirás en un arquitecto de datos, un maestro de la persistencia que entiende el *porqué* detrás de cada línea de código.
 
 ---
 

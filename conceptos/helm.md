@@ -1,6 +1,7 @@
+¿Alguna vez te has ahogado en un mar de archivos YAML para Kubernetes, copiando y pegando configuraciones entre entornos? A ese caos se le conoce como "YAML hell", y nació una herramienta específicamente para solucionarlo.
+
 # Helm
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente comandos; vamos a desentrañar la filosofía, la historia y el arte detrás de la herramienta que trajo orden al caos de Kubernetes. Esta no es una guía para pasar un examen, es una guía para liderar un equipo.
 
 ***
 

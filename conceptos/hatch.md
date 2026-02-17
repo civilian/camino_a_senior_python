@@ -1,6 +1,7 @@
+El empaquetado en Python ha sido como una orquesta caótica, con `setup.py` y `requirements.txt` como partituras improvisadas. ¿Y si te dijera que por fin ha llegado un director que no solo pone orden, sino que lo hace siguiendo los estándares al pie de la letra?
+
 # hatch
 
-¡Absolutamente! Ponte cómodo, sírvete tu bebida preferida y prepárate para un viaje profundo. No vamos a aprender simplemente un comando; vamos a desentrañar una filosofía, una historia de frustración y triunfo en el ecosistema de Python. Esta no es una guía; es la crónica de cómo una comunidad decidió, de una vez por todas, poner orden en su casa.
 
 ***
 

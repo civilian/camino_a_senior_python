@@ -1,3 +1,5 @@
+Esa elegante línea de `[x for x in list]` es mucho más que azúcar sintáctico. Es un concepto prestado de las matemáticas y la programación funcional, y entender su origen es la clave para saber cuándo *no* deberías usarla.
+
 # Comprehensions
 
 Absolutamente. Prepárate para un viaje profundo al corazón de la expresividad y la eficiencia. No vamos a aprender simplemente una sintaxis; vamos a desentrañar una filosofía de programación encapsulada en una de las características más elegantes de Python.

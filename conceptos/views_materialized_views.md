@@ -1,6 +1,9 @@
+En tu arsenal de datos tienes un fantasma y una bestia. Uno es una promesa que no ocupa espacio, el otro es una copia que dispara la velocidad.
+
+Saber cuándo usar cada uno es lo que separa un sistema ágil de uno que se arrastra.
+
 # Views / Materialized Views
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a arañar la superficie; vamos a bucear hasta los cimientos de la arquitectura de datos.
 
 ---
 

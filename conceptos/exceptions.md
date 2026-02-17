@@ -1,6 +1,9 @@
+La mayoría de nosotros usamos `try/except` como un simple freno de emergencia para evitar que el programa se caiga.
+
+Pero, ¿y si fuera en realidad la herramienta de diseño más potente para construir sistemas que *nunca* pierden el control?
+
 # Exceptions
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida) y prepárate para un viaje profundo. No vamos a aprender simplemente a usar `try/except`; vamos a desentrañar el alma de un concepto que separa al artesano del software del simple codificador.
 
 ***
 

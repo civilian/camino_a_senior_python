@@ -1,3 +1,5 @@
+Seguramente has usado `twine` para publicar tus paquetes. Pero, ¿conoces el "pecado original" de seguridad que vino a corregir? La respuesta es una lección fundamental sobre la cadena de suministro de software.
+
 # twine
 
 ¡Excelente! Acepto el desafío. Como un viejo artesano del código, he visto imperios de software nacer y caer. He visto lenguajes ascender como estrellas y desvanecerse en el olvido. Hoy, nos sumergiremos en una herramienta aparentemente simple, pero que representa la culminación de décadas de lecciones dolorosas y sabiduría ganada a pulso en el arte de la distribución de software: **`twine`**.

@@ -1,6 +1,7 @@
+Muchos usamos SQL Server, pero pocos conocen su verdadero origen: una alianza estratégica para competir con Oracle. Entender esa historia es la clave para dominar su arquitectura y su comportamiento actual.
+
 # SQL Server
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), porque vamos a emprender un viaje profundo. No solo aprenderás sobre SQL Server; entenderás su alma, su historia y su lugar en el cosmos de la computación. Esta no es una guía para principiantes; es el mapa para ascender al nivel de un arquitecto de datos.
 
 ---
 

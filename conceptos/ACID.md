@@ -1,6 +1,8 @@
+¿Qué evita que una transferencia bancaria se pierda en el limbo si el sistema falla justo a la mitad?
+La respuesta no es magia, sino un pacto de cuatro letras que actúa como un contrato inquebrantable para la integridad de tus datos.
+
 # ACID
 
-¡Absolutamente! Ponte cómodo, prepara tu bebida preferida y prepárate para un viaje profundo. No vamos a rozar la superficie; vamos a sumergirnos en las profundidades de ACID, explorando sus rincones teóricos, sus batallas históricas y su relevancia en el campo de batalla del software moderno. Al final de esta guía, no solo "conocerás" ACID, lo *entenderás* a un nivel que te permitirá liderar discusiones de arquitectura y tomar decisiones de ingeniería con la confianza de un veterano.
 
 ***
 

@@ -1,3 +1,7 @@
+¿Sabías que usar threads para acelerar tu código Python a menudo lo hace más lento? No es un bug, es el famoso GIL.
+
+Entender por qué ocurre es el primer paso para dominar de verdad la concurrencia con `multiprocessing` y `asyncio`.
+
 # Threads / Multiprocessing / AsyncIO Use Cases
 
 ¡Excelente! Acepto el desafío. Prepárate para un viaje profundo a través del tiempo, la teoría y el código. Desmitificaremos la concurrencia en Python, no como un conjunto de herramientas, sino como una filosofía de diseño. Abróchate el cinturón, porque no solo aprenderás a usar `Threads`, `Multiprocessing` y `AsyncIO`; aprenderás a *pensar* en concurrencia.

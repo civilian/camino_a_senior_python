@@ -1,6 +1,7 @@
+¿Alguna vez has peleado con tu linter por un espacio en blanco y te has preguntado "esto realmente importa"? La respuesta es sí, y tiene mucho más que ver con la psicología y la colaboración en equipo que con la simple estética del código.
+
 # PEP8
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de la filosofía Python. No veremos a PEP 8 como un simple conjunto de reglas, sino como el resultado de décadas de sabiduría en ingeniería de software, un contrato social para programadores y una herramienta para dominar la complejidad.
 
 ---
 

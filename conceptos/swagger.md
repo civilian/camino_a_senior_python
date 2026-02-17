@@ -1,6 +1,7 @@
+¿Alguna vez has luchado por integrar una API con documentación pobre o inexistente? Esa frustración era la norma en el "Salvaje Oeste" de los servicios web, y es precisamente el problema que Swagger nació para resolver.
+
 # Swagger
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida) y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar la filosofía, la historia y la maestría detrás de la comunicación moderna de APIs. Esto no es un tutorial, es una clase magistral.
 
 ---
 

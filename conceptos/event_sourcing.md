@@ -1,6 +1,7 @@
+Cada `UPDATE` en tu base de datos borra una parte de la historia. ¿Y si en lugar de sobrescribir datos, construyéramos un sistema que registra la película completa, como un libro mayor que nunca olvida?
+
 # Event Sourcing
 
-¡Absolutamente! Ponte cómodo, toma tu bebida de alta concentración de cafeína preferida, y prepárate para un viaje profundo. No vamos a aprender un patrón; vamos a cambiar nuestra forma de ver el tiempo, el estado y la información en el software. Como tu mentor en este viaje, te prometo que al final de esta guía, no solo entenderás Event Sourcing, sino que *sentirás* su poder y sus compromisos.
 
 ---
 

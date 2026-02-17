@@ -1,3 +1,6 @@
+¿Cuántas horas de revisión de código se han perdido discutiendo sobre comillas o saltos de línea?
+Vamos a ver por qué `black` no es solo un formateador, sino la solución de facto a la "tiranía de las decisiones triviales".
+
 # black
 
 Absolutamente. Prepárate para un viaje profundo al corazón de `black`, el formateador de código Python intransigente. No nos quedaremos en la superficie del `black .`; descenderemos a las profundidades de su filosofía, su mecánica interna y su lugar en el panteón de las herramientas de ingeniería de software. Al final de esta guía, no solo usarás `black`, sino que lo entenderás como un pacto social codificado, una decisión de diseño deliberada para la productividad de los equipos.

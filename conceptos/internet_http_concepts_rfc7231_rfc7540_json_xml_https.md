@@ -1,6 +1,7 @@
+¿Alguna vez te has preguntado por qué HTTP, el protocolo que mueve la web, fue diseñado para no recordar *nada* sobre ti? Esta decisión, que parece una limitación, es en realidad la clave secreta de su increíble escalabilidad.
+
 # Internet & HTTP Concepts (RFC7231, RFC7540, JSON, XML, HTTPS)
 
-¡Absolutamente! Ponte cómodo, prepara tu bebida preferida y prepárate para un viaje profundo. No vamos a rozar la superficie; vamos a bucear en las profundidades abisales de la red, donde los protocolos susurran y los paquetes de datos fluyen como corrientes oceánicas. Esta no es solo una guía técnica; es la saga de cómo la humanidad aprendió a conectar el conocimiento.
 
 ---
 

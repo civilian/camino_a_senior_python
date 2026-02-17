@@ -1,6 +1,7 @@
+Todos empezamos usando REST y JSON para comunicar nuestros microservicios. Pero, ¿qué pasa cuando la escala crece y cada milisegundo y cada byte cuentan? Google se enfrentó a este problema y su solución, nacida de una necesidad interna, cambió las reglas del juego.
+
 # gRPC
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente una tecnología; vamos a desentrañar una filosofía de comunicación entre sistemas, forjada en las entrañas de una de las mayores infraestructuras de software del planeta.
 
 ***
 

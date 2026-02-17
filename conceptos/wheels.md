@@ -1,3 +1,5 @@
+¿Por qué a veces `pip install` es instantáneo y otras tarda una eternidad compilando código? La respuesta está en un archivo **.whl** y la revolución silenciosa que representa para todo el ecosistema.
+
 # wheels
 
 ¡Excelente! Acepto el desafío. Prepárate para un viaje profundo al corazón del empaquetado de Python, donde desentrañaremos la historia, la teoría y la maestría detrás de uno de los inventos más cruciales del ecosistema: el **wheel**.

@@ -1,6 +1,9 @@
+AWS Lambda prometió un mundo sin servidores, pero su despliegue inicial era un laberinto de clics y configuraciones manuales.
+
+¿Cómo pasamos de ese caos a definir y desplegar aplicaciones complejas con un solo comando?
+
 # Serverless Framework (AWS, GCP, Azure)
 
-¡Absolutamente! Ponte cómodo, colega. Vamos a embarcarnos en un viaje que no solo te enseñará a usar una herramienta, sino a pensar como un arquitecto de sistemas distribuidos en la era de la nube. Esta no es una simple guía; es la forja donde un programador intermedio se convierte en un maestro del dominio Serverless.
 
 ***
 

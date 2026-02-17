@@ -1,6 +1,8 @@
+¿Alguna vez has luchado con un framework donde depurar se siente imposible, casi como programar a ciegas?
+PyTorch nació precisamente de esa frustración, cambiando las reglas con una idea radical: ¿y si tu modelo de IA se comportara como código de Python normal y corriente?
+
 # PyTorch
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de la inteligencia artificial moderna. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar su filosofía, su historia y su poder para que puedas manejarla con la maestría de un veterano.
 
 ***
 

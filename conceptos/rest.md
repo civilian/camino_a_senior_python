@@ -1,6 +1,7 @@
+¿Por qué un simple cambio en el servidor, como renombrar una función, puede romper por completo a todos tus clientes? Este problema, conocido como **acoplamiento**, fue la razón por la que se abandonaron sistemas como SOAP y nació un nuevo estilo arquitectónico para la web.
+
 # REST
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente qué es REST; vamos a desentrañar su alma, su historia y la filosofía que lo convierte en uno de los pilares de la web moderna. Al final de esta guía, no solo sabrás *implementar* REST, sino que entenderás *por qué* existe y podrás defender tus decisiones de diseño con la convicción de un arquitecto senior.
 
 ***
 

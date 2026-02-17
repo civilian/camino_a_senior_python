@@ -1,8 +1,10 @@
+En los años 60, la industria admitió que no sabía cómo construir software a gran escala, desatando la famosa "crisis del software".
+¿Cómo pasamos de ese caos de proyectos fallidos a un proceso de ingeniería predecible?
+
 # SDLC
 
 ¡Excelente! Acepto el desafío. Prepárate para un viaje profundo al corazón de la ingeniería de software. No vamos a ver el SDLC como un aburrido diagrama de flujo, sino como la saga épica de cómo la humanidad ha intentado, y a veces fallado estrepitosamente, en domar la complejidad inherente a la creación de software.
 
-Ponte cómodo, abre tu editor de código mental y empecemos.
 
 ---
 

@@ -1,3 +1,5 @@
+¿Qué pasaría si te dijera que para construir sistemas verdaderamente resilientes, a veces tienes que dejar que tus datos estén... equivocados? Esta aparente contradicción es el secreto detrás de la consistencia eventual y de cómo gigantes como Amazon nunca fallan.
+
 # Eventual Consistency
 
 Absolutamente. Prepárate para un viaje profundo a las entrañas de los sistemas distribuidos. No solo aprenderás qué es la consistencia eventual; la sentirás en la arquitectura, la entenderás en la teoría y la dominarás en la práctica. Abróchate el cinturón, porque vamos a desmitificar uno de los conceptos más cruciales y, a menudo, malinterpretados de la ingeniería de software moderna.

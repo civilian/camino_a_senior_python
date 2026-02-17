@@ -1,6 +1,9 @@
+La mayor parte del tiempo, tu código no está calculando, está esperando. Esperando una respuesta de la red, de la base de datos, del disco.
+
+¿Y si en lugar de bloquear todo, pudieras hacer miles de cosas en esos tiempos muertos?
+
 # AsyncIO, Coroutines, Eventloop
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de elección), porque vamos a emprender un viaje profundo. No solo aprenderás a usar `asyncio`, sino que entenderás su alma, su historia y su lugar en el gran tapiz de la computación. Esta no es una guía para copiar y pegar; es una forja para moldear tu intuición como ingeniero senior.
 
 ***
 

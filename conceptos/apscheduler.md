@@ -1,6 +1,7 @@
+Todos hemos luchado con `cron` para tareas simples. Pero, ¿qué haces cuando una tarea programada necesita acceder al estado *interno* de tu aplicación Python para tomar una decisión?
+
 # APScheduler
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente una biblioteca; vamos a desentrañar el arte y la ciencia de la orquestación del tiempo en el software.
 
 ***
 

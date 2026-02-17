@@ -1,3 +1,5 @@
+¿Por qué una tecnología de los 90 sigue siendo la librería gráfica por defecto de Python? La respuesta no es simple nostalgia; es una lección magistral sobre diseño de software pragmático y duradero.
+
 # TkInter
 
 ¡Excelente! Acepto el desafío. Ponte cómodo, prepárate una taza de café (o tu bebida de compilación preferida), porque vamos a emprender un viaje profundo. No solo aprenderemos a usar TkInter; vamos a desentrañar su alma, su historia y su lugar en el panteón de la ingeniería de software.

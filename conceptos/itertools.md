@@ -1,3 +1,7 @@
+Procesar una lista con un millón de elementos es fácil. ¿Pero qué hay de una secuencia infinita?
+
+La solución no está en más memoria, sino en cambiar la forma en que *pensamos* sobre la iteración.
+
 # itertools
 
 Absolutamente. Abróchate el cinturón. Vamos a embarcarnos en un viaje que no solo te enseñará a usar `itertools`, sino que te hará *pensar* en datos de una manera fundamentalmente diferente. Dejaremos de ver los datos como colecciones estáticas en memoria y empezaremos a verlos como ríos fluidos de información, listos para ser procesados con elegancia y una eficiencia casi poética.

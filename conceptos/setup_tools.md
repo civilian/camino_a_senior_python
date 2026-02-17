@@ -1,6 +1,9 @@
+Compartir tu código de Python no debería ser más difícil que escribirlo, pero durante años fue un caos de scripts y rezos.
+
+¿Cómo pasamos de esa anarquía a un sistema robusto? La respuesta está en una herramienta que, para bien o para mal, definió una era.
+
 # Setup tools
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón del empaquetado en Python. No se trata solo de escribir un archivo `setup.py`, sino de comprender la historia, la filosofía y la ingeniería que han dado forma a cómo compartimos código en uno de los ecosistemas más vibrantes del mundo.
 
 ***
 

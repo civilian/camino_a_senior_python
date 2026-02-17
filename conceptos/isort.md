@@ -1,3 +1,5 @@
+¿Cuántas veces has resuelto un conflicto de Git solo para ver que era por un `import`? Este problema trivial esconde una verdad más profunda sobre la carga cognitiva y la artesanía del software.
+
 # isort
 
 Absolutamente. Prepárate para un viaje profundo al corazón del orden y la legibilidad en Python. No hablaremos solo de una herramienta, sino de una filosofía.

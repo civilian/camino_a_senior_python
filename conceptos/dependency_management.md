@@ -1,6 +1,7 @@
+Ese simple comando `pip install` esconde una compleja negociación matemática. ¿Qué pasa cuando dos de tus dependencias quieren versiones incompatibles de una tercera? **Ahí es donde empieza el verdadero trabajo de un ingeniero.**
+
 # Dependency Management
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar el alma de una de las disciplinas más cruciales de la ingeniería de software moderna.
 
 ---
 

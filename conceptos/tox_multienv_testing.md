@@ -1,6 +1,7 @@
+Tu código debe funcionar con Python 3.9, 3.10 y 3.11, y quizás con dos versiones distintas de Django. ¿Cómo gestionas esa **explosión combinatoria** de entornos sin caer en un laberinto de scripts?
+
 # tox (multi-env testing)
 
-¡Absolutamente! Ponte cómodo, prepárate un café (o tu bebida de compilación preferida), porque vamos a embarcarnos en un viaje profundo. No solo aprenderás a usar `tox`, sino que entenderás su alma, su historia y su lugar en el gran tapiz de la ingeniería de software.
 
 ---
 

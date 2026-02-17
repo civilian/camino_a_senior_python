@@ -1,6 +1,7 @@
+Apache Hive era robusto, pero las consultas en Facebook tardaban horas. ¿Cómo lograron reducir ese tiempo a segundos sobre los mismos petabytes de datos? La clave fue una arquitectura que no mueve la información, sino que la **orquesta**.
+
 # Presto
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), porque vamos a embarcarnos en un viaje profundo. No solo aprenderás a usar Presto; aprenderás a *pensar* en Presto. Desmitificaremos su magia para que puedas empuñarla con la precisión de un ingeniero senior.
 
 ***
 

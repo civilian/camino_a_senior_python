@@ -1,6 +1,9 @@
+¿Alguna vez te has preguntado cómo tu teléfono sabe exactamente dónde está tu cara para aplicar un filtro? No es magia, es matemática pura.
+
+Todo se reduce a tratar las imágenes como lo que realmente son: gigantescas matrices de números.
+
 # OpenCV
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una biblioteca; vamos a desentrañar el tejido mismo de la visión por computadora moderna, a través del lente de su herramienta más icónica: OpenCV.
 
 ---
 

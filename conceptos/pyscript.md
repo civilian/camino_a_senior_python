@@ -1,6 +1,8 @@
+Todos hemos construido ese stack: un backend en Python hablando por API con un frontend en JavaScript.
+¿Pero y si pudieras eliminar esa división y escribir **toda tu lógica** directamente en Python, dentro del navegador?
+
 # PyScript
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar PyScript; vamos a desentrañar su ADN, a entender su lugar en la historia de la computación y a dominarlo con la destreza de un artesano.
 
 ***
 

@@ -1,6 +1,10 @@
+Hace años, el gran desafío era el rendimiento: cómo servir 10,000 conexiones a la vez.
+Hoy, el desafío es la simplicidad y la seguridad por defecto.
+
+¿Cómo se refleja este cambio en la arquitectura de gigantes como Nginx y Caddy?
+
 # Web Servers: Nginx, Caddy
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a arañar la superficie; vamos a descender a las capas de abstracción donde residen las decisiones de arquitectura que definen sistemas robustos y escalables.
 
 ***
 

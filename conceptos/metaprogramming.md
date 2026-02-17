@@ -1,6 +1,8 @@
+¿Alguna vez te has preguntado cómo frameworks como Django o Rails logran su 'magia' para reducir tanto código repetitivo?
+No es un truco, es una técnica donde el propio código se convierte en una herramienta para generar más código.
+
 # Metaprogramming
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. Vamos a desmantelar la metaprogramación, no como una simple técnica, sino como una filosofía de diseño de software. Esta no es una guía para principiantes; es una forja para seniors.
 
 ---
 

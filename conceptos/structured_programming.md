@@ -1,6 +1,8 @@
+¿Por qué una simple instrucción como `GOTO` provocó una de las mayores crisis en la historia del software?
+La respuesta no es una "buena práctica", es una prueba matemática que define la forma en que escribes código cada día.
+
 # Structured Programming
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida) y prepárate para un viaje profundo. No vamos a aprender simplemente un concepto; vamos a desentrañar una de las revoluciones intelectuales que salvaron a la ingeniería de software de sí misma.
 
 ***
 

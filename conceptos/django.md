@@ -1,6 +1,7 @@
+¿Qué tienen en común una sala de redacción de un periódico y el desarrollo web de alta velocidad? La respuesta es Django, y su origen bajo la presión de las noticias define su filosofía hasta el día de hoy.
+
 # Django
 
-¡Absolutamente! Acomódate, colega. Vamos a embarcarnos en un viaje que va más allá de la sintaxis y los tutoriales. Exploraremos el alma de Django, su historia, su filosofía y las profundas decisiones de ingeniería que lo han convertido en el titán que es hoy. Esta no es una guía para construir tu primer blog; es una guía para entender por qué se construye de esa manera, para que puedas construir el próximo Instagram.
 
 ***
 

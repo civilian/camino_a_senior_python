@@ -1,6 +1,10 @@
+Tu código está moviendo dinero entre dos cuentas y, de repente, el servidor se reinicia.
+¿El dinero simplemente desaparece en el limbo digital?
+
+La razón por la que esto no sucede es uno de los conceptos más fundamentales y elegantes en la ingeniería de software.
+
 # Transactions
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo al corazón de la fiabilidad del software. No vamos a arañar la superficie; vamos a descender a las profundidades donde residen los gigantes de la ingeniería de datos.
 
 ---
 

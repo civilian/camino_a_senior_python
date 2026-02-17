@@ -1,6 +1,9 @@
+Elegir entre una lista y un diccionario a menudo se siente como una decisión trivial.
+Sin embargo, a escala, es una de las optimizaciones de rendimiento más críticas que existen.
+¿Estás seguro de que estás usando la estructura de datos correcta para tu problema?
+
 # collections
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente sobre listas y diccionarios; vamos a desentrañar el tejido mismo de cómo organizamos la información en la computación. Esta es la historia de las **Colecciones**.
 
 ***
 

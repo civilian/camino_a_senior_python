@@ -1,6 +1,7 @@
+¿Y si te dijera que para encontrar bugs de seguridad no analizamos el texto de tu código, sino su **estructura gramatical**? Así es como piensa Bandit, la herramienta que nació para proteger millones de líneas de código en OpenStack.
+
 # Bandit
 
-¡Absolutamente! Ponte cómodo, prepara tu bebida preferida y afila tu mente. Vamos a emprender un viaje profundo al corazón de **Bandit**, no como un simple usuario, sino como un arquitecto de software que comprende sus cimientos, domina sus complejidades y lo empuña con la precisión de un maestro.
 
 ---
 

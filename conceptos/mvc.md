@@ -1,6 +1,9 @@
+Imagina tu aplicación como una orquesta. Si la lógica de negocio, la interfaz y los datos intentan dirigirse a sí mismos, el resultado es puro ruido.
+
+¿Cómo escribimos la partitura que convierte ese caos en una sinfonía?
+
 # MVC
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a rozar la superficie; vamos a bucear en las profundidades del MVC, desde los pasillos sagrados de Xerox PARC hasta las arquitecturas distribuidas de hoy. Cuando termines, no solo sabrás *qué* es MVC, sino *por qué* es, *cómo* ha evolucionado y *cuándo* debes, con la sabiduría de un arquitecto, elegirlo o descartarlo.
 
 ---
 

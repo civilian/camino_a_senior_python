@@ -1,3 +1,6 @@
+Todos hemos usado `@` para logging o en frameworks, pero ¿entiendes por qué es más que un simple atajo?
+Es la solución elegante de Python a un problema de diseño fundamental, y dominarlo cambia por completo la forma en que estructuras tu código.
+
 # Decorators
 
 Absolutamente. Prepárate para un viaje profundo al corazón de uno de los conceptos más elegantes y poderosos de Python. No nos quedaremos en la superficie; descenderemos a las profundidades donde residen el diseño, la historia y la maestría.

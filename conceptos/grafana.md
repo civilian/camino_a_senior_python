@@ -1,6 +1,9 @@
+¿Tus métricas viven en un sistema, tus logs en otro y las trazas en un tercero?
+Cuando algo falla, te encuentras saltando entre un mar de pestañas, rico en datos pero pobre en respuestas.
+Este caos de información es exactamente el problema que Grafana fue diseñado para resolver.
+
 # Grafana
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender a hacer clic en botones; vamos a entender la máquina, su historia y su alma. Esta es la guía definitiva de Grafana, diseñada para forjar a un experto.
 
 ---
 

@@ -1,6 +1,9 @@
+¿Tus APIs devuelven 50 campos cuando el cliente solo necesita dos? ¿O, peor aún, obligan al frontend a hacer múltiples llamadas para renderizar una sola pantalla?
+
+Este desequilibrio entre lo que el servidor ofrece y lo que el cliente realmente necesita es precisamente el problema que GraphQL vino a resolver.
+
 # GraphQL (Graphene, ariadne, Tartiflette)
 
-¡Absolutamente! Póngase cómodo, sírvase un café (o su bebida de compilación preferida), y prepárese para un viaje profundo. No vamos a aprender simplemente una tecnología; vamos a diseccionar una filosofía, a entender su linaje y a dominar su aplicación con la precisión de un artesano.
 
 ***
 

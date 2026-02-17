@@ -1,6 +1,9 @@
+Tus datos de ventas, inventario y marketing viven en sistemas completamente separados. ¿Cómo haces para responder una pregunta tan simple como "cuál fue nuestro producto más rentable el mes pasado"?
+
+Ese caos es precisamente el problema que ETL vino a resolver.
+
 # ETL
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a rascar la superficie; vamos a excavar hasta los cimientos de la ingeniería de datos. Olvida las definiciones de Wikipedia. Hoy, te convertirás en un arquitecto de datos.
 
 ---
 

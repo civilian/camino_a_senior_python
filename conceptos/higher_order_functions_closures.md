@@ -1,3 +1,7 @@
+Siempre pensamos en las funciones como verbos: `calcular`, `obtener`, `enviar`. ¿Pero qué sucede si las tratamos como sustantivos, como piezas que podemos pasar, guardar y transformar?
+
+Entender ese cambio es el secreto para dejar de solo usar herramientas y empezar a forjarlas.
+
 # Higher Order Functions / Closures
 
 ¡Excelente! Acepto el desafío. Prepárate para un viaje profundo al corazón de la computación, donde las funciones no son solo verbos, sino sustantivos; no solo acciones, sino entidades que podemos moldear, pasar y transformar. Abróchate el cinturón, porque vamos a desentrañar el tejido mismo de la abstracción de software.

@@ -1,6 +1,8 @@
+¿Qué tienen en común el mundo virtual de **Second Life** y la infraestructura masiva de **OpenStack**?
+La respuesta es una ingeniosa librería de concurrencia que resolvió el problema de las 10,000 conexiones mucho antes de que `async/await` se volviera la norma.
+
 # Eventlet
 
-¡Absolutamente! Abróchate el cinturón, porque vamos a emprender un viaje profundo al corazón de la concurrencia en Python. No solo aprenderás a usar **Eventlet**, sino que entenderás su alma, su historia y su lugar en el panteón de las herramientas de ingeniería.
 
 ---
 

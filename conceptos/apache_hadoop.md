@@ -1,6 +1,7 @@
+Cuando tus datos crecen tanto que ya no puedes moverlos, tienes un problema de "gravedad". La solución, curiosamente, se inspiró en un elefante de peluche y cambió para siempre la forma en que procesamos la información a gran escala.
+
 # Apache Hadoop
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a arañar la superficie; vamos a excavar hasta los cimientos de la era del Big Data.
 
 ***
 

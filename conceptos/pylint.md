@@ -1,6 +1,7 @@
+El intérprete de Python te avisa de un `SyntaxError`, pero ¿quién te avisa de esa variable que nunca usas o de ese bloque de código duplicado que es una *bomba de tiempo*? Ahí es donde la diferencia entre código funcional y código robusto se vuelve crítica.
+
 # pylint
 
-¡Absolutamente! Ponte cómodo, toma tu editor de código favorito y una taza de café. Vamos a embarcarnos en un viaje profundo al corazón de **Pylint**. No solo aprenderás a usarlo, sino a dominarlo, a pensar *con* él, y a entender su lugar en la gran catedral de la ingeniería de software.
 
 ***
 

@@ -1,3 +1,7 @@
+La mayoría de las bases de datos sufren por la tiranía de un único "ahora", donde lectores y escritores se bloquean constantemente.
+
+¿Pero qué pasaría si rompiéramos esa regla? ¿Y si cada transacción pudiera operar en su propia versión del pasado, ignorando el caos del presente?
+
 # MVCC
 
 Absolutamente. Prepárate para un viaje profundo a las entrañas de los sistemas de bases de datos. No solo veremos el "qué" y el "cómo" del **Control de Concurrencia Multiversión (MVCC)**, sino el "porqué" fundamental que lo convierte en una de las ideas más elegantes y cruciales de la computación moderna. Al final de esta guía, no solo entenderás MVCC; lo sentirás en la arquitectura de los sistemas que construyes.

@@ -1,6 +1,8 @@
+Imagina que es la temporada navideña y tu base de datos, el corazón de Amazon.com, está a punto de colapsar.
+La solución a esa crisis no fue arreglarla, fue reinventarla por completo, dando origen a los principios de DynamoDB.
+
 # DynamoDB
 
-¡Absolutamente! Prepárate para un viaje profundo. No vamos a rozar la superficie; vamos a sumergirnos en el núcleo de DynamoDB, desde sus fundamentos teóricos hasta las trincheras de la implementación a escala de internet. Abróchate el cinturón, porque esto no es un simple tutorial, es una forja para un ingeniero de nivel senior.
 
 ***
 

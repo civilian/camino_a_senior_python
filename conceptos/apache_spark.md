@@ -1,3 +1,5 @@
+¿Y si te dijera que la mayor parte de tu código Spark no hace nada cuando lo ejecutas? En su lugar, construye un "plan de ataque" que un optimizador refina para encontrar la ruta más rápida a través de tus datos.
+
 # Apache Spark
 
 ¡Excelente! Acepto el desafío. Como un viejo artesano de código que ha visto nacer, crecer y madurar ecosistemas enteros, me complace destilar décadas de experiencia en esta guía sobre Apache Spark. No se trata solo de aprender una herramienta, sino de comprender la filosofía y la física de la computación distribuida moderna.

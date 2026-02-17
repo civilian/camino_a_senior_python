@@ -1,6 +1,7 @@
+Casi todos usamos Git, pero pocos saben que nació de la frustración de Linus Torvalds con las herramientas de su época. Su genialidad fue crear un sistema donde una 'rama' no es una copia del código, sino un simple puntero. Entender esta idea lo cambia todo.
+
 # Git
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje a las entrañas de la herramienta que, para bien o para mal, se ha convertido en el sistema nervioso central del desarrollo de software moderno. No vamos a aprender comandos, vamos a entender el alma de la máquina.
 
 ***
 

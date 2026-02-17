@@ -1,6 +1,7 @@
+¿Alguna vez te has frustrado con un `for` loop que se arrastra al procesar una lista? El verdadero culpable no es el bucle, sino la arquitectura de memoria de las listas de Python, y es un problema que NumPy resuelve de forma brillante.
+
 # NumPy
 
-¡Absolutamente! Ponte cómodo, prepara tu bebida preferida y afila tu mente. Vamos a embarcarnos en un viaje profundo, no solo para aprender a usar NumPy, sino para entender su alma, su historia y el poder que confiere a quienes lo dominan. Esta no es una simple guía; es la forja de un maestro.
 
 ---
 

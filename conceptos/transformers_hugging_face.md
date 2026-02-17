@@ -1,6 +1,9 @@
+Seguro que has importado un modelo de Hugging Face cientos de veces, pero ¿entiendes la ruptura fundamental que lo separa de las RNNs?
+
+No se trata de más capas, sino de eliminar por completo el cuello de botella del procesamiento secuencial. Vamos a ver cómo lo lograron.
+
 # Transformers (Hugging Face)
 
-¡Absolutamente! Ponte cómodo, prepárate un café (o tu bebida de compilación preferida) y prepárate para un viaje profundo. No vamos a arañar la superficie; vamos a descender a las profundidades de la arquitectura que cambió el mundo del Procesamiento del Lenguaje Natural para siempre, y la biblioteca que la puso en manos de todos.
 
 ***
 

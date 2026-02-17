@@ -1,6 +1,8 @@
+Todos amamos la simplicidad de Pandas y NumPy, pero siempre nos enfrentamos a su límite más frustrante: la memoria RAM.
+¿Y si pudieras romper esa barrera y trabajar con terabytes de datos usando la misma sintaxis que ya conoces?
+
 # Dask
 
-¡Absolutamente! Acomódense, mis queridos aprendices de la computación paralela. Hoy no vamos a aprender simplemente una librería; vamos a desentrañar una filosofía. Vamos a viajar al corazón de cómo el ecosistema Python, ese gigante amable y versátil, aprendió a pensar en paralelo y a conquistar datos que exceden los confines de la memoria. Esta es la historia de Dask.
 
 ---
 

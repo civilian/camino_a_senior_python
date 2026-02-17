@@ -1,6 +1,9 @@
+Muchos desarrolladores *usan* PostgreSQL, pero pocos lo *comprenden* de verdad.
+¿Qué lo hace tan diferente a otras bases de datos?
+Para entender su poder, tenemos que ignorar el `CREATE TABLE` y empezar en una universidad en los años 70.
+
 # PostgreSQL
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o un té, si eres más de la escuela de pensamiento de Dijkstra) y prepárate para un viaje profundo. No vamos a arañar la superficie; vamos a bucear hasta las fosas abisales de PostgreSQL, el elefante azul que ha conquistado el mundo de las bases de datos.
 
 ---
 

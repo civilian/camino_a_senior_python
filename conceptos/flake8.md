@@ -1,6 +1,9 @@
+Muchos vemos `flake8` como un simple validador de PEP 8, una formalidad más en el pipeline.
+Pero, ¿y si te digo que su origen está en resolver una "guerra de herramientas" y en aplicar teoría de la computación de los años 70 a nuestro código?
+Vamos a desempacar la historia y la ciencia que se esconden detrás de esta herramienta fundamental.
+
 # flake8
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de la calidad del código en Python. No veremos a `flake8` como un simple comando, sino como la culminación de décadas de pensamiento en ingeniería de software, encapsulado en una herramienta elegante y poderosa.
 
 ***
 

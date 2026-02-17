@@ -1,6 +1,7 @@
+Cuando una aplicación falla, su estado en memoria se desvanece como si nunca hubiera existido. ¿Cómo reconstruimos sus últimos momentos? La clave está en su **caja negra**: el sistema de logging.
+
 # logging
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón del software. No veremos el logging como una simple tarea, sino como el arte de hacer que nuestros sistemas nos cuenten su propia historia. Como un viejo marinero confía en su bitácora para navegar en la tormenta, un ingeniero senior confía en sus logs para navegar la complejidad del software en producción.
 
 ---
 

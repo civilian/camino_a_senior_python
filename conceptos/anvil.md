@@ -1,3 +1,7 @@
+Has escrito incontables líneas de Python, solo para verte atrapado escribiendo APIs, lidiando con CORS y duplicando lógica en JavaScript.
+
+¿Y si toda esa complejidad fuera una elección, y no una necesidad?
+
 # Anvil
 
 ¡Excelente! Acepto el desafío. Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar su filosofía, su historia y su lugar en el gran tapiz de la ingeniería de software. Vamos a forjar tu conocimiento.

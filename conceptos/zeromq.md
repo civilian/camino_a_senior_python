@@ -1,3 +1,5 @@
+¿Y si te dijera que la clave para la mensajería de alto rendimiento no es un broker más grande, sino eliminarlo por completo? Esta idea, casi una herejía en su momento, es el corazón de ZeroMQ.
+
 # ZeroMQ
 
 ¡Excelente! Acepto el desafío. Prepárense para un viaje profundo al corazón de la mensajería de alto rendimiento. No vamos a aprender simplemente una API; vamos a desentrañar una filosofía de diseño de sistemas distribuidos. Pónganse cómodos, porque esto va más allá de la sintaxis.

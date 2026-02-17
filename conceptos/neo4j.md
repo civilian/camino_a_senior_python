@@ -1,6 +1,7 @@
+Hemos pasado décadas forzando nuestros datos a vivir en tablas, pero ¿y si la pieza más valiosa de la información no son los datos, sino las **relaciones** entre ellos? Este cambio de perspectiva es el que resuelve la tiranía del `JOIN`.
+
 # Neo4j
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de las bases de datos de grafos. No nos quedaremos en la superficie; descenderemos a las capas teóricas, exploraremos las decisiones de ingeniería y emergeremos con la sabiduría de un arquitecto de software senior.
 
 ---
 

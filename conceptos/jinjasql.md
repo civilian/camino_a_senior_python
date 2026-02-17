@@ -1,6 +1,9 @@
+Nos encanta la flexibilidad de Jinja para construir queries dinámicas, pero en el fondo, a menudo solo estamos concatenando strings de forma peligrosa.
+
+¿Cómo podemos usar todo su poder sin abrir la puerta a la inyección SQL?
+
 # jinjasql
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de la construcción segura y dinámica de SQL. No solo aprenderemos a usar `jinjasql`, sino que entenderemos su alma, su lugar en la historia de la computación y por qué representa una solución tan elegante a un problema endémico y peligroso.
 
 ---
 

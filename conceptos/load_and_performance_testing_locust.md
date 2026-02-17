@@ -1,6 +1,7 @@
+Has construido una aplicación increíble, pero ¿estás seguro de que sobrevivirá a su propio éxito? A veces, el pico de tráfico que siempre soñaste es precisamente lo que termina tumbando tu sistema.
+
 # Load and Performance Testing (Locust)
 
-¡Absolutamente! Prepárate para un viaje profundo. No solo aprenderás a usar una herramienta; entenderás la filosofía, la ciencia y el arte detrás de las pruebas de carga y rendimiento. Abróchate el cinturón, porque vamos a desmantelar a Locust hasta sus fundamentos y reconstruirlo en tu mente como un experto.
 
 ---
 

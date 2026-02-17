@@ -1,6 +1,8 @@
+Acceder a la potencia de una supercomputadora hoy es tan simple como hacer una llamada HTTP.
+La verdadera pregunta es: ¿cómo usamos ese poder para construir aplicaciones que no solo *funcionan*, sino que *razonan*?
+
 # OpenAI API
 
-¡Absolutamente! Ponte cómodo, programador. Vamos a embarcarnos en un viaje que no solo te enseñará a usar una herramienta, sino a pensar en una nueva era de la computación. No estás aquí para aprender a llamar a un endpoint; estás aquí para convertirte en un arquitecto de la inteligencia artificial aplicada.
 
 ***
 

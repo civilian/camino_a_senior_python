@@ -1,3 +1,5 @@
+Generar un PDF desde código a menudo se siente como pintar píxel por píxel. Pero, ¿y si la clave para dominarlo no fuera el pincel, sino la batuta de un director de orquesta?
+
 # ReportLab
 
 De acuerdo. Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo al corazón de la generación de documentos en Python. No vamos a aprender simplemente a usar una biblioteca; vamos a desentrañar su filosofía, su historia y el arte de dominarla como un verdadero maestro artesano del software.

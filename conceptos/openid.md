@@ -1,3 +1,6 @@
+¿Alguna vez te has preguntado qué sucede realmente al hacer clic en "Iniciar sesión con Google"?
+Detrás de esa simplicidad se esconde una fascinante historia de protocolos en guerra y la solución a la eterna tiranía de la tabla `users`.
+
 # OpenID
 
 Absolutamente. Acomódate, colega. Vamos a embarcarnos en un viaje profundo. No solo aprenderás sobre OpenID; entenderás su alma, su historia y su lugar en el gran tapiz de la computación. Olvida las guías superficiales. Hoy, forjaremos un entendimiento de nivel senior.

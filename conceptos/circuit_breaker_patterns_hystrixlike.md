@@ -1,6 +1,7 @@
+En sistemas distribuidos, un solo servicio lento puede actuar como la primera ficha de un dominó, derribando todo a su paso. ¿Cómo podemos instalar un cortafuegos que detenga esa caída en cascada antes de que sea demasiado tarde?
+
 # Circuit Breaker Patterns (Hystrix-like)
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente un patrón; vamos a desentrañar una filosofía de resiliencia que separa a los sistemas robustos de los castillos de naipes digitales.
 
 ***
 

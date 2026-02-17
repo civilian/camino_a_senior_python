@@ -1,3 +1,7 @@
+¿Qué haces cuando tu base de datos se vuelve tan masiva que ni el servidor más potente del mundo puede con ella?
+No es un problema de hardware, es un problema de arquitectura fundamental.
+Y su solución, el sharding, es una de las herramientas más poderosas y peligrosas que existen.
+
 # Sharding
 
 Absolutamente. Abróchate el cinturón. Vamos a embarcarnos en un viaje profundo, no solo para entender el *qué* y el *cómo* del sharding, sino el *porqué* fundamental que lo convierte en una de las herramientas más poderosas y peligrosas en el arsenal de un ingeniero de software senior. Esta no es una guía superficial; es un mapa para navegar las aguas turbulentas de la escalabilidad masiva.

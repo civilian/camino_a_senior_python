@@ -1,6 +1,7 @@
+¿Por qué un sistema puede cambiar su base de datos o su servicio de pagos sin colapsar? No es magia, es un "contrato". Entender cómo funcionan estos contratos es la diferencia entre un código frágil y una arquitectura robusta.
+
 # Interfaces / Abstract Classes / Properties
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a rascar la superficie; vamos a excavar hasta los cimientos de la abstracción en la programación orientada a objetos. Esta no es solo una guía, es una crónica sobre cómo aprendimos a construir catedrales de software en lugar de chozas de código.
 
 ---
 

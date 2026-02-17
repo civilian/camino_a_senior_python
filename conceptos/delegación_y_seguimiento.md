@@ -1,6 +1,7 @@
+**¿Alguna vez has sentido que por querer una simple "banana" terminas arrastrando al "gorila" y a toda la jungla?** Este es el problema clásico de la herencia, y su solución es un principio de diseño sorprendentemente elegante que lo cambia todo.
+
 # Delegación y Seguimiento
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender un simple truco de código; vamos a desentrañar una filosofía de diseño que separa a los programadores que construyen software de los arquitectos que diseñan sistemas resilientes.
 
 ---
 

@@ -1,6 +1,8 @@
+En 2016, un framework con nombre de meme prometió una velocidad absurda para el desarrollo web en Python.
+¿Fue solo marketing, o realmente cambió las reglas del juego para las aplicaciones que viven esperando por la red o la base de datos?
+
 # Sanic
 
-¡Absolutamente! Ponte cómodo, prepárate una taza de café (o tu bebida de alta energía preferida), porque vamos a emprender un viaje profundo. No solo aprenderemos a usar Sanic; vamos a desensamblarlo, entender su alma y reconstruirlo en nuestra mente como lo haría un ingeniero senior.
 
 ***
 

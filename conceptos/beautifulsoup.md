@@ -1,6 +1,11 @@
+La mayoría del HTML en la web es una caótica "sopa de etiquetas" que rompería cualquier parser estricto.
+
+Entonces, ¿cómo es que tu navegador puede leerlo sin problemas, pero tu script de scraping no?
+
+Vamos a desvelar ese secreto y a usarlo a nuestro favor.
+
 # BeautifulSoup
 
-¡Absolutamente! Ponte cómodo, prepárate una taza de tu bebida preferida y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar su alma, su historia y su filosofía. Vamos a convertirte en un maestro de la sopa digital.
 
 ***
 

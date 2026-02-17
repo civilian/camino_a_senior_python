@@ -1,6 +1,9 @@
+Todos conocemos ese escalofrío al cambiar código antiguo, esperando no romper algo sin darnos cuenta.
+Esa "entropía del software" es un problema real, pero tiene solución.
+Vamos a ver cómo construir una red de seguridad que nos permita programar y refactorizar sin miedo.
+
 # Unit Testing (unittest, pytest)
 
-¡Absolutamente! Prepárate para un viaje profundo. No vamos a aprender simplemente a escribir tests; vamos a desentrañar el *alma* del testing, su historia, su filosofía y su arte. Como un maestro relojero que no solo ensambla un reloj, sino que comprende la física de cada engranaje y resorte, tú comprenderás el Unit Testing a un nivel que te permitirá construir software robusto, mantenible y elegante.
 
 ---
 

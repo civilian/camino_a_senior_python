@@ -1,6 +1,7 @@
+Usas el operador punto (`.`) todos los días, pero ¿qué sucede realmente detrás de esa simple operación? La respuesta es el protocolo que unifica `@property`, los métodos y todo el modelo de objetos de Python.
+
 # Descriptors
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón del modelo de objetos de Python. No vamos a arañar la superficie; vamos a descender a las catacumbas donde residen los mecanismos que dan a Python su elegancia y poder. Abróchate el cinturón.
 
 ***
 

@@ -1,6 +1,7 @@
+Las tareas en segundo plano no deberían requerir una configuración monumental. ¿Y si pudieras delegar trabajo pesado, como generar un informe, con la misma simplicidad con la que agregas un elemento a una lista de Python?
+
 # RQ (Redis Queue)
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente una librería; vamos a desentrañar una filosofía de diseño de software encarnada en una herramienta elegantemente simple. Esta es la saga de RQ.
 
 ***
 

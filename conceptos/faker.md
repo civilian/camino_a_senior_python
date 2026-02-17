@@ -1,6 +1,9 @@
+Tus pruebas pasan con `test_user_1`, pero los bugs siguen llegando a producción. El problema es que estos datos "fantasma" no capturan la caótica realidad del mundo real.
+
+¿Cómo creamos avatares digitales que sí pongan a prueba nuestro código de verdad?
+
 # Faker
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar una filosofía, a entender el "porqué" que transforma a un buen programador en un arquitecto de software.
 
 Aquí tienes la guía definitiva sobre **Faker**.
 

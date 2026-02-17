@@ -1,6 +1,8 @@
+Antes de que existiera TensorFlow, el equipo de Google Brain usaba una herramienta interna llamada DistBelief.
+¿Qué la hacía tan potente pero a la vez tan frustrante para trabajar? Las lecciones aprendidas en esa etapa dieron forma a la librería que todos usamos hoy.
+
 # TensorFlow
 
-¡Absolutamente! Ponte cómodo, colega programador. Vamos a embarcarnos en un viaje que trasciende el simple "import tensorflow as tf". Desmitificaremos esta catedral de la computación, no solo para usarla, sino para entender su alma, su historia y su poder. Olvida los tutoriales superficiales; hoy nos convertimos en arquitectos de la inteligencia artificial.
 
 ***
 

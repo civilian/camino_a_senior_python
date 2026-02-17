@@ -1,6 +1,9 @@
+Te piden analizar un archivo de logs de un terabyte. Tu primer instinto podría hacer que el sistema explote por falta de memoria.
+
+Pero, ¿y si la solución fuera procesar los datos sorbo a sorbo, en lugar de intentar beberte el lago entero?
+
 # Generators, Iterators
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar `yield`; vamos a desentrañar el tejido mismo de la computación secuencial, desde sus raíces teóricas hasta sus aplicaciones más avanzadas en sistemas a gran escala.
 
 ***
 

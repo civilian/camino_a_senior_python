@@ -1,6 +1,7 @@
+¿Por qué Selenium tuvo que reinventarse por completo, pasando de un hack de JavaScript a un estándar del W3C? La respuesta está en un muro de seguridad que casi todos ignoran, pero que define la historia de la automatización web.
+
 # Selenium
 
-¡Absolutamente! Ponte cómodo, prepárate una taza de café (o tu bebida de compilación preferida), porque vamos a embarcarnos en un viaje profundo. No solo aprenderemos a usar Selenium, sino a *pensar* en Selenium. Desmontaremos el motor, entenderemos cada engranaje y aprenderemos a conducirlo no como un aficionado, sino como un piloto de carreras en el circuito de la automatización web.
 
 ***
 

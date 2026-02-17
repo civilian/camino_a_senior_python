@@ -1,6 +1,7 @@
+La mayor parte del código de tu aplicación no lo escribiste tú, sino cientos de desarrolladores anónimos. ¿Cómo te aseguras de que una vulnerabilidad, oculta en una de esas dependencias, no comprometa todo tu sistema?
+
 # Dependency Scanning (e.g., `safety`, `pip-audit`)
 
-¡Absolutamente! Ponte cómodo, prepárate un café, porque vamos a embarcarnos en un viaje profundo. No solo aprenderás a ejecutar un comando; entenderás la filosofía, la historia y la matemática detrás de él. Te convertirás en el arquitecto que no solo sabe qué ladrillos usar, sino que entiende la geología de la cantera de donde provienen.
 
 ---
 

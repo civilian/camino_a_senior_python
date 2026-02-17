@@ -1,6 +1,7 @@
+Los microservicios pueden darle a tu equipo una velocidad increíble o convertirse en el **desastre distribuido más caro de tu carrera**. La diferencia no está en la tecnología que usas, sino en los principios que ignoras.
+
 # Microservices
 
-¡Absolutamente! Ponte cómodo, prepara tu bebida preferida y prepárate para un viaje profundo. No vamos a rozar la superficie; vamos a sumergirnos en las profundidades de la arquitectura de microservicios, explorando no solo el "qué" y el "cómo", sino el "por qué" fundamental que separa a un desarrollador competente de un verdadero arquitecto de software.
 
 ---
 

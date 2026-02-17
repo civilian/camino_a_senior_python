@@ -1,3 +1,5 @@
+¿Recuerdas la elegancia de `$('div#main p.intro')` en jQuery? Resulta que esa misma filosofía de "escribe menos, haz más" fue portada a Python, y puede transformar por completo la forma en que parseas HTML.
+
 # pyQuery
 
 ¡Excelente! Acepto el desafío. Prepárate para un viaje profundo al corazón de `pyQuery`, desde sus raíces filosóficas hasta sus aplicaciones más avanzadas. Esta no es solo una guía; es una crónica de ingeniería, un manual de maestría y un homenaje a la elegancia en el diseño de APIs.

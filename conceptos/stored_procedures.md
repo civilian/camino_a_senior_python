@@ -1,6 +1,8 @@
+Muchos desarrolladores modernos ven los Stored Procedures como una reliquia, casi un anti-patrón.
+¿Y si en realidad fueran tu arma secreta para **blindar la seguridad** y **disparar el rendimiento** de tus aplicaciones?
+
 # Stored Procedures
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a escribir un `CREATE PROCEDURE`; vamos a desmantelar el concepto, entender su alma y reconstruirlo con la sabiduría de un arquitecto de sistemas senior.
 
 ***
 

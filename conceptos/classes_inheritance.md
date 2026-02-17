@@ -1,6 +1,7 @@
+¿Qué tienen en común el ADN de un mamífero y el código de un sistema de software robusto? Ambos se basan en un plano maestro que permite crear especializaciones complejas, como una ballena o un murciélago, sin tener que empezar desde cero.
+
 # Classes/Inheritance
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a escribir `class`, vamos a entender el alma de la máquina, el eco de la historia y la filosofía del diseño que se esconde detrás de una de las ideas más transformadoras de la computación.
 
 ---
 

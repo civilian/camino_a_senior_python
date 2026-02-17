@@ -1,6 +1,7 @@
+¿Cómo logró Python pasar de ser "lento" para APIs a competir cara a cara con NodeJS y Go? La respuesta no está en un nuevo truco, sino en usar los `type hints` de una forma que nadie había imaginado antes.
+
 # FastAPI
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar FastAPI; vamos a desensamblarlo, entender su alma y reconstruirlo en nuestra mente como lo haría un ingeniero senior.
 
 ***
 

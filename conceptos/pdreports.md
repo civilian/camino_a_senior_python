@@ -1,6 +1,7 @@
+En 2008, en plena crisis financiera, un analista estaba atrapado en un "infierno de dos lenguajes". La solución que creó para escapar de él se convirtió en la herramienta que hoy define la ciencia de datos en Python.
+
 # pdReports
 
-¡Absolutamente! Ponte cómodo, colega programador. Vamos a embarcarnos en un viaje profundo, no solo para aprender una herramienta, sino para dominar un arte. La guía que tienes ante ti no es un simple tutorial; es un tratado sobre la filosofía, la historia y la maestría de la generación de informes con `pandas`, un concepto que encapsularemos bajo el nombre de **`pdReports`**.
 
 Mi objetivo es que, al finalizar esta lectura, no solo sepas *cómo* usar el código, sino que entiendas el *porqué* de cada línea, el peso de las decisiones de diseño y el eco de la historia de la computación en cada DataFrame que manipules.
 

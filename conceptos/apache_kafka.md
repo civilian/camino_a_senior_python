@@ -1,6 +1,8 @@
+A finales de los 2000, los ingenieros de LinkedIn se ahogaban en una "arquitectura espagueti".
+Su solución no fue crear otra cola de mensajes, sino reinventar por completo la forma en que los datos fluyen en una organización.
+
 # Apache Kafka
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida) y prepárate para un viaje profundo. No vamos a arañar la superficie; vamos a descender a las profundidades de la maquinaria, la filosofía y el arte de Apache Kafka. Como un viejo maestro artesano, te guiaré a través de cada capa, desde el mineral en bruto de la idea hasta el acero pulido de la implementación experta.
 
 ---
 

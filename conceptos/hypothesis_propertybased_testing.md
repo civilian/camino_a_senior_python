@@ -1,3 +1,6 @@
+Has escrito cientos de tests, tienes una cobertura del 95%, y aun así un bug se cuela en producción.
+¿Qué ha fallado? El problema no es tu cobertura, es el límite de tu propia imaginación.
+
 # hypothesis (property-based testing)
 
 Absolutamente. Prepárate para un viaje profundo. No vamos a aprender simplemente una biblioteca; vamos a desentrañar una filosofía de prueba que cambiará tu forma de pensar sobre la corrección del software. Abróchate el cinturón, porque esto es más que un tutorial; es una clase magistral.

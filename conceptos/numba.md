@@ -1,6 +1,8 @@
+Python hizo un pacto con nosotros: nos dio una simplicidad increíble a cambio de velocidad.
+¿Y si te dijera que podemos romper ese pacto y obtener el rendimiento de C sin abandonar la comodidad de Python?
+
 # Numba
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar su alma, su historia y su lugar en el gran tapiz de la computación. Esta no es una guía para copiar y pegar decoradores; es para forjar maestros.
 
 ***
 

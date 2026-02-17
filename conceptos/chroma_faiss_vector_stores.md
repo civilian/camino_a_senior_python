@@ -1,6 +1,7 @@
+La búsqueda semántica es una maravilla, hasta que la "Maldición de la Dimensionalidad" golpea tu sistema con millones de vectores. FAISS y Chroma ofrecen soluciones, pero con filosofías radicalmente opuestas. ¿Cuándo deberías elegir la potencia bruta sobre la elegancia para el desarrollador?
+
 # Chroma / FAISS (vector stores)
 
-¡Absolutamente! Ponte cómodo, prepárate un café (o tu bebida de compilación preferida), porque vamos a emprender un viaje profundo. No solo aprenderás a usar una API; desentrañaremos la historia, la matemática y el arte detrás de la búsqueda en el vasto cosmos de los datos no estructurados. Esta no es una guía más, es el mapa del tesoro para convertirte en un arquitecto de la búsqueda semántica.
 
 ---
 

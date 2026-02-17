@@ -1,6 +1,7 @@
+¿Alguna vez te has preguntado qué hace a Jinja2 tan absurdamente rápido? No es un simple reemplazo de texto, como muchos creen. En realidad, estás trabajando con un **compilador** que transforma tus plantillas en bytecode de Python optimizado.
+
 # Jinja2
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de la generación de texto. No solo aprenderás a usar Jinja2; entenderás su alma, su historia y su lugar en el panteón de las herramientas de software. Abróchate el cinturón, porque vamos a transformar tu comprensión de un simple motor de plantillas a una poderosa herramienta de diseño de software.
 
 ***
 

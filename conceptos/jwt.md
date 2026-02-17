@@ -1,6 +1,7 @@
+Si alguna vez has pegado un JWT en un decodificador online, sabes que su contenido no es ningún secreto. Entonces, ¿dónde reside la magia que lo hace seguro para autenticar a millones de usuarios en arquitecturas complejas?
+
 # JWT
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente sobre JWT; vamos a desentrañar su esencia, su historia y su alma para que puedas manejarlo con la maestría de un veterano.
 
 ***
 

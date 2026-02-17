@@ -1,6 +1,9 @@
+Cada vez que escribes `pip install`, estás usando una pieza de infraestructura global que sirve miles de millones de descargas.
+
+¿Cómo pasamos del caos de compartir archivos por email a este sistema tan fundamental para el ecosistema Python?
+
 # PyPI
 
-¡Absolutamente! Ponte cómodo, prepárate una taza de tu bebida preferida y prepárate para un viaje profundo. No vamos a aprender a usar `pip install` y ya está. Vamos a desentrañar el alma de PyPI, a entender su historia, su arquitectura y su filosofía. Al final de esta guía, no solo sabrás *cómo* interactuar con el ecosistema de paquetes de Python, sino que entenderás el *porqué* de su diseño y podrás tomar decisiones de arquitectura con la confianza de un verdadero senior.
 
 ***
 

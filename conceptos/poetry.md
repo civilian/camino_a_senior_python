@@ -1,3 +1,5 @@
+¿Sabías que cada vez que ejecutas `poetry lock` estás resolviendo uno de los problemas **NP-hard** más comunes en la ingeniería de software? No es solo una herramienta, es ciencia de la computación aplicada.
+
 # poetry
 
 Absolutamente. Abróchate el cinturón. Vamos a embarcarnos en un viaje que no solo te enseñará a usar una herramienta, sino a comprender la filosofía, la historia y la ciencia de la computación que la sustentan. Esto no es un tutorial; es una investidura.

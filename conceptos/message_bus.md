@@ -1,6 +1,7 @@
+¿Te has enfrentado a un sistema donde todo está conectado con todo, un verdadero **"espagueti" de dependencias**? Existe una idea, más que una herramienta, que actúa como un cartero invisible para poner orden en ese caos.
+
 # Message Bus
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a rascar la superficie; vamos a excavar hasta los cimientos del **Message Bus**, desenterrando su historia, su teoría y su arte. Al final de esta guía, no solo sabrás *cómo* usar un Message Bus, sino *por qué* existe, *cuándo* es una genialidad y *cuándo* es un cañón para matar mosquitos.
 
 ---
 

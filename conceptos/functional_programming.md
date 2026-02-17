@@ -1,6 +1,7 @@
+¿Por qué algunos sistemas son como un reloj suizo, predecibles y robustos, mientras que otros son un castillo de naipes que se derrumba con un solo cambio? La respuesta no está en la complejidad de las piezas, sino en cómo las *componemos*.
+
 # Functional Programming
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o un té, si prefieres la calma de la inmutabilidad) y prepárate para un viaje profundo. No vamos a aprender simplemente una lista de funciones; vamos a desentrañar una filosofía de construcción de software que es tan antigua como la computación misma, pero más relevante que nunca.
 
 ---
 

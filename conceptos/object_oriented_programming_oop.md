@@ -1,6 +1,7 @@
+Probablemente ya dominas la herencia y el polimorfismo, pero ¿sabes por qué existen realmente? La OOP no fue una simple elección de diseño, sino una solución de emergencia a la "crisis del software" que casi colapsa nuestra industria.
+
 # Object Oriented Programming (OOP)
 
-¡Absolutamente! Prepárate para un viaje profundo. No vamos a aprender simplemente qué es la Programación Orientada a Objetos (OOP); vamos a desentrañar su alma, su historia y su filosofía. Abróchate el cinturón, porque esto no es un tutorial, es una odisea.
 
 ---
 

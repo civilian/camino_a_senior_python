@@ -1,6 +1,7 @@
+Todos usamos `.fit()` y `.predict()`, pero ¿te has preguntado por qué esa simple API cambió el Machine Learning para siempre? Su verdadero genio no está en los algoritmos, sino en cómo resolvió un problema fundamental de ingeniería.
+
 # Scikit-learn
 
-¡Absolutamente! Ponte cómodo, porque vamos a emprender un viaje profundo. No solo aprenderemos a usar una herramienta; desentrañaremos su filosofía, su historia y el genio que la convirtió en la piedra angular del Machine Learning en Python. Esta no es una guía para usar una API, es una guía para pensar como un maestro artesano que elige y maneja su mejor herramienta con intención y sabiduría.
 
 ---
 

@@ -1,6 +1,7 @@
+Muchos desarrolladores asumen que Django usa MVC, pero no es del todo cierto. La clave está en su "Vista", que en realidad no se comporta como una vista tradicional. Entender esta distinción pragmática es fundamental para dominar el framework.
+
 # MVT
 
-¡Absolutamente! Prepárate para un viaje profundo. No solo aprenderemos qué es MVT, sino que desentrañaremos su alma, su historia y su lugar en el gran tapiz de la ingeniería de software. Al final de esta guía, no solo usarás el patrón; lo entenderás a un nivel fundamental, como un maestro artesano entiende la veta de la madera.
 
 ---
 

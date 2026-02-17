@@ -1,6 +1,9 @@
+Como arquitectos de software, ¿cuál es nuestra decisión más crítica?
+No es el framework que elegimos, sino una pregunta mucho más fundamental: **¿qué objeto debe hacer qué cosa?**
+Una mala respuesta es lo que crea ese "Big Ball of Mud" que todos tememos.
+
 # GRASP
 
-¡Absolutamente! Prepárate para una inmersión profunda en el arte y la ciencia del diseño de software. No vamos a recitar definiciones; vamos a desentrañar la filosofía que subyace en la creación de software robusto, mantenible y elegante. Abróchate el cinturón, porque este no es un simple tutorial, es un viaje al corazón del diseño orientado a objetos.
 
 ---
 

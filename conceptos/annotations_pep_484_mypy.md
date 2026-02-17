@@ -1,6 +1,8 @@
+¿Qué tienen en común una crisis de código en Dropbox y la forma en que escribimos Python hoy?
+Todo empezó cuando el propio Guido van Rossum se dio cuenta de que necesitábamos un contrato más fuerte que una simple promesa en un docstring.
+
 # Annotations (PEP 484, mypy)
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o un té, si eres más de la escuela de pensamiento de Dijkstra), y prepárate para un viaje profundo. No vamos a aprender simplemente una sintaxis; vamos a desentrañar una filosofía que ha remodelado el Python moderno.
 
 ---
 

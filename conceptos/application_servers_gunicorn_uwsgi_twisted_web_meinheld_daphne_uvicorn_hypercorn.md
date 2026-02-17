@@ -1,6 +1,9 @@
+Tu aplicación en Flask o FastAPI funciona perfectamente en tu máquina. Pero, ¿qué pasa realmente cuando 1000 usuarios la usan a la vez?
+
+La diferencia entre un servicio robusto y un colapso total no está en tu código, sino en la capa que lo ejecuta.
+
 # Application Servers: Gunicorn, uWSGI, Twisted Web, meinheld, Daphne, Uvicorn, Hypercorn
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. Vamos a desmitificar esas cajas negras que se sientan entre tu código y el mundo. No solo aprenderás a usarlas; aprenderás a *pensar* como ellas.
 
 ***
 

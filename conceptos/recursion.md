@@ -1,6 +1,10 @@
+¿Qué tienen en común un bucle `for` y una función que se llama a sí misma?
+A nivel teórico, son dos caras de la misma moneda, una idea que nació en los inicios de la computación.
+
+Entender esta dualidad no solo es fascinante, sino que cambia la forma en que resuelves problemas complejos.
+
 # Recursion
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o un té, si eres más del tipo funcional), y prepárate para un viaje profundo. No vamos a aprender simplemente a escribir una función que se llama a sí misma. Vamos a desentrañar el alma de la recursión, desde sus raíces filosóficas hasta su implementación en el silicio. Al final de esta guía, no solo usarás la recursión; la *entenderás* a un nivel que te permitirá defenderla, criticarla y dominarla.
 
 ***
 

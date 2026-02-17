@@ -1,6 +1,9 @@
+La web se construyó sobre un monólogo: el cliente pide, el servidor responde.
+¿Pero qué pasa cuando necesitas que el servidor te hable *primero*?
+Ese cambio fundamental de monólogo a diálogo es la razón por la que existen los WebSockets.
+
 # WebSockets
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a arañar la superficie; vamos a bucear hasta las fosas abisales de la comunicación en tiempo real.
 
 ***
 

@@ -1,6 +1,7 @@
+¿Por qué nuestras aplicaciones se sienten lentas si las CPUs son increíblemente rápidas? A menudo, el cuello de botella no está en el código, sino en la espera al disco. Redis nació precisamente para eliminar esa espera.
+
 # Redis
 
-¡Absolutamente! Ponte cómodo, colega. Vamos a embarcarnos en un viaje profundo. No solo aprenderás a usar Redis; aprenderás a *pensar* en Redis. Desmontaremos la máquina, veremos sus engranajes y entenderemos el genio detrás de su aparente simplicidad. Cuando terminemos, no solo serás un usuario, serás un estratega.
 
 ---
 

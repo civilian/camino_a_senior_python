@@ -1,6 +1,9 @@
+Todos hemos generado HTML dinámico que termina con etiquetas rotas o un bug de XSS.
+
+¿Pero qué pasaría si, en lugar de manipular texto, pudiéramos construir el documento como un flujo de eventos, garantizando que la estructura sea siempre perfecta?
+
 # Genshi
 
-¡Absolutamente! Prepárate para un viaje profundo al corazón de Genshi. No solo aprenderemos a usarlo, sino que entenderemos su alma, su filosofía y su lugar en la gran catedral de la ingeniería de software. Abróchate el cinturón, porque vamos a desentrañar la historia, la teoría y la práctica de una de las herramientas de plantillas más elegantes y rigurosas jamás creadas.
 
 ---
 

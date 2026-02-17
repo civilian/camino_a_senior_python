@@ -1,6 +1,7 @@
+¿Te encanta la simplicidad de la API de Flask, pero te frustra cómo una simple llamada a la base de datos puede detener todo tu sistema? Existe una forma de tener lo mejor de ambos mundos, y es la evolución natural que el propio equipo de Flask ha adoptado.
+
 # Quart
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a *usar* Quart; vamos a desentrañar su alma, a entender su lugar en la historia de la computación y a dominarlo como un verdadero artesano del software.
 
 ***
 

@@ -1,6 +1,8 @@
+Estamos acostumbrados a pedir datos con un bucle `for`, un modelo de *extracción*.
+¿Pero qué pasaría si invirtiéramos el control, y los flujos de datos nos *empujaran* los valores a nosotros, justo cuando suceden?
+
 # Reactive (RxPy)
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente una librería; vamos a desentrañar un paradigma que cambió la forma en que concebimos el flujo de datos y los eventos.
 
 ---
 

@@ -1,6 +1,7 @@
+¿Alguna vez te has encontrado con un archivo llamado `final_model_v2_for_real_this_time.pkl` y has sido incapaz de replicar cómo llegaste a él? Ese caos en el versionado de experimentos es un problema de ingeniería, no de ciencia, y tiene una solución sistemática.
+
 # MLflow
 
-¡Absolutamente! Ponte cómodo, toma tu bebida preferida y prepárate para un viaje profundo. No vamos a aprender simplemente a usar una herramienta; vamos a desentrañar la filosofía, la historia y la maestría detrás de la gestión del ciclo de vida del Machine Learning con MLflow. Esto no es un tutorial, es un rito de iniciación.
 
 ---
 

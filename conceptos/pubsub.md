@@ -1,6 +1,7 @@
+¿Cómo notificas un cambio de precio a cientos de traders en Wall Street **al instante**, sin que tu sistema se convierta en un cuello de botella? La solución a este problema de los 90 es hoy la columna vertebral de la nube y los sistemas distribuidos.
+
 # PubSub
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), porque estamos a punto de embarcarnos en un viaje profundo. No solo aprenderás sobre PubSub; entenderás su alma, su historia y su lugar en el gran tapiz de la computación. Esto no es un tutorial, es una transferencia de conocimiento de un veterano a un futuro arquitecto de sistemas.
 
 ***
 

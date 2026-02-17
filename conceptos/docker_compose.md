@@ -1,6 +1,7 @@
+¿Alguna vez te has encontrado haciendo malabares con terminales y largos comandos `docker run` solo para levantar tu API y su base de datos? Existe una forma de definir toda esa *sinfonía* en un solo lugar y lanzarla con un único comando.
+
 # Docker Compose
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar Docker Compose; vamos a desentrañar su esencia, su historia y su lugar en el gran tapiz de la ingeniería de software. Al final de esta guía, no solo sabrás escribir un archivo `docker-compose.yml`, sino que entenderás el *porqué* de cada línea y podrás defender tus decisiones de arquitectura como un verdadero veterano.
 
 ***
 

@@ -1,3 +1,5 @@
+¿Y si te dijera que el estándar de monitoreo para Kubernetes nació de un sistema 'secreto' de Google de principios de los 2000? **Prometheus** no inventó el monitoreo a gran escala, pero sí lo liberó para todos nosotros.
+
 # Prometheus
 
 ¡Excelente! Acepto el desafío. Prepárate para un viaje profundo al corazón del monitoreo moderno. Nos sumergiremos en la filosofía, la historia y la técnica de una herramienta que no solo observa sistemas, sino que encarna un cambio de paradigma en cómo entendemos la salud de la infraestructura digital.

@@ -1,6 +1,7 @@
+¿Por qué una de las bases de datos más populares del mundo nació de una rebelión? Porque los desarrolladores estaban hartos de la tiranía del `ALTER TABLE` y de sistemas que simplemente no podían escalar con la web.
+
 # MongoDB
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a aprender simplemente a usar MongoDB; vamos a desentrañar su alma, a entender las fuerzas que lo forjaron y a dominarlo como un verdadero artesano del software.
 
 ***
 

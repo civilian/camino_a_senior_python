@@ -1,6 +1,8 @@
+Ser científico de datos antes significaba ser administrador de sistemas a tiempo parcial, luchando contra un infierno de dependencias.
+La herramienta que nos salvó no es solo un instalador; es una solución elegante a uno de los problemas más difíciles de la informática teórica.
+
 # anaconda
 
-¡Absolutamente! Ponte cómodo, toma tu bebida preferida y prepárate para un viaje profundo. No vamos a aprender a usar Anaconda; vamos a desentrañar su alma, a entender su filosofía y a dominarlo como un maestro artesano domina su herramienta. Esta no es una guía de inicio rápido; es el mapa para convertirte en un arquitecto de ecosistemas de software científico.
 
 ---
 

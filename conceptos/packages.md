@@ -1,6 +1,7 @@
+Si piensas que los paquetes son solo carpetas para organizar código, te estás perdiendo la verdadera historia. Detrás de ellos hay teoría de grafos y un principio sociológico de 1968 que explica por qué muchos proyectos de software están destinados a fracasar.
+
 # Packages
 
-¡Absolutamente! Ponte cómodo, sírvete un café (o tu bebida de compilación preferida), y prepárate para un viaje profundo. No vamos a hablar de paquetes como simples carpetas con un archivo `__init__.py`. Vamos a desentrañar su alma, su historia y su poder para transformar el caos en arquitectura.
 
 ---
 
