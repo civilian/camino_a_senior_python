@@ -1,5 +1,3 @@
-AQUI**
-
 Hemos visto de dónde viene Fabric, pero ¿cómo se ve en acción? Vamos a dejar la teoría atrás por un momento y a construir un pipeline de despliegue real, desde un 'Hola, Mundo' remoto hasta una aplicación Flask completa.
 
 # Fabric
