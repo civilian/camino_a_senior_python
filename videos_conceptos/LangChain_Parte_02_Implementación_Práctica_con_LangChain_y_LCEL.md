@@ -1,5 +1,3 @@
-AQUI**
-
 La diferencia entre un script que funciona y un sistema robusto está en la arquitectura. ¿Cómo pasamos de un código frágil y monolítico a un flujo de datos componible y elegante? Veamos un caso práctico que revela el poder de la LangChain Expression Language.
 
 # LangChain

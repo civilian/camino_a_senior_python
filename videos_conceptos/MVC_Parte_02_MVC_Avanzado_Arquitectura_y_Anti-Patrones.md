@@ -1,3 +1,5 @@
+AQUI**
+
 Saber implementar un patrón es una cosa, pero ¿saber cuándo NO usarlo? Esa es la marca de un verdadero arquitecto de software. Ahora que hemos visto el 'cómo', profundicemos en el 'cuándo' y el 'porqué', explorando los errores comunes que muchos cometen en el camino.
 
 # MVC
