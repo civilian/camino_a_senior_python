@@ -28,57 +28,68 @@ Este documento agrupa **más de 100 preguntas** típicas de entrevistas para per
 ### P1. ¿Qué es el principio de responsabilidad única (SRP) y cómo lo aplicarías en un servicio que lee de Kafka y escribe en PostgreSQL?
 
 **Respuesta:**  
-El **SRP** (Single Responsibility Principle) dice que una clase o módulo debe tener una única razón para cambiar. En ese servicio, en lugar de una clase que lea de Kafka, transforme y escriba en PostgreSQL, conviene separar:
+El **SRP** (Single Responsibility Principle) es uno de los cinco principios SOLID: una clase o módulo debe tener **una única razón para cambiar**. Si una clase hace varias cosas, cualquier cambio en uno de esos ámbitos te obliga a tocarla, lo que aumenta el riesgo de regresiones y acopla el diseño a múltiples fuentes de cambio.
 
-- Un componente que **solo** lee mensajes (adaptador Kafka).
-- Un componente que **solo** aplica la lógica de negocio/transformación.
-- Un componente que **solo** persiste (repositorio o adaptador PostgreSQL).
+En un servicio que lee de Kafka y escribe en PostgreSQL, **no** conviene tener una sola clase que lea mensajes, los transforme y los persista. En su lugar, separa:
 
-Así, un cambio en el contrato de Kafka, en la lógica de negocio o en el esquema de la base son cambios en componentes distintos. En Python esto se traduce en módulos/clases pequeñas, inyección de dependencias y posible uso de un bus o orquestador que conecte los tres.
+- Un componente que **solo** lee mensajes (adaptador o consumer de Kafka): conoce el contrato del topic, deserializa y entrega eventos al siguiente eslabón.
+- Un componente que **solo** aplica la lógica de negocio o transformación: recibe eventos de dominio, aplica reglas, validaciones y mapeos, y produce lo que hay que persistir.
+- Un componente que **solo** persiste (repositorio o adaptador PostgreSQL): recibe DTOs o entidades y los escribe en la base; conoce el esquema y las transacciones.
+
+Así, un cambio en el contrato de Kafka solo afecta al adaptador; un cambio en reglas de negocio solo al transformador; un cambio en el esquema de la base solo al repositorio. En Python esto se implementa con módulos o clases pequeñas, inyección de dependencias (para poder testear cada parte con mocks) y, si quieres, un orquestador o pipeline que conecte los tres (por ejemplo en un bucle que lee → transforma → persiste). Esta separación también facilita escalar o sustituir una capa (por ejemplo cambiar de Kafka a otra cola) sin reescribir todo el servicio.
 
 ### P2. Explica la diferencia entre herencia y composición. ¿Cuándo elegirías composición en un diseño orientado a objetos?
 
 **Respuesta:**  
-- **Herencia:** la subclase “es un” tipo de la superclase (ej. `Dog` es un `Animal`). Acoplamiento fuerte y riesgo de jerarquías profundas y frágiles.
-- **Composición:** un objeto “tiene” otros objetos (ej. `Engine` dentro de `Car`). Favorece reutilización por delegación y menor acoplamiento.
+- **Herencia:** la subclase “es un” tipo de la superclase (por ejemplo `Dog` es un `Animal`). La subclase hereda estado y comportamiento y puede sobrescribir métodos. El problema es el **acoplamiento fuerte**: la subclase depende de la implementación de la base, los cambios en la jerarquía pueden romper subclases, y las jerarquías profundas se vuelven frágiles y difíciles de seguir. Además, en Python la herencia múltiple introduce complejidad (MRO, conflictos de nombres).
+- **Composición:** un objeto “tiene” otros objetos (por ejemplo `Car` tiene un `Engine` y una lista de `Wheel`). La reutilización se hace por **delegación**: el objeto delega en sus componentes. Hay menor acoplamiento porque puedes sustituir o mockear componentes sin tocar la jerarquía de clases.
 
-Elegiría **composición** cuando: no hay una relación “es un” clara, cuando varias clases comparten comportamiento pero no una jerarquía natural (evitar herencia múltiple), o cuando quiero poder sustituir o probar partes (inyección de dependencias). El principio “favor composition over inheritance” (GoF) aplica sobre todo en dominios donde los requisitos cambian y la herencia rigidiza el diseño.
+Elegiría **composición** cuando: (1) no hay una relación “es un” clara (por ejemplo un `UserService` no “es un” `EmailSender`, sino que “tiene” o “usa” uno); (2) varias clases comparten comportamiento pero no forman una jerarquía natural (en lugar de herencia múltiple, inyecta el comportamiento como dependencia); (3) quiero poder sustituir o probar partes (inyección de dependencias: paso un `EmailSender` real o un mock). El principio “favor composition over inheritance” del libro *Design Patterns* (GoF) aplica sobre todo en dominios donde los requisitos cambian con el tiempo: la herencia tiende a rigidizar el diseño y a crear jerarquías que luego cuesta modificar. La composición permite cambiar el comportamiento cambiando el objeto inyectado sin tocar la clase que lo usa.
 
 ### P3. ¿Qué es la programación funcional en Python? Nombra construcciones del lenguaje y de la stdlib que la soportan.
 
 **Respuesta:**  
-Programación funcional enfatiza funciones puras, inmutabilidad, expresiones en lugar de sentencias y composición de funciones. En Python:
+La **programación funcional** enfatiza: **funciones puras** (mismo input → mismo output, sin efectos secundarios), **inmutabilidad** (evitar mutar datos), **expresiones** en lugar de sentencias (menos estado intermedio) y **composición de funciones** (encadenar transformaciones en lugar de bucles imperativos). Python no es un lenguaje funcional puro, pero incorpora muchas ideas funcionales.
 
-- **Funciones de primera clase** y paso como argumentos.
-- **Closures** y **higher-order functions** (`map`, `filter`, `functools.reduce`).
-- **`functools`:** `partial`, `lru_cache`, `wraps`.
-- **`itertools`:** `chain`, `groupby`, `islice`, generadores infinitos.
-- **Comprehensions** (list, dict, set) como expresiones.
-- **Generadores** y `yield` para flujos lazy.
-- **Inmutabilidad** mediante tuplas, `frozenset`, y evitar mutar en funciones “puras”.
+**Construcciones del lenguaje y stdlib:**
 
-Un senior sabe cuándo un estilo funcional mejora la legibilidad (pipelines, transformaciones de datos) y cuándo un enfoque OOP o imperativo es más claro.
+- **Funciones de primera clase:** las funciones son objetos; puedes pasarlas como argumentos, devolverlas y guardarlas en estructuras. Eso permite higher-order functions y estrategias inyectables.
+- **Closures** y **higher-order functions:** `map`, `filter`, `functools.reduce` aplican funciones a secuencias; las closures capturan variables del ámbito envolvente (útil para factories y decoradores).
+- **`functools`:** `partial` para fijar argumentos; `lru_cache` para memoización; `wraps` para preservar metadatos en decoradores.
+- **`itertools`:** `chain`, `groupby`, `islice`, `cycle`, generadores infinitos; permiten pipelines lazy sin materializar listas enormes.
+- **Comprehensions** (list, dict, set): expresiones que describen transformaciones y filtros de forma declarativa; suelen ser más legibles que un `for` + `append`.
+- **Generadores** y `yield`: flujos **lazy** que producen valores de uno en uno; ahorran memoria y encajan bien con pipelines (itertools + generadores).
+- **Inmutabilidad:** tuplas, `frozenset`, y disciplina de no mutar listas/dicts dentro de funciones “puras” para que el código sea más predecible y testeable.
+
+Un senior sabe **cuándo** un estilo funcional mejora la legibilidad (pipelines de datos, transformaciones sobre listas/dicts, lógica sin estado compartido) y **cuándo** un enfoque OOP o imperativo es más claro (cuando hay mucho estado, efectos secundarios o el equipo no está acostumbrado a leer código muy funcional).
 
 ### P3b. Explica los cinco principios SOLID con un ejemplo breve de cada uno.
 
 **Respuesta:**  
-- **S (SRP):** Una clase, una razón para cambiar. Ej.: separar “enviar email” de “calcular factura”.  
-- **O (Open/Closed):** Abierto a extensión, cerrado a modificación. Ej.: estrategias (inyección de políticas) en lugar de if/else.  
-- **L (Liskov):** Las subclases deben poder sustituir a la base sin romper el contrato. Ej.: no hacer que un “Cuadrado” herede de “Rectángulo” si cambia la semántica de setter.  
-- **I (Interface Segregation):** Interfaces pequeñas y específicas; el cliente no depende de lo que no usa. Ej.: varios protocolos en lugar de una interfaz gigante.  
-- **D (Dependency Inversion):** Depender de abstracciones, no de concretos. Ej.: inyectar un `Repository` abstracto en lugar de instanciar `PostgresRepository` dentro del servicio.
+Los principios **SOLID** (por Robert C. Martin) guían el diseño orientado a objetos para conseguir código mantenible y desacoplado.
+
+- **S (Single Responsibility):** Una clase debe tener **una única razón para cambiar**. Si una clase hace varias cosas (por ejemplo “calcular factura” y “enviar email”), un cambio en el envío de emails te obliga a tocar la misma clase que calcula la factura. Solución: separar en clases o módulos distintos (por ejemplo `FacturaCalculator` y `EmailSender` o un servicio de notificaciones).
+- **O (Open/Closed):** Las entidades deben estar **abiertas a extensión** pero **cerradas a modificación**. En lugar de añadir un `if tipo == "X"` cada vez que aparece un nuevo tipo, se usan estrategias, políticas inyectadas o polimorfismo: añades una nueva clase que implementa la interfaz y no modificas el código existente.
+- **L (Liskov Substitution):** Las subclases deben poder **sustituir** a la clase base sin romper el contrato que los clientes esperan. Ejemplo clásico: si `Cuadrado` hereda de `Rectángulo` y sobrescribes los setters de ancho/alto para que siempre mantengan el mismo valor, un código que asume “rectángulo con ancho y alto independientes” se rompe al usar un `Cuadrado`. La subclase no debe restringir precondiciones ni relajar postcondiciones de forma que sorprenda al cliente.
+- **I (Interface Segregation):** Los clientes no deberían depender de interfaces que no usan. En lugar de una interfaz gigante con muchos métodos, define **varios protocolos o interfaces pequeñas**; cada cliente depende solo de los que necesita. Así evitas clases “gordas” y dependencias innecesarias.
+- **D (Dependency Inversion):** Depende de **abstracciones**, no de implementaciones concretas. En lugar de que un servicio instancie directamente `PostgresRepository` o llame a un API concreto, recibe por constructor un `Repository` abstracto (o un protocolo). Así puedes cambiar la base de datos o mockear en tests sin tocar el servicio.
 
 ### P3c. ¿Qué es el patrón GRASP “Information Expert” y “Creator”?
 
 **Respuesta:**  
-**GRASP** (General Responsibility Assignment Software Patterns) guía a quién asignar responsabilidades.  
-- **Information Expert:** asignar la responsabilidad al que tiene la información necesaria (ej. el `Carrito` calcula el total porque tiene los ítems).  
-- **Creator:** quién debe crear una instancia de B: quien contiene o agrega instancias de B, quien tiene los datos para inicializar B, o quien usa B muy de cerca. Ej.: `Pedido` crea `LineaPedido` porque las contiene.
+**GRASP** (General Responsibility Assignment Software Patterns) es un conjunto de patrones que guían **a qué clase o objeto asignar** cada responsabilidad en un diseño OOP. No son patrones de código como los GoF, sino criterios para decidir “quién hace qué”.
+
+- **Information Expert:** asigna la responsabilidad al **objeto que tiene la información necesaria** para cumplirla. Así se evita que un objeto pida datos a otros para hacer un cálculo que podría vivir donde ya están esos datos. Ejemplo: el **carrito de compra** es el experto en los ítems y sus precios, así que es natural que **calcule el total**; no hace falta un “Calculator” externo que reciba el carrito y devuelva el total, porque el carrito ya tiene todo lo necesario. Esto reduce acoplamiento y mantiene la cohesión.
+- **Creator:** responde a “**quién debe crear** una instancia de la clase B”. Los criterios típicos son: (1) quien **contiene** o **agrega** instancias de B (composición); (2) quien **tiene los datos** necesarios para inicializar B; (3) quien **usa** B muy de cerca. Ejemplo: un **Pedido** crea **LineaPedido** porque el pedido contiene las líneas, las agrega a lo largo de su vida y tiene el contexto (pedido_id, etc.) para inicializarlas. Así la creación queda encapsulada y el cliente no conoce los detalles de construcción de `LineaPedido`.
 
 ### P3d. ¿Qué es programación estructurada y cómo se relaciona con “goto considerado perjudicial”?
 
 **Respuesta:**  
-Programación estructurada: flujo de control con secuencia, selección (if/else) y repetición (while/for), sin saltos arbitrarios (goto). El artículo de Dijkstra “Go To Statement Considered Harmful” argumentaba que el goto hacía el código difícil de seguir y de demostrar correcto. En Python no existe goto; el flujo es estructurado por defecto; un senior evita “estructuras” que lo simulen (excepciones para control de flujo, breaks anidados excesivos).
+La **programación estructurada** es un paradigma que organiza el flujo de control usando solo unas pocas estructuras bien definidas: **secuencia** (una instrucción tras otra), **selección** (if/else, case) y **repetición** (while, for), con un único punto de entrada y salida por bloque. Se evitan los **saltos arbitrarios** (como `goto`) que permiten ir a cualquier línea del programa, porque dificultan la lectura y el razonamiento formal sobre el código.
+
+El artículo de **Dijkstra** “Go To Statement Considered Harmful” (1968) argumentaba que el `goto` hacía el código difícil de seguir, de demostrar correcto y de refactorizar; defendía que cualquier programa podía escribirse solo con secuencia, selección y repetición. Hoy la mayoría de lenguajes no incluyen `goto` (o lo restringen); Python **no tiene** `goto`, así que el flujo es estructurado por defecto.
+
+En la práctica, un senior evita **simular** saltos incontrolados: no usar excepciones para control de flujo normal (solo para errores excepcionales), no abusar de `break`/`continue` anidados que oculten la lógica, y preferir funciones pequeñas y early returns en lugar de ramas muy profundas. La idea sigue siendo la misma: flujo claro y predecible.
 
 ---
 
@@ -87,159 +98,198 @@ Programación estructurada: flujo de control con secuencia, selección (if/else)
 ### P4. ¿Qué es el GIL (Global Interpreter Lock) y qué implicaciones tiene para concurrencia y paralelismo?
 
 **Respuesta:**  
-El **GIL** es un mutex del intérprete CPython que permite que solo un hilo ejecute bytecode Python a la vez. **Implicaciones:**
+El **GIL** (Global Interpreter Lock) es un mutex a nivel de intérprete en **CPython** que garantiza que solo un hilo ejecute bytecode Python a la vez. Existe por razones de diseño histórico (gestión de memoria del intérprete, simplificación del código en C) y tiene consecuencias directas en cómo usamos concurrencia y paralelismo en Python.
 
-- **Concurrencia I/O-bound:** no suele ser problema; los hilos liberan el GIL en operaciones de I/O, así que threading puede mejorar rendimiento en redes o disco.
-- **Paralelismo CPU-bound:** varios hilos en un mismo proceso no ejecutan código Python en paralelo; para usar varios núcleos hace falta **multiprocessing** (procesos separados) o integrar código que suelte el GIL (C extensions, NumPy, etc.).
-- **AsyncIO** no elimina el GIL pero permite muchas tareas I/O-bound en un solo hilo, evitando el coste de hilos y el contenido del GIL.
+**Implicaciones prácticas:**
 
-En una entrevista senior se espera que propongas: threading para I/O, multiprocessing para CPU, asyncio para alto I/O concurrente, y que conozcas alternativas como PyPy (GIL más flexible) o múltiples procesos + colas.
+- **Concurrencia I/O-bound (red, disco, esperas):** el GIL **no** suele ser un problema, porque en operaciones de I/O el hilo libera el GIL mientras espera. Por tanto, `threading` puede mejorar el rendimiento cuando hay muchas esperas (muchas peticiones HTTP, lectura/escritura de disco), porque otros hilos pueden ejecutar mientras uno está bloqueado en I/O.
+- **Paralelismo CPU-bound (cálculos puros):** varios hilos en el **mismo proceso** no ejecutan código Python en paralelo: en todo momento solo uno “tiene” el GIL. Para aprovechar varios núcleos en tareas CPU-bound hace falta **multiprocessing** (procesos separados, cada uno con su propio GIL) o usar código que libere el GIL (extensiones en C, NumPy, etc.). Los procesos no comparten memoria por defecto, así que la comunicación se hace con colas, pipes o memoria compartida.
+- **AsyncIO:** no elimina el GIL, pero permite **muchas tareas** I/O-bound en un **solo hilo** mediante corutinas y un event loop. Así se evita el coste de crear muchos hilos y se evita el contenido del GIL; es muy adecuado para servidores con miles de conexiones (APIs, websockets) cuando el cuello de botella es la espera a red o a otros servicios.
+
+En una entrevista senior se espera que propongas la herramienta adecuada al problema: **threading** para I/O con código que no sea async; **multiprocessing** para CPU-bound; **asyncio** para alto I/O concurrente en un solo proceso. También se valora conocer alternativas como **PyPy** (con un GIL más flexible en algunos escenarios) o arquitecturas con múltiples procesos y colas (workers que consumen tareas en paralelo).
 
 ### P5. Diferencia entre `__new__` y `__init__`. ¿Cuándo implementarías `__new__`?
 
 **Respuesta:**  
-- **`__init__`:** inicializa la instancia ya creada; recibe `self` y argumentos; no retorna nada; es lo habitual.
-- **`__new__`:** es el constructor “real”; crea y devuelve la instancia (por defecto `object.__new__(cls)`); recibe la clase y argumentos; se ejecuta antes que `__init__`.
+- **`__init__`:** es el inicializador que todos conocemos. Recibe la instancia ya creada (`self`) y los argumentos; **no retorna nada** (devuelve `None`). Su trabajo es establecer el estado inicial de la instancia (atributos, etc.). Se ejecuta **después** de que la instancia existe. Es lo que se usa en el 99% de las clases.
+- **`__new__`:** es el **constructor real** a nivel de objeto: es el que **crea** la instancia y la **devuelve**. Recibe la clase (`cls`) y los argumentos; por defecto llama a `object.__new__(cls)` para obtener la instancia. Se ejecuta **antes** que `__init__`; si `__new__` no devuelve una instancia de la clase, `__init__` no se llama.
 
-Se implementa **`__new__`** cuando: creas un **singleton** (devolver la misma instancia), subclasificas tipos inmutables (`str`, `int`, `tuple`) y debes construir el objeto antes de “inicializarlo”, o cuando quieres devolver una instancia de **otra clase** (factory). Ejemplo típico: patrón singleton con `__new__` que guarda la instancia en un atributo de clase.
+Se implementa **`__new__`** en casos concretos: (1) **Singleton:** en `__new__` compruebas si ya existe una instancia (por ejemplo en un atributo de clase) y la devuelves; si no, creas una con `super().__new__(cls)` y la guardas. (2) **Subclases de tipos inmutables** (`str`, `int`, `tuple`): no puedes “inicializar” después de creado el objeto, así que la construcción debe hacerse en `__new__` pasando los valores correctos al constructor de la base. (3) **Factory:** devolver una instancia de **otra** clase según los argumentos (aunque a veces es más claro usar una función factory fuera de la clase). En código normal, `__init__` basta; `__new__` es para estos casos especiales.
 
 ### P6. ¿Qué son los descriptors? Pon un ejemplo de uso (por ejemplo, validación o lazy attribute).
 
 **Respuesta:**  
-Un **descriptor** es un objeto que define `__get__`, y opcionalmente `__set__` y `__delete__`, y se declara como atributo de clase. Así se controla el acceso a atributos (get/set/delete) de forma reutilizable.
+Un **descriptor** es un objeto que implementa al menos **`__get__(self, obj, type=None)`** y opcionalmente **`__set__(self, obj, value)`** y **`__delete__(self, obj)`**, y se declara como **atributo de clase** (no de instancia). Cuando Python accede a ese atributo en una instancia (lectura, asignación o borrado), invoca el método correspondiente del descriptor, pasando la instancia y la clase. Así se controla el acceso a atributos de forma **reutilizable** y declarativa.
 
-Ejemplos: **`property`** es un descriptor; **validación** (ej. que un atributo sea positivo) se puede hacer con un descriptor que en `__set__` valide y asigne; **lazy attribute** se implementa con un descriptor que en `__get__` calcula el valor la primera vez, lo guarda en el instance dict y lo devuelve después. Los descriptors son la base de `@property`, `@classmethod`, `@staticmethod` y de ORMs (por ejemplo atributos de columnas en SQLAlchemy).
+**Ejemplos de uso:**  
+- **`property`** está implementado como descriptor: `__get__` devuelve el valor calculado o guardado, `__set__` y `__delete__` opcionales permiten atributos read-write o read-only.  
+- **Validación:** un descriptor que en `__set__` comprueba que el valor cumple una condición (por ejemplo que sea positivo, que sea un string no vacío) y luego lo guarda en `obj.__dict__[nombre]` o en un almacén propio; si no cumple, lanza. Así la validación está centralizada y se reutiliza en varias clases.  
+- **Lazy attribute:** un descriptor que en `__get__` comprueba si el valor ya está calculado (por ejemplo en `obj.__dict__`); si no, lo calcula (llamada costosa, lectura de config, etc.), lo guarda en la instancia y lo devuelve. Las siguientes lecturas usan el valor cacheado.
+
+Los descriptors son la **base** de `@property`, `@classmethod`, `@staticmethod` y de ORMs como SQLAlchemy (las columnas del modelo son descriptores que traducen acceso a atributos en consultas y escrituras a la base).
 
 ### P7. Explica el orden de resolución de métodos (MRO) en herencia múltiple. ¿Qué es el “diamond problem”?
 
 **Respuesta:**  
-Python usa **C3 linearization** para el MRO. Se puede ver con `Clase.mro()` o `Clase.__mro__`. El orden respeta: la jerarquía de cada padre y que una clase aparezca antes que sus ancestros; si hay conflicto, el orden de declaración en la lista de bases manda.
+En herencia múltiple, cuando una clase hereda de varias (por ejemplo `class C(A, B)`), hace falta un **orden** definido para decidir de qué clase se toma un método o atributo si está en más de un antecesor. Python usa **C3 linearization** para calcular el **MRO** (Method Resolution Order). Puedes inspeccionarlo con `Clase.mro()` o `Clase.__mro__`. El orden respeta: (1) la jerarquía de cada padre (un padre antes que sus ancestros); (2) el orden de declaración en la lista de bases (si A y B están en conflicto, gana el que aparece primero en `class C(A, B)`); (3) que no haya ciclos (C3 falla si la jerarquía es inconsistente).
 
 El **diamond problem** aparece cuando `A` es padre de `B` y `C`, y una clase `D` hereda de `B` y `C`; entonces `A` está dos veces en la jerarquía. En Python, `A` solo se visita una vez gracias al MRO (por defecto después de `B` y `C`), así que un `super()` en `D` puede llegar a `A` de forma predecible. Un senior sabe leer el MRO y diseñar mixins y herencia múltiple sin sorpresas.
 
 ### P8. ¿Qué son los context managers? ¿Cómo implementas uno con clase y con `contextlib`?
 
 **Respuesta:**  
-Un **context manager** garantiza lógica de entrada y salida (setup/teardown) alrededor de un bloque, típicamente con `with ...`. Se implementa con `__enter__` y `__exit__`.
+Un **context manager** es un objeto que garantiza lógica de **entrada** (setup) y **salida** (teardown) alrededor de un bloque de código, usando la sentencia `with ...`. Así se asegura que los recursos se liberen aunque haya excepciones o returns (equivalente a try/finally, pero reutilizable y legible).
 
-- **Con clase:**  
-  `__enter__` devuelve el recurso (o `self`); `__exit__(self, exc_type, exc_val, exc_tb)` recibe la excepción si la hay; si devuelve `True`, la excepción se “traga”; si no, se propaga. Sirve para recursos (archivos, conexiones, locks).
+**Implementación con clase:**  
+El protocolo requiere **`__enter__(self)`** y **`__exit__(self, exc_type, exc_val, exc_tb)`**. Al entrar en el `with`, se llama a `__enter__`; su valor de retorno se asigna a la variable del `as` (normalmente devuelves el recurso o `self`). Al salir del bloque (normal o por excepción), se llama a `__exit__` con el tipo, valor y traceback de la excepción (o tres `None` si no hubo). Si `__exit__` devuelve **True**, la excepción se considera “manejada” y no se propaga; si devuelve False o nada, la excepción se propaga. Sirve para archivos, conexiones a BD, locks, transacciones (commit en salida normal, rollback en excepción).
 
-- **Con `contextlib.contextmanager`:**  
-  Un generador con un solo `yield`: el código antes del `yield` es el “enter”, el después es el “exit”. Si hay excepción, se relanza después del `yield` y puedes usar `try/finally` para limpiar.
-
-Ejemplo: abrir conexión en `__enter__`, cerrar o hacer rollback en `__exit__`.
+**Implementación con `contextlib.contextmanager`:**  
+Decoras un **generador** que tiene exactamente un **`yield`**. El código **antes** del `yield` es el setup (equivalente a `__enter__`); el **después** es el teardown (equivalente a `__exit__`). Si se lanza una excepción dentro del `with`, se inyecta en el generador; puedes usar `try/finally` alrededor del `yield` para garantizar limpieza y luego relanzar si quieres. Es más conciso que una clase cuando la lógica es simple.
 
 ### P9. Diferencia entre `iterator` e `iterable`. ¿Cómo harías un iterable perezoso sobre una fuente muy grande?
 
 **Respuesta:**  
-- **Iterable:** tiene `__iter__` (y opcionalmente `__getitem__` secuencial); devuelve un iterator. Ej.: list, dict, str.
-- **Iterator:** tiene `__iter__` (devuelve `self`) y `__next__`; produce valores uno a uno y lanza `StopIteration` al acabar.
+- **Iterable:** es cualquier objeto del que puedes obtener un iterator, típicamente implementando **`__iter__`** (que devuelve un iterator). También se considera iterable si tiene **`__getitem__`** con índices secuenciales desde 0 hasta que dé `IndexError`. Ejemplos: list, dict, str, set, range. Se usa en `for x in iterable` y en funciones que consumen secuencias.
+- **Iterator:** es un objeto que produce valores **uno a uno**; implementa **`__next__`** (devuelve el siguiente o lanza `StopIteration` al terminar) y **`__iter__`** (suele devolver `self` para que el iterator sea también iterable). Un mismo iterable puede dar varios iterators independientes (cada llamada a `__iter__` puede devolver uno nuevo).
 
-Para una fuente muy grande, el patrón estándar es un **generador** (`yield`): es iterable (devuelve un generator-iterator) y solo calcula el siguiente elemento cuando se pide. Así no cargas todo en memoria. Alternativamente, una clase con `__iter__` y `__next__` que lea por chunks (archivos, APIs paginadas, Kafka) y vaya devolviendo elementos.
+Para una **fuente muy grande** (archivo enorme, API paginada, stream de Kafka), no quieres materializar todo en memoria. El patrón estándar es un **generador** (función con `yield`): es iterable (al llamarla obtienes un generator-iterator) y cada elemento se calcula o lee **solo cuando se pide** (lazy). Así recorres la fuente en una pasada sin cargar todo. Alternativamente, una **clase** con `__iter__` y `__next__` que internamente lea por chunks o páginas y vaya devolviendo elementos; útil cuando la lógica de “siguiente” es más compleja que un simple yield.
 
 ### P10. ¿Para qué sirven las type hints y `mypy`? ¿Cómo tiparías un decorador que preserva la firma de la función?
 
 **Respuesta:**  
-Las **type hints** (PEP 484) documentan tipos y permiten análisis estático. **mypy** es el checker estándar; reduce bugs de tipo sin ejecutar el código.
+Las **type hints** (PEP 484) permiten anotar argumentos, retornos y variables con tipos (builtins, `typing`, tipos propios). Sirven para **documentar** el contrato de funciones y clases, y para **análisis estático**: un checker puede detectar errores de tipo sin ejecutar el código. **mypy** es el checker estándar en el ecosistema Python; integrado en CI, reduce bugs de tipo y facilita refactors. Las hints no afectan al runtime por defecto (son solo metadatos), aunque se pueden inspeccionar con `typing.get_type_hints`.
 
-Para un **decorador que preserva la firma** se usa `functools.wraps` (preservar nombre y docstring) y **typing** para que el tipo refleje la función original:  
-`from typing import TypeVar, Callable; F = TypeVar('F', bound=Callable[..., Any])`  
-y el decorador se anota como `def decorator(f: F) -> F: ... return f` (o con `ParamSpec` y `Concatenate` en Python 3.10+ para decoradores que añaden argumentos). Así las herramientas ven que el decorado tiene la misma firma que `f`.
+Para un **decorador que preserva la firma** hay dos aspectos: (1) **Runtime:** `functools.wraps(f)` en el decorador para copiar `__name__`, `__doc__`, etc., del decorado. (2) **Tipado:** que el tipo del decorado sea el mismo que el de la función original. Se usa un **TypeVar** acotado a `Callable`: por ejemplo `F = TypeVar('F', bound=Callable[..., Any])` y el decorador se anota como `def decorator(f: F) -> F: ... return f`. Así mypy y los IDEs entienden que el resultado tiene la misma firma que `f`. Para decoradores que **añaden** argumentos (por ejemplo inyectar un request), en Python 3.10+ se usan **ParamSpec** y **Concatenate** para expresar que la función decorada tiene los mismos parámetros que `f` más los extra.
 
 ### P11. ¿Qué es la recursión y cuándo puede ser problemática en Python? ¿Qué es la cola de llamadas y el límite de recursión?
 
 **Respuesta:**  
-Recursión: una función se llama a sí misma (caso base + caso recursivo). En Python el **límite** por defecto es ~1000 (`sys.getrecursionlimit()`); superarlo lanza `RecursionError`. La **pila de llamadas** guarda el estado de cada invocación; recursión muy profunda consume mucha memoria. Alternativas: iteración con bucle, recursión de cola (Python no la optimiza, pero se puede reescribir a iterativo), o aumentar el límite solo si es seguro (no recomendado como solución general).
+**Recursión** es cuando una función se llama a sí misma: suele haber un **caso base** (condición de parada) y un **caso recursivo** que reduce el problema y se llama de nuevo. Es natural para estructuras recursivas (árboles, listas anidadas) o definiciones matemáticas (factorial, Fibonacci).
+
+En Python puede ser **problemática** por dos razones. (1) **Límite de recursión:** el intérprete limita la profundidad de la pila de llamadas (por defecto ~1000; se ve con `sys.getrecursionlimit()`). Si la recursión es más profunda (por ejemplo un árbol muy profundo o una lista muy larga procesada recursivamente), se lanza **RecursionError**. (2) **Pila de llamadas:** cada llamada guarda estado (variables locales, punto de retorno); recursión muy profunda consume mucha memoria de pila y puede provocar overflow o lentitud.
+
+**Alternativas:** reescribir a **iterativo** (bucle con pila explícita si hace falta, por ejemplo para recorrer un árbol); en muchos algoritmos la versión iterativa es más eficiente y sin límite de profundidad. Python **no** optimiza la recursión de cola (TCO), así que “tail recursion” igualmente consume pila. Aumentar `sys.setrecursionlimit()` solo en casos muy controlados (por ejemplo tests que intencionadamente profundizan); no es una solución general porque el límite del sistema operativo también puede cortar el proceso.
 
 ### P12. Diferencia entre list comprehension, generator expression y dict/set comprehension. ¿Cuándo usar cada una?
 
 **Respuesta:**  
-- **List comprehension** `[x*2 for x in range(10)]`: construye la lista completa en memoria; uso cuando necesitas la lista entera o múltiples accesos.  
-- **Generator expression** `(x*2 for x in range(10))`: es lazy; produce un elemento cada vez; ahorra memoria en secuencias grandes o pipelines.  
-- **Dict/set comprehension** `{k: v*2 for k,v in d.items()}`, `{x%3 for x in nums}`: mismo concepto para diccionarios y conjuntos.  
-Usar generator cuando el flujo es “una pasada” o el tamaño es grande; list cuando necesitas índice, longitud o iterar varias veces.
+- **List comprehension** `[x*2 for x in range(10)]`: construye la **lista completa** en memoria de una vez. Úsala cuando necesites la secuencia entera: acceso por índice, `len()`, iterar varias veces, o pasar la lista a código que espere una lista. Si el rango es muy grande, el consumo de memoria puede ser alto.
+- **Generator expression** `(x*2 for x in range(10))`: es **lazy**; no materializa todos los elementos; cada uno se calcula cuando se pide (en un `for`, en `next()`, o al pasarlo a `list()`, `sum()`, etc.). Ahorra memoria en secuencias grandes y encaja bien en **pipelines** (varias transformaciones encadenadas que se consumen en una pasada). No tiene longitud ni índices; una vez consumido, no se puede volver a iterar.
+- **Dict comprehension** `{k: v*2 for k, v in d.items()}` y **set comprehension** `{x % 3 for x in nums}`: mismo concepto que la list comprehension pero construyen diccionario o conjunto; también materializan todo en memoria.
+
+**Cuándo usar cada una:** generator cuando el flujo es **una pasada** (procesar, agregar, filtrar sin necesitar la colección entera) o cuando el tamaño puede ser muy grande. List (o dict/set) cuando necesitas **múltiples accesos**, índice, longitud o cuando el tamaño es pequeño y la claridad prima.
 
 ### P13. ¿Cómo diseñarías una jerarquía de excepciones personalizadas y cuándo usarías excepciones vs códigos de error?
 
 **Respuesta:**  
-Heredar de `Exception` (o de una base de dominio, ej. `ValidationError`); excepciones específicas por tipo de fallo (ej. `PaymentDeclinedError`, `InsufficientFundsError`); capturar de más específica a más general. Usar **excepciones** para flujos excepcionales y cuando el llamador puede decidir (try/except); usar **códigos de error** o `Result` cuando los fallos son parte del flujo normal (ej. “no encontrado”) y quieres que sea explícito en la firma (typing). En APIs REST, excepciones se traducen a códigos HTTP y mensajes.
+**Jerarquía de excepciones:** conviene una **base de dominio** (por ejemplo `AppError` o `ValidationError`) que herede de `Exception`, y excepciones **más específicas** por tipo de fallo (por ejemplo `PaymentDeclinedError`, `InsufficientFundsError` que hereden de `PaymentError`). Así el llamador puede capturar por granularidad: `except InsufficientFundsError` para un tratamiento concreto, `except PaymentError` para cualquier error de pago, o `except AppError` como red de seguridad. Documenta qué excepciones puede lanzar cada función; en código que captura, ordena los `except` de más específica a más general.
+
+**Excepciones vs códigos de error:** usa **excepciones** cuando el fallo es **excepcional** (error de red, datos inválidos que no deberían llegar, errores de configuración) y cuando el llamador puede reaccionar con try/except o dejar propagar. Usa **códigos de error** o un tipo **Result/Either** (por ejemplo `tuple[bool, T]` o un dataclass con `success` y `error`) cuando el “fallo” es **parte del flujo normal** (por ejemplo “recurso no encontrado”, “validación rechazada”) y quieres que esté explícito en la firma y en el tipo de retorno; así el llamador está obligado a manejar el caso. En APIs REST, las excepciones se traducen a códigos HTTP (404, 422, 500) y mensajes en el cuerpo; la jerarquía interna puede mapear a códigos estándar.
 
 ### P14. ¿Qué son las clases abstractas (ABC) y las interfaces en Python? Diferencia con typing.Protocol.
 
 **Respuesta:**  
-- **ABC (abc.ABC, @abstractmethod):** clases base que no se pueden instanciar; las subclases deben implementar los métodos abstractos; se usa para definir contratos en OOP.  
-- **typing.Protocol** (PEP 544): “structural subtyping”; una clase cumple el protocolo si tiene los métodos indicados, sin herencia explícita; útil para duck typing con type checkers.  
-ABC = contrato por herencia; Protocol = contrato por estructura (más flexible, no requiere herencia).
+- **Clases abstractas (ABC):** en el módulo **`abc`**, una clase que hereda de **`ABC`** puede declarar métodos **abstractos** con **`@abstractmethod`**. No se puede instanciar hasta que una subclase concreta implemente todos los métodos abstractos. Es **contrato por herencia**: el contrato se expresa explícitamente en la jerarquía; las subclases heredan de la base y el type checker sabe que implementan la interfaz. Útil cuando quieres una base común, posible comportamiento por defecto y que “ser un X” signifique heredar de `X`.
+- **typing.Protocol** (PEP 544): **structural subtyping** (“duck typing” con tipos). Un protocolo define métodos (y sus firmas); **cualquier** clase que tenga esos métodos cumple el protocolo, **sin heredar** de él. El type checker (mypy) comprueba que el objeto tenga los métodos necesarios cuando lo usas donde se espera el protocolo. Es más **flexible** que ABC: no acoplas la jerarquía de clases a una interfaz; tipos de librerías externas pueden cumplir tu protocolo sin que hereden de tu código. Muy útil para dependencias inyectadas y para anotar “cualquier cosa que tenga `read()` y `write()`”.
+
+**Resumen:** ABC = contrato por **herencia** (subclase explícita); Protocol = contrato por **estructura** (tener los métodos indicados). Ambos permiten polimorfismo y type checking; elige ABC cuando la jerarquía y la herencia son naturales, y Protocol cuando quieres máxima flexibilidad y menos acoplamiento.
 
 ### P15. Nombra al menos cinco magic methods y su propósito. ¿Qué hace `__slots__` y cuándo usarlo?
 
 **Respuesta:**  
-Ejemplos: `__init__`, `__str__`/`__repr__`, `__len__`, `__getitem__`, `__iter__`/`__next__`, `__enter__`/`__exit__`, `__call__`, `__eq__`, `__add__`.  
-**`__slots__`:** limita los atributos de instancia a los nombres listados; ahorra memoria (no hay `__dict__`) y evita crear atributos por error. Se usa cuando tienes muchas instancias y memoria importa (ej. objetos de dominio en listas grandes). No usar con herencia múltiple que mezcle clases con y sin slots.
+**Magic methods** (dunder methods) permiten que tus clases se integren con el lenguaje (operadores, `len()`, `with`, etc.). Algunos ejemplos: **`__init__`** — inicialización de la instancia; **`__str__`** / **`__repr__`** — representación en string (usuario vs depuración); **`__len__`** — `len(obj)`; **`__getitem__`** — acceso por índice/slice, base de la iteración por índice; **`__iter__`** y **`__next__`** — iteración; **`__enter__`** y **`__exit__`** — context manager; **`__call__`** — hacer la instancia “llamable”; **`__eq__`**, **`__lt__`** — comparaciones; **`__add__`** — operador `+`.
+
+**`__slots__`:** es un atributo de clase (tupla o lista de nombres de atributos) que **limita** los atributos de instancia a esos nombres. Por defecto cada instancia tiene un **`__dict__`** que consume memoria; con `__slots__` no se crea `__dict__` (salvo que lo incluyas en slots), así que se **ahorra memoria** cuando tienes muchas instancias (por ejemplo millones de objetos de dominio). Además evita crear atributos por typo (asignar `obj.typo` falla si no está en slots). Limitaciones: no se puede añadir atributos dinámicamente; la herencia con clases que mezclan slots y sin slots puede dar problemas; algunas herramientas asumen `__dict__`. Úsalo cuando el número de instancias sea alto y los atributos estén fijos.
 
 ### P16. ¿Cómo funciona la serialización en Python (pickle, json, Pydantic)? ¿Cuándo no usar pickle?
 
 **Respuesta:**  
-- **pickle:** serializa objetos Python a bytes; solo seguro entre procesos/maquinas bajo tu control; no usar para datos que vienen de usuarios o de la red (riesgo de deserialización arbitraria).  
-- **json:** texto estándar; interoperable; solo tipos básicos; para APIs y persistencia portable.  
-- **Pydantic:** validación y serialización a dict/json con tipos; ideal para configuración y APIs.  
-No usar pickle para comunicación entre servicios ni para datos no confiables.
+- **pickle:** convierte objetos Python a un flujo de **bytes** (y viceversa). Soporta una amplia gama de tipos y referencias circulares. **Riesgo de seguridad:** la deserialización ejecuta código implícito en la reconstrucción de objetos; un atacante puede construir un payload que ejecute código arbitrario. Por tanto **solo** debe usarse con datos generados por ti, en procesos o máquinas bajo tu control (por ejemplo cache entre procesos del mismo equipo). **No** usar pickle para datos que vengan de usuarios, de la red o de servicios no confiables.
+- **json:** formato de **texto** estándar (strings, números, listas, diccionarios, booleanos, null). Interoperable con cualquier lenguaje y sistema. Limitación: solo tipos básicos; fechas, bytes y tipos custom hay que convertirlos a mano. Idóneo para APIs REST y persistencia portable.
+- **Pydantic:** modelos con **tipos** que validan al construir y ofrecen **serialización** a dict o JSON (`.model_dump()`, `.model_dump_json()`). Muy usado para configuración, payloads de API y validación de entrada; combina validación y serialización en una sola capa.
+
+**Resumen:** no usar pickle para comunicación entre servicios ni para cualquier dato que no controles por completo; preferir JSON (o similares) y, cuando convenga, Pydantic para validación y salida tipada.
 
 ### P17. Explica el modelo de importación de Python: módulos vs paquetes, `__init__.py`, `import` vs `from ... import`, y qué es `sys.path`.
 
 **Respuesta:**  
-- **Módulo:** un archivo `.py`; **paquete:** directorio con (en Python 3.3+) `__init__.py` opcional que puede estar vacío; los paquetes pueden ser “namespace packages” sin `__init__.py`.  
-- `import foo` carga el módulo y lo deja en `foo`; `from foo import bar` carga el módulo y pone `bar` en el namespace local.  
-- **sys.path:** lista de directorios donde se buscan módulos; incluye el directorio del script, PYTHONPATH y site-packages. Un senior evita modificar sys.path en runtime; usa estructura de proyecto y pip instalable.
+- **Módulo:** cualquier archivo **`.py`** que puedas importar; el nombre del módulo es el del archivo (sin `.py`). Contiene código ejecutable; la primera vez que se importa se ejecuta y el resultado se guarda en **`sys.modules`** para no volver a ejecutarlo.
+- **Paquete:** un **directorio** que Python trata como un conjunto de módulos. En Python 3.3+, puede ser un “namespace package” (varios directorios con el mismo nombre en `sys.path`) sin `__init__.py`; si tiene **`__init__.py`** (puede estar vacío), es un “regular package” y `__init__.py` se ejecuta al importar el paquete. Los subpaquetes son subdirectorios con su propio `__init__.py`.
+- **`import foo`** carga el módulo (o paquete) `foo` y lo deja en el namespace con el nombre `foo`; accedes con `foo.bar`. **`from foo import bar`** carga `foo` y pone solo `bar` en el namespace local; **`from foo import *`** no se recomienda (nombres inesperados, difícil de leer).
+- **sys.path:** lista de **directorios** donde el intérprete busca módulos. Incluye el directorio del script que ejecutaste, la variable de entorno **PYTHONPATH** y los directorios de **site-packages** (donde pip instala). El primer nombre que coincida con el módulo pedido gana. Modificar `sys.path` en runtime (por ejemplo añadir la raíz del proyecto) funciona pero es frágil; un senior prefiere estructura de proyecto instalable (`pip install -e .`) y imports absolutos desde el paquete raíz.
 
 ### P18. ¿Qué es la metaprogramación en Python? Ejemplos: decoradores que modifican clases, o uso de `type()` para crear clases dinámicamente.
 
 **Respuesta:**  
-Metaprogramación: código que genera o modifica código (o estructuras) en tiempo de ejecución. Ejemplos: **decoradores** que añaden métodos o atributos a clases; **`type(name, bases, dict)`** para crear una clase dinámicamente; **metaclasses** (clase cuya instancia es una clase) para validar subclases o registrar recursos; **dataclasses**, **attrs** o **Pydantic** que generan `__init__` y otros métodos. Se usa con mesura; cuando las abstracciones estándar (herencia, composición, decoradores simples) bastan, preferirlas.
+**Metaprogramación** es código que **genera o modifica** código (o estructuras de programa) en **tiempo de ejecución**. En Python hay varias formas:
+
+- **Decoradores que modifican clases:** un decorador que recibe una clase puede añadir o reemplazar métodos, registrar la clase en un registro, o inyectar atributos. Ejemplo: registradores de rutas en frameworks web que marcan métodos como endpoints.
+- **`type(name, bases, dict)`:** con tres argumentos, **crea una nueva clase** dinámicamente: nombre, tupla de bases y diccionario de atributos (métodos, class variables). Es lo que hace internamente `class Nombre(Base): ...`. Útil cuando la clase depende de configuración o de datos que solo existen en runtime.
+- **Metaclasses:** la “clase de una clase”. Si defines `class Meta(type)` y usas `metaclass=Meta`, al crear una subclase se invoca `Meta`; sirve para validar que las subclases implementen ciertos métodos, registrar clases, o alterar la creación (por ejemplo ORMs que crean tablas a partir del modelo).
+- **Herramientas que generan código:** **dataclasses**, **attrs**, **Pydantic** generan `__init__`, `__repr__`, etc., a partir de anotaciones; es metaprogramación que simplifica boilerplate.
+
+Se usa **con mesura**: cuando herencia, composición o decoradores simples bastan, preferirlos; la metaprogramación puede dificultar la depuración y la lectura si se abusa.
 
 ### P19. ¿Cómo implementarías un worker pool con threading y otro con multiprocessing? ¿Cuándo usar cada uno?
 
 **Respuesta:**  
-- **Threading:** `concurrent.futures.ThreadPoolExecutor`; tareas I/O-bound (HTTP, DB, disco); compartir memoria (cuidado con race conditions y GIL).  
-- **Multiprocessing:** `concurrent.futures.ProcessPoolExecutor` o `multiprocessing.Pool`; tareas CPU-bound; cada proceso tiene su propio intérprete y memoria; comunicación por queues o valores compartidos.  
-Elegir según cuello de botella: I/O → threads (o asyncio); CPU → processes.
+- **Threading:** se usa **`concurrent.futures.ThreadPoolExecutor`** (o el módulo `threading` directamente). Creas un pool con un número fijo de workers (p. ej. 4 o 10) y envías tareas con `executor.submit(fn, *args)` o `executor.map()`. Las tareas son **I/O-bound** (peticiones HTTP, lecturas de BD, disco): mientras un hilo espera, otros pueden ejecutar. Las threads **comparten memoria**, así que hay que tener cuidado con race conditions (locks, estructuras thread-safe). El GIL hace que solo una ejecute bytecode Python a la vez, pero en I/O el GIL se libera, así que el pool puede mejorar el rendimiento.
+- **Multiprocessing:** **`concurrent.futures.ProcessPoolExecutor`** o **`multiprocessing.Pool`**. Cada worker es un **proceso** separado con su propio intérprete y memoria; no comparten estado por defecto. La comunicación es por **queues**, **pipes** o **memoria compartida** (Value, Array). Idóneo para tareas **CPU-bound** (cálculos pesados, procesamiento de datos) porque así se usan varios núcleos. Los argumentos y resultados deben ser **serializables** (pickle).
+
+**Cuándo usar cada uno:** si el cuello de botella es **I/O** (red, disco, BD) → threads o, mejor aún, asyncio si tu código es async. Si el cuello de botella es **CPU** → multiprocessing. No uses muchos procesos si el coste de serialización y arranque es alto; en ese caso valora colas externas (Celery, etc.) con workers en procesos.
 
 ### P20. ¿Qué son las coroutines y el event loop en asyncio? Diferencia entre `async def` y una función normal que devuelve una coroutine.
 
 **Respuesta:**  
-**Coroutine:** función definida con `async def`; al llamarla devuelve un objeto coroutine (no ejecuta el cuerpo hasta que se “await”). **Event loop:** ejecuta coroutines, programa callbacks y maneja I/O; `await` cede el control al loop hasta que el resultado está listo. Una función normal que devuelve una coroutine no la ejecuta; hay que hacer `await f()` o `loop.run_until_complete(f())`. Con `async def` y `await` se escribe código concurrente sin callbacks explícitos.
+- **Coroutine:** en Python es el objeto que produce una función definida con **`async def`**. Al **llamar** esa función no se ejecuta el cuerpo; se devuelve un **objeto coroutine**. El cuerpo solo se ejecuta cuando esa coroutine se **“awaita”** (con `await coro` o cuando el event loop la programa). `await` cede el control al event loop hasta que el resultado esté disponible (I/O completado, otra coroutine terminada, etc.), sin bloquear el hilo.
+- **Event loop:** es el núcleo de asyncio; **ejecuta** las coroutines, programa callbacks y maneja la I/O (sockets, timers). Cuando una coroutine hace `await`, el loop puede ejecutar otras coroutines; cuando el recurso esperado está listo, el loop reanuda la coroutine. Todo esto ocurre en **un solo hilo** (concurrencia cooperativa).
+- **Diferencia importante:** una **función normal** que devuelve una coroutine (por ejemplo `def f(): return asyncio.sleep(1)`) **no ejecuta** la coroutine al ser llamada; solo devuelve el objeto. Para ejecutarla hay que hacer `await f()` (dentro de un contexto async) o `loop.run_until_complete(f())`. Con **`async def`** y **`await`** se escribe código concurrente legible sin callbacks explícitos; el flujo parece secuencial pero es no bloqueante.
 
 ### P21. ¿Para qué sirven `functools.partial`, `functools.lru_cache` y `functools.wraps`?
 
 **Respuesta:**  
-- **partial:** fija argumentos de una función y devuelve una nueva llamable; ej. `partial(int, base=2)` para parsear binario.  
-- **lru_cache:** cache en memoria por argumentos (LRU); ideal para funciones puras costosas; se puede acotar con `maxsize`.  
-- **wraps:** decorador que copia `__name__`, `__doc__`, etc. del decorado al wrapper; esencial en decoradores para no perder metadatos.
+- **`functools.partial`:** crea una **nueva llamable** fijando algunos argumentos (y palabras clave) de una función. Por ejemplo `partial(int, base=2)` devuelve una función que convierte a entero en binario; útil para callbacks que requieren una firma concreta (p. ej. pasar a `map` una función que ya tiene el primer argumento fijado) o para especializar una función genérica sin definir una nueva.
+- **`functools.lru_cache`:** decorador que **cachea** en memoria los resultados de la función por conjunto de argumentos (hashables). Usa política **LRU** (Least Recently Used); con `maxsize=None` la cache crece sin límite; con `maxsize=N` se descartan las entradas menos usadas. Ideal para funciones **puras** y costosas (cálculos, llamadas a APIs que no cambian); no usar con argumentos mutables o no hashables sin cuidado. En Python 3.9+ se puede usar también `@cache` para cache sin límite.
+- **`functools.wraps`:** decorador que **copia metadatos** de la función decorada al wrapper (`__name__`, `__doc__`, `__module__`, etc.). Sin él, el wrapper tendría el nombre y la documentación del propio wrapper, lo que rompe ayuda, logging y debugging. Es **esencial** usarlo en cualquier decorador que devuelva una función nueva.
 
 ### P22. Nombra cinco funciones o generadores de itertools que uses en código real y para qué.
 
 **Respuesta:**  
-- **chain:** concatenar iterables sin materializar listas.  
-- **groupby:** agrupar por clave (requiere datos ordenados por esa clave).  
-- **islice:** “rebanada” sobre un iterable (como slice pero lazy).  
-- **cycle / repeat:** iterables infinitos para tests o padding.  
-- **combinations / permutations:** combinatoria sin cargar todo en memoria.  
-Uso típico: pipelines de datos, parsing, generación de casos de test.
+- **`chain(*iterables)`:** concatena varios iterables en uno solo **sin materializar** listas intermedias; útil para recorrer varios archivos o listas como si fuera una secuencia única.
+- **`groupby(iterable, key=None)`:** agrupa elementos consecutivos que comparten la misma **clave** (por defecto el valor). Requiere que el iterable esté **ordenado** por esa clave; si no, los grupos se fragmentan. Útil en pipelines de datos (agrupar líneas por fecha, por id, etc.).
+- **`islice(iterable, start, stop[, step])`:** “rebanada” sobre un iterable de forma **lazy** (como `list[start:stop:step]` pero sin cargar todo); ideal para paginación o para tomar los primeros N de un stream.
+- **`cycle(iterable)`** y **`repeat(elem[, n])`:** el primero repite el iterable infinitamente; el segundo repite un elemento N veces o infinitas. Sirven para tests (datos cíclicos), padding o patrones repetitivos.
+- **`combinations(iterable, r)`** y **`permutations(iterable, r)`:** generan combinaciones o permutaciones **sin cargar** todas en memoria; útiles en algoritmos de combinatoria o generación de casos de test.
+
+Uso típico: **pipelines** de transformaciones sobre streams, parsing de logs o CSV, y generación de datos para tests o benchmarks.
 
 ### P23. ¿Qué ofrece el módulo collections (defaultdict, Counter, OrderedDict, namedtuple, deque)? ¿Cuándo usar deque en lugar de list?
 
 **Respuesta:**  
-- **defaultdict:** dict que asigna un valor por defecto a claves nuevas.  
-- **Counter:** conteo de elementos (histograma).  
-- **OrderedDict:** orden de inserción (en 3.7+ dict también mantiene orden).  
-- **namedtuple:** tupla con nombres de campos (legible y ligera).  
-- **deque:** cola doble; append/pop por ambos extremos en O(1); **usar deque** para FIFO/LIFO o ventanas deslizantes; list tiene O(n) para insert/pop al inicio.
+- **defaultdict(factory):** subclase de dict que, cuando se accede a una **clave inexistente**, la crea con el valor devuelto por `factory()` (por ejemplo `list` para listas, `int` para 0). Evita el patrón `if k not in d: d[k] = []; d[k].append(v)`; muy usado para agrupar o acumular por clave.
+- **Counter(iterable):** dict especializado en **contar** ocurrencias; `.most_common(n)` da los n más frecuentes; soporta suma y resta entre Counters. Ideal para histogramas, análisis de frecuencias o “top N”.
+- **OrderedDict:** dict que mantiene el **orden de inserción**. En Python 3.7+ el `dict` estándar también mantiene orden, así que OrderedDict queda sobre todo para métodos específicos (move_to_end) o compatibilidad.
+- **namedtuple:** construye una subclase de tupla con **nombres de campos**; acceso por atributo (`obj.campo`) además de índice; inmutable y ligera. Útil para datos pequeños y legibles (puntos 2D, registros simples). Para más features (defaults, mutabilidad) se suele usar dataclass.
+- **deque:** cola **doble**; **append**/ **appendleft** y **pop**/ **popleft** en **O(1)**. **Usar deque** cuando necesites FIFO (cola), LIFO (pila) o ventanas deslizantes (append por un lado, popleft por el otro). Con **list**, insert o pop al **inicio** es O(n) porque hay que desplazar el resto; deque evita eso.
+
+**Resumen:** deque para colas y operaciones por ambos extremos; list para acceso por índice y cuando no importa el coste de insert/pop al inicio.
 
 ### P24. ¿Cómo depurar con pdb? Comandos básicos: breakpoint, next, step, continue, list, pp.
 
 **Respuesta:**  
-Insertar `breakpoint()` (o `import pdb; pdb.set_trace()`). Comandos: **n** (next): siguiente línea en la función actual; **s** (step): entrar en la llamada; **c** (continue): seguir hasta el siguiente breakpoint; **l** (list): ver código alrededor; **pp**: pretty-print de variables. También **b archivo:línea** para breakpoints, **p var** para imprimir. En entornos modernos se usa el debugger del IDE (VS Code, PyCharm) que suele integrar pdb.
+Para detener la ejecución en un punto: insertar **`breakpoint()`** (Python 3.7+; respeta la variable de entorno `PYTHONBREAKPOINT`) o **`import pdb; pdb.set_trace()`**. Al llegar ahí, se abre el prompt de pdb.
+
+**Comandos básicos:**  
+- **n** (next): ejecuta la **siguiente línea** en la función actual; no entra en llamadas.  
+- **s** (step): **entra** en la próxima llamada (ejecuta paso a paso dentro de la función llamada).  
+- **c** (continue): reanuda hasta el **siguiente breakpoint** o hasta el final.  
+- **l** (list): muestra **código** alrededor de la línea actual.  
+- **pp** (pretty-print): imprime expresiones con formato legible (útil para listas o dicts grandes).  
+- **p** (print): evalúa e imprime una expresión.  
+- **b** (break): define breakpoints; por ejemplo **b archivo:línea** o **b función**.  
+- **q** (quit): sale del debugger y termina el programa.
+
+En desarrollo real se suele usar el **debugger del IDE** (VS Code, PyCharm), que integra pdb o un equivalente y ofrece breakpoints visuales, inspección de variables y ventanas de pila.
 
 ### P24b. ¿Cómo escribirías un decorador que acepte argumentos (ej. reintentos o un timeout)?
 
@@ -254,12 +304,25 @@ Una **metaclass** es la clase de una clase; su `__new__` o `__init__` se ejecuta
 ### P25. ¿Cómo estructurarías logging en una aplicación Python (niveles, formateo, handlers, no loguear en producción con DEBUG)?
 
 **Respuesta:**  
-Configurar el **root logger** o loggers por módulo; **niveles** DEBUG, INFO, WARNING, ERROR, CRITICAL; en producción normalmente INFO o WARNING. **Handlers:** StreamHandler (consola), FileHandler (archivo), o envío a un servicio (SysLog, HTTP). **Formato:** incluir timestamp, nivel, nombre del logger y mensaje; en producción JSON para ingest en agregadores. No dejar `logging.debug()` con formato costoso en hot path; usar `if logger.isEnabledFor(logging.DEBUG):` o mensajes con % y argumentos (el mensaje solo se forma si el nivel está activo).
+- **Estructura:** usar un **logger por módulo** (`logging.getLogger(__name__)`) en lugar de el root directamente; así se puede configurar nivel y handlers por paquete. El root logger se configura una vez al arranque (en `main` o en un módulo `logging_config`).
+- **Niveles:** DEBUG (desarrollo, diagnóstico), INFO (flujo normal), WARNING (algo anómalo pero recuperable), ERROR (fallo que requiere atención), CRITICAL (sistema inestable). En **producción** típicamente INFO o WARNING para no llenar discos ni agregadores; DEBUG solo en entornos de staging o con activación bajo demanda.
+- **Handlers:** **StreamHandler** (stderr/consola), **FileHandler** (rotación con RotatingFileHandler o TimedRotatingFileHandler), o envío a un servicio (SysLogHandler, HTTP a un agregador como Loki, Datadog). Puedes tener varios handlers en el mismo logger (p. ej. consola + archivo).
+- **Formato:** incluir **timestamp**, **nivel**, **nombre del logger** (o módulo) y **mensaje**; en producción suele convenir **JSON** (con formateador JSON) para que los agregadores parseen y filtren por nivel, servicio, etc.
+- **Rendimiento:** evitar en hot path construcciones costosas que solo se usan para DEBUG; usar el patrón de **argumentos** (`logger.debug("user %s", user_id)`) para que la interpolación solo ocurra si el nivel está activo, o comprobar `if logger.isEnabledFor(logging.DEBUG):` antes de construir el mensaje.
 
 ### P26. ¿Qué es PEP 8 y qué herramientas usas para aplicarlo automáticamente?
 
 **Respuesta:**  
-**PEP 8** es la guía de estilo para código Python (indentación, longitud de línea, espacios, nombres, etc.). Herramientas: **black** (formateador opinado, poco configurable); **isort** (orden de imports); **flake8** (lint estático, incluye estilo y algunos errores); **pylint** (más reglas y advertencias). En CI se suele ejecutar black + isort (o ruff) y flake8; el proyecto puede fijar versiones y configuración en `pyproject.toml` o `setup.cfg`.
+**PEP 8** es la guía de estilo oficial para código Python: indentación (4 espacios), longitud de línea (recomendado 79 o 88), espacios alrededor de operadores y después de comas, convenciones de nombres (snake_case para funciones y variables, CapitalizedWords para clases, etc.), y recomendaciones sobre imports, comentarios y documentación. No es obligatorio pero mejora la consistencia y la legibilidad en equipos.
+
+**Herramientas para aplicarlo automáticamente:**  
+- **black:** formateador **opinado** que reescribe el código (indentación, comillas, saltos de línea); tiene poca configuración a propósito para que todo el ecosistema se parezca. Muy usado como estándar de facto.  
+- **isort:** ordena y agrupa **imports** (stdlib, third-party, local) y puede eliminar no usados.  
+- **ruff:** linter y formateador muy rápido; puede reemplazar flake8, isort y parte de pylint, y tiene un modo formateador compatible con black.  
+- **flake8:** lint estático que comprueba estilo (PEP 8) y algunos errores (variables no usadas, sintaxis dudosa).  
+- **pylint:** más reglas y advertencias (calidad, complejidad, convenciones); más ruido pero útil para revisar código.
+
+En **CI** se suele ejecutar black (o ruff format) + isort (o ruff) y flake8 o ruff; la configuración y versiones se fijan en **pyproject.toml** o **setup.cfg** para que todo el equipo y CI usen lo mismo.
 
 ---
 
@@ -268,38 +331,47 @@ Configurar el **root logger** o loggers por módulo; **niveles** DEBUG, INFO, WA
 ### P11. ¿Qué es Event Sourcing y cuándo lo recomendarías frente a un modelo CRUD clásico?
 
 **Respuesta:**  
-**Event Sourcing** persiste el estado como secuencia de eventos (hechos) en lugar de solo el estado actual. El estado se reconstruye aplicando los eventos en orden; se pueden tener múltiples “proyecciones” (vistas) y reprocesar el pasado.
+**Event Sourcing** es un patrón en el que en lugar de guardar solo el **estado actual** de una entidad (como en CRUD), se persiste la **secuencia de eventos** (hechos) que llevaron a ese estado. El estado “actual” se obtiene **reconstruyéndolo** aplicando los eventos en orden (replay). Además puedes mantener **múltiples proyecciones** (vistas materializadas) leyendo el mismo stream y derivar nuevos modelos sin modificar el stream; y puedes **reprocesar** el pasado (corregir bugs de proyección, añadir nuevas vistas).
 
-Lo recomendaría cuando: hay requisitos de auditoría o compliance, necesidad de “viajar en el tiempo” o replay, dominios donde los hechos son la verdad (finanzas, logística), o cuando CQRS encaja y quieres leer modelos optimizados sin tocar el stream de eventos. No lo recomendaría para dominios muy simples o equipos sin experiencia en consistencia eventual y modelado de eventos.
+**Cuándo recomendarlo:** cuando hay requisitos fuertes de **auditoría** o compliance (saber qué pasó y cuándo); cuando necesitas “**viajar en el tiempo**” o hacer replay para análisis o correcciones; en dominios donde los **hechos** son la fuente de verdad (finanzas, logística, trazabilidad); o cuando ya usas **CQRS** y quieres que el modelo de lectura sea una proyección del stream, pudiendo cambiar las vistas sin tocar los eventos. **No** lo recomendaría para dominios muy simples (CRUD basta), ni cuando el equipo no tiene experiencia en consistencia eventual, modelado de eventos y operaciones de replay; el coste operativo y de complejidad es alto.
 
 ### P12. Diferencia entre CQRS y “una base de datos con lecturas y escrituras”.
 
 **Respuesta:**  
-**CQRS** (Command Query Responsibility Segregation) separa el modelo de escritura del de lectura: **comandos** modifican estado (escritura) y **consultas** solo leen. No implica dos bases de datos; puede ser el mismo almacén con modelos distintos (por ejemplo escritura normalizada y lecturas desnormalizadas o cacheadas).
+**CQRS** (Command Query Responsibility Segregation) separa explícitamente el **modelo de escritura** del **modelo de lectura**: los **comandos** (escrituras) modifican estado y pueden vivir en un modelo normalizado y consistente; las **consultas** (lecturas) pueden usar modelos desnormalizados, vistas materializadas o incluso otro almacén, optimizados para pantallas y reportes. No obliga a tener dos bases de datos; puede ser el mismo almacén con dos “capas” de modelo (escritura normalizada, lecturas desnormalizadas o cacheadas).
 
-La diferencia con “una DB con lecturas y escrituras” es la **intención**: en CQRS los modelos de lectura pueden estar optimizados para pantallas o reportes (vistas materializadas, proyecciones desde eventos), y el modelo de escritura para reglas de negocio y consistencia. Permite escalar lectura y escritura por separado y usar almacenes distintos (ej. escritura en SQL, lectura en Elasticsearch).
+La diferencia con “una base de datos donde se lee y se escribe” es la **intención y el diseño**: en un CRUD clásico sueles tener un único modelo que sirve para todo; en CQRS **aceptas** que el modelo de lectura sea distinto del de escritura: optimizado por caso de uso (pantalla de detalle, listado, dashboard), posiblemente con proyecciones desde un stream de eventos (Event Sourcing). Ventajas: escalar **lectura** y **escritura** por separado (más réplicas de lectura, escritura en un solo sitio); usar **almacenes distintos** (escritura en SQL, lectura en Elasticsearch o en caché); evolución independiente de consultas sin tocar el modelo de escritura. La complejidad añadida (sincronización, consistencia eventual) solo compensa cuando los requisitos de lectura y escritura son realmente distintos.
 
 ### P13. ¿Qué es un Message Bus o Event Bus y qué problemas resuelve en un sistema distribuido?
 
 **Respuesta:**  
-Un **message/event bus** es un intermediario que desacopla productores y consumidores: los publicadores envían mensajes a un canal o topic y los suscriptores los reciben sin conocerse. Resuelve: **desacoplamiento** (cambiar consumidores sin tocar productores), **escalabilidad** (añadir workers que consumen de la cola), **resiliencia** (mensajes persistidos y reintentos), y **trazabilidad** (auditoría de eventos).
+Un **message bus** o **event bus** es un **intermediario** entre productores y consumidores: los publicadores envían mensajes a un **canal**, **topic** o **cola**, y los suscriptores los reciben **sin conocerse** entre sí (desacoplamiento en tiempo y en espacio). Los productores no llaman directamente a los consumidores; el bus entrega (o encola) los mensajes según suscripciones o colas.
 
-En Python, ejemplos: Celery con Redis/RabbitMQ, Kafka para event streaming, o un bus interno en memoria para un monolito modular. Un senior sabe cuándo un bus añade valor (múltiples consumidores, procesos asíncronos, límites de contexto) y cuándo es overkill (flujo síncrono simple).
+**Problemas que resuelve:** (1) **Desacoplamiento:** añadir o cambiar consumidores sin tocar productores; cada parte depende del contrato del mensaje, no del otro servicio. (2) **Escalabilidad:** puedes añadir más **workers** que consumen de la misma cola (distribución de carga) o más suscriptores a un topic (broadcast). (3) **Resiliencia:** muchos buses persisten mensajes y permiten reintentos y dead-letter; si un consumidor cae, el mensaje no se pierde. (4) **Trazabilidad:** los eventos quedan registrados; útil para auditoría y debugging.
+
+En Python: **Celery** con Redis/RabbitMQ para tareas asíncronas; **Kafka** para event streaming y logs; o un bus interno en memoria para un monolito modular. Un senior sabe **cuándo** un bus aporta valor (múltiples consumidores, procesos asíncronos, límites de contexto entre equipos) y **cuándo** es overkill (flujo síncrono simple entre dos componentes).
 
 ### P14. ¿Qué es el patrón MVC y cómo se traduce en Django (MVT)?
 
 **Respuesta:**  
-**MVC:** Model (datos y lógica de negocio), View (presentación / qué ve el usuario), Controller (recibe input, actualiza modelo, elige vista). En **Django (MVT):** el “Model” es igual; la **Template** es la vista (HTML); la **View** en Django es en realidad el controlador (función o clase que maneja la petición, usa el modelo y devuelve la template con contexto). El “missing” es el controller explícito; Django lo llama View. La URL routing hace de front controller que delega en la View apropiada.
+**MVC** (Model-View-Controller): **Model** = datos y lógica de negocio; **View** = presentación (lo que ve el usuario); **Controller** = recibe el input del usuario, actualiza el modelo y decide qué vista mostrar. La idea es separar responsabilidades para que el modelo no dependa de la UI y la vista no contenga lógica de negocio.
+
+En **Django** el patrón se llama **MVT** (Model-View-Template). La correspondencia es: el **Model** es el mismo (ORM, lógica de dominio). La **Template** es la “V” de MVC: el HTML y la presentación. La **View** en Django es en realidad el **Controller**: la función o clase que recibe la petición HTTP, consulta o actualiza el modelo, y devuelve una respuesta (normalmente renderizando una template con un contexto). No hay un componente llamado “Controller”; Django usa el nombre “View” para ese papel. El **enrutado por URL** (urls.py) actúa como front controller que delega en la View correspondiente según la ruta.
 
 ### P14b. ¿Qué es Pub/Sub y en qué se diferencia de una cola punto a punto?
 
 **Respuesta:**  
-**Pub/Sub:** un mensaje lo reciben **todos** los suscriptores del topic; desacoplamiento y broadcasting. **Cola punto a punto:** cada mensaje lo consume **un solo** consumidor (entre los workers de la cola); distribución de carga y garantía de procesamiento único. Kafka con consumer groups es más parecido a cola por partición; RabbitMQ tiene ambos modelos (exchanges fanout = pub/sub, queues = punto a punto).
+- **Pub/Sub (publish/subscribe):** el publicador envía un mensaje a un **topic** (o canal); **todos** los suscriptores de ese topic reciben una **copia** del mensaje. No hay “dueño” único del mensaje: sirve para **broadcasting** y desacoplamiento (varios sistemas reaccionan al mismo evento). Ejemplo: evento “PedidoCreado” y suscriptores de envío de email, de inventario y de analytics; cada uno procesa el mismo evento.
+- **Cola punto a punto:** el mensaje va a una **cola**; **un solo** consumidor (entre los workers que atienden esa cola) lo procesa. Sirve para **distribución de carga** y para garantizar que cada mensaje se procese **una vez** (entre los workers de la cola). Ejemplo: cola de “enviar email”; uno de N workers toma el mensaje y lo procesa.
+
+**Matices:** en **Kafka**, con **consumer groups** cada partición es consumida por un solo miembro del grupo, así que por topic/partición se comporta más como cola; si quieres pub/sub, distintos consumer groups se suscriben al mismo topic. **RabbitMQ** tiene ambos: exchanges **fanout** = pub/sub (el mensaje a todos los bindings); **queues** = punto a punto (compiten por los mensajes de la cola).
 
 ### P14c. ¿Cómo descompondrías un monolito en microservicios? Qué criterios usarías para definir límites.
 
 **Respuesta:**  
-Criterios típicos: **dominio** (bounded context en DDD); **equipo** (Conway: un equipo por servicio); **escalado** (separar lo que escala distinto); **tecnología** (permitir stacks distintos si hace falta). Pasos: identificar contextos y APIs; extraer un servicio (strangler fig: proxy que delega); mantener contratos estables (API versioning, eventos). No partir por capas técnicas (un “servicio de DB”); partir por capacidad de negocio.
+**Criterios para definir límites:** (1) **Dominio / bounded context (DDD):** agrupar por capacidad de negocio coherente (pedidos, catálogo, envíos); no por capas técnicas (un “servicio de base de datos” no es un buen límite). (2) **Equipo (ley de Conway):** si un equipo puede poseer un servicio de punta a punta, el límite suele ser más estable; evitar servicios que requieran coordinación constante entre muchos equipos. (3) **Escalado:** separar lo que escala de forma distinta (p. ej. generación de informes pesados vs API de consulta). (4) **Tecnología:** permitir stacks distintos solo cuando aporte valor (por ejemplo un servicio de ML en Python y el resto en Java); no fragmentar por tecnología por inercia.
+
+**Pasos de descomposición:** identificar **bounded contexts** y sus APIs (qué exponen y qué consumen); elegir un primer servicio a extraer (bien delimitado y con menos dependencias); aplicar **strangler fig**: poner un proxy o API gateway que delegue al monolito o al nuevo servicio según ruta/capacidad; migrar tráfico de forma gradual; mantener **contratos estables** (versionado de API, eventos con esquemas claros). No intentar extraer todo a la vez; ir por capacidades completas y con tests y monitoreo en cada paso.
 
 ### P14d. ¿Qué es DDD (Domain-Driven Design) y qué son el bounded context y el agregado?
 
@@ -309,7 +381,9 @@ Criterios típicos: **dominio** (bounded context en DDD); **equipo** (Conway: un
 ### P14e. ¿Qué es un pipeline ETL y qué consideraciones tendrías para hacerlo robusto (idempotencia, reintentos, monitoreo)?
 
 **Respuesta:**  
-**ETL:** Extract (origen), Transform (limpieza, reglas), Load (destino). Robustez: **idempotencia** (re-ejecutar no duplica ni corrompe); **reintentos** con backoff y dead-letter; **orden** y dependencias entre pasos (Airflow DAGs, Prefect); **monitoreo** (latencia, fallos, volumen); **versionado** de esquemas y datos; **tests** sobre datos de ejemplo o sintéticos.
+Un **pipeline ETL** es un flujo de datos en tres fases: **Extract** (leer desde orígenes: bases de datos, APIs, ficheros), **Transform** (limpieza, normalización, reglas de negocio, agregaciones) y **Load** (escribir en el destino: data warehouse, lago, otra base). Se orquesta con herramientas como **Airflow**, **Prefect** o **Dagster**, que definen DAGs (grafos de tareas) con dependencias y programación.
+
+**Consideraciones para robustez:** (1) **Idempotencia:** re-ejecutar el pipeline (o un paso) no debe duplicar datos ni corromper el destino; usar claves naturales o “upsert” y ventanas de datos reproducibles. (2) **Reintentos:** fallos transitorios (red, timeout) se manejan con reintentos con **backoff** exponencial y un **dead-letter** o alerta si se supera el máximo. (3) **Orden y dependencias:** definir bien las dependencias entre pasos (DAG) para que no se ejecute Load antes de Transform; usar checkpoints o particiones por fecha cuando aplique. (4) **Monitoreo:** métricas de latencia, tasa de fallos, volumen procesado y alertas cuando un paso falle o se retrase. (5) **Versionado:** de esquemas (evolución de tablas) y de reglas de transformación para poder reproducir y auditar. (6) **Tests:** pruebas sobre datos de ejemplo o sintéticos para validar transformaciones y detección de regresiones.
 
 ---
 
@@ -318,44 +392,48 @@ Criterios típicos: **dominio** (bounded context en DDD); **equipo** (Conway: un
 ### P15. ¿Cómo diseñarías una API REST escalable y mantenible en FastAPI?
 
 **Respuesta:**  
-- **Rutas por recurso**, verbos HTTP estándar (GET, POST, PUT/PATCH, DELETE), códigos HTTP correctos y cuerpos en JSON.
-- **FastAPI:** routers por dominio (`APIRouter`), modelos Pydantic para request/response, inyección de dependencias para DB y servicios, y documentación automática (OpenAPI).
-- **Capas:** rutas → servicios (lógica) → repositorios (acceso a datos); no poner lógica de negocio en el router.
-- **Versionado** (ej. `/v1/...`) y convenciones de nombres consistentes.
-- **Autenticación/autorización** con OAuth2, JWT o API keys vía dependencias.
-- **Paginación, filtros y orden** en listados para no devolver recursos enormes.
+- **Diseño REST:** recursos como sustantivos en la URL (`/users`, `/orders`), verbos HTTP estándar (GET idempotente y sin efectos, POST para crear, PUT/PATCH para actualizar, DELETE para borrar), **códigos HTTP** correctos (200, 201, 204, 400, 401, 404, 422, 500) y cuerpos en JSON con esquemas documentados. Evitar verbos en la URL y devolver recursos completos o enlaces cuando aplique HATEOAS.
+- **Estructura en FastAPI:** **routers por dominio** (`APIRouter` por recurso o módulo) que se incluyen en la app; **modelos Pydantic** para request y response (validación y documentación automática); **inyección de dependencias** para sesión de BD, servicios y autenticación (evitar globals). La **documentación** OpenAPI (Swagger/ReDoc) sale automática.
+- **Capas:** rutas solo reciben/validan y llaman a **servicios** (lógica de negocio); servicios usan **repositorios** o clientes para acceso a datos. No poner lógica de negocio en el router.
+- **Versionado** (por ejemplo `/v1/users`) y convenciones de nombres consistentes en todo el API.
+- **Autenticación y autorización:** OAuth2, JWT o API keys implementados como **dependencias** que extraen y validan el token y exponen el usuario o el scope; uso de `Depends()` en rutas protegidas.
+- **Paginación, filtros y orden** en listados (query params: `limit`, `offset` o cursor, `sort`, `filter`) para no devolver colecciones enormes y permitir consumo eficiente.
 
 ### P16. Diferencia entre Gunicorn y Uvicorn. ¿Cuándo usar cada uno?
 
 **Respuesta:**  
-- **Gunicorn:** servidor WSGI; multiproceso (y opcionalmente multihilo); ideal para aplicaciones **síncronas** (Django, Flask clásico). No ejecuta ASGI.
-- **Uvicorn:** servidor ASGI; soporta **async** y WebSockets; ideal para FastAPI, Starlette, Django async. Suele usarse con workers (p. ej. Gunicorn con worker class uvicorn para tener varios procesos ASGI).
+- **Gunicorn:** es un servidor **WSGI** (Web Server Gateway Interface). Gestiona **múltiples workers** (procesos) y opcionalmente hilos por worker; no ejecuta código async ni ASGI. Ideal para aplicaciones **síncronas**: Django con vistas sync, Flask clásico, cualquier app que use el protocolo WSGI. Muy usado en producción detrás de un proxy (Nginx) por su estabilidad y configuración (timeouts, workers, preload).
+- **Uvicorn:** es un servidor **ASGI** (Asynchronous Server Gateway Interface). Soporta **async** (corutinas) y **WebSockets**. Ideal para **FastAPI**, **Starlette**, Django con vistas async. Por defecto corre en un solo proceso; en producción se suele combinar con **Gunicorn** como process manager y Uvicorn como worker class (`gunicorn -k uvicorn.workers.UvicornWorker app:app`) para tener varios procesos ASGI y aprovechar varios núcleos.
 
-Resumen: app síncrona (Flask/Django sync) → Gunicorn; app async (FastAPI, Django async) → Uvicorn, o Gunicorn + Uvicorn como worker.
+**Resumen:** aplicación **síncrona** (Flask, Django sync) → **Gunicorn**. Aplicación **async** (FastAPI, Django async) → **Uvicorn** solo o **Gunicorn + Uvicorn** como worker para múltiples procesos.
 
 ### P17. ¿Qué es el ciclo de vida de una petición en Django (desde la petición HTTP hasta la respuesta)?
 
 **Respuesta:**  
-1. **WSGI/ASGI** recibe la petición.  
-2. **Middleware** (request): se ejecutan en orden (auth, sesión, etc.).  
-3. **URL resolver** mapea la ruta a una View.  
-4. **View** (función o clase): puede usar formularios, modelos, servicios; devuelve un `HttpResponse` (o subclase).  
-5. **Middleware** (response): se ejecutan en orden inverso.  
+1. **WSGI/ASGI:** el servidor (Gunicorn, Uvicorn, etc.) recibe la petición HTTP y la pasa a Django mediante el protocolo WSGI o ASGI.
+2. **Middleware (request):** se ejecuta la cadena de middleware en **orden de definición**. Cada uno puede modificar el request, cortocircuitar (devolver respuesta) o llamar a `get_response` para pasar al siguiente. Típicamente aquí se hace autenticación, carga de sesión, CSRF, etc.
+3. **URL resolver:** Django compara la ruta con las patrones en `urls.py` y resuelve la **View** (función o clase) y los argumentos capturados (p. ej. `pk`).
+4. **View:** se ejecuta la vista con el request y los kwargs; puede usar formularios, modelos, servicios, y devuelve un **HttpResponse** (o subclase: JsonResponse, HttpResponseRedirect, etc.). Si usa **templates**, las renderiza aquí con un contexto. Si está decorada con **`@transaction.atomic`**, la transacción se abre antes y se hace commit/rollback según el resultado.
+5. **Middleware (response):** se ejecutan en **orden inverso**; cada middleware puede modificar la respuesta antes de devolverla.
 6. **WSGI/ASGI** envía la respuesta al cliente.
 
-Además: **signals** (pre_save, post_save, etc.) si se usan; **transacciones** si la view está decorada con `@transaction.atomic`; **templates** renderizadas dentro de la view.
+Además, durante la view pueden dispararse **signals** (pre_save, post_save, request_finished, etc.) si hay listeners registrados; y las **templates** se renderizan dentro de la view antes de construir la HttpResponse.
 
 ### P17b. ¿Cómo implementarías autenticación y autorización en Django (usuarios, permisos, grupos)?
 
 **Respuesta:**  
-Modelo **User** (o extendido con OneToOne); **authenticate()** y **login()** en la view; **@login_required** o **LoginRequiredMixin**; **User.has_perm()**, **@permission_required** o **PermissionRequiredMixin**; **grupos** para conjuntos de permisos; para APIs: tokens (DRF TokenAuthentication), JWT (djangorestframework-simplejwt) o sesiones. Autorización a nivel de objeto: **django-guardian** o lógica en la view que compruebe el objeto.
+- **Autenticación:** el modelo **User** (o un perfil extendido con **OneToOne**) representa al usuario. En vistas que reciben credenciales se usa **`authenticate(request, username=..., password=...)`** y, si devuelve un usuario, **`login(request, user)`** para asociar la sesión. Para vistas que requieren usuario logueado: **`@login_required`** (FBV) o **`LoginRequiredMixin`** (CBV); si no está autenticado, redirige al login.
+- **Autorización (permisos):** Django tiene permisos por modelo (`add_foo`, `change_foo`, `delete_foo`, `view_foo`) y permisos custom. **`user.has_perm('app.perm_codename')`** o **`@permission_required('app.perm')`** / **`PermissionRequiredMixin`** en la view. Los **grupos** agrupan permisos; asignas usuarios a grupos para no gestionar permisos uno a uno.
+- **APIs (DRF):** **TokenAuthentication** (token en header), **JWTAuthentication** (p. ej. djangorestframework-simplejwt), o **SessionAuthentication** para uso desde el navegador. Se configura en `DEFAULT_AUTHENTICATION_CLASSES` y las vistas protegidas con permisos o custom checks.
+- **Autorización a nivel de objeto:** el sistema de permisos de Django es por modelo, no por instancia. Para “solo el dueño puede editar este objeto” se usa **django-guardian** (permisos por objeto) o lógica en la view que compruebe que `request.user` es el propietario o tiene relación con el objeto.
 
 ### P17c. Diferencia entre Django ORM y SQLAlchemy. ¿Cuándo elegirías cada uno?
 
 **Respuesta:**  
-- **Django ORM:** integrado en Django; API de alto nivel (querysets, migraciones, admin); ideal para aplicaciones web Django y modelos estándar.  
-- **SQLAlchemy:** independiente del framework; más flexible (Core vs ORM); consultas raw, conexiones, múltiples backends; ideal para servicios que no usan Django, ETL, o cuando necesitas control fino y rendimiento.  
-Elegir Django ORM con Django; SQLAlchemy para FastAPI, scripts, o proyectos que no son web Django.
+- **Django ORM:** viene **integrado** en Django; API de alto nivel con **QuerySets** (lazy, encadenables, filtros, anotaciones, select_related/prefetch_related), **migraciones** integradas y **admin** automático. Muy orientado a aplicaciones web: modelos declarativos, relaciones FK/M2M, y convenciones “Django”. Ideal cuando todo el stack es Django y los modelos son estándar (CRUD, relaciones típicas).
+- **SQLAlchemy:** **independiente** del framework; tiene **Core** (SQL expresivo, conexiones, transacciones) y **ORM** (mapeo objeto-relacional más configurable). Permite consultas raw, múltiples backends, conexiones y pools finos, y optimizaciones avanzadas (bulk, reflección de esquema). Ideal para **FastAPI**, **scripts**, **ETL**, servicios que no usan Django, o cuando necesitas **control fino** y máximo rendimiento en consultas complejas.
+
+**Cuándo elegir:** si el proyecto es **Django** (web o API con Django REST), usa **Django ORM** por consistencia y ecosistema (admin, migraciones, forms). Si el proyecto **no** es Django (FastAPI, Celery workers, ETL, librerías) o necesitas flexibilidad y rendimiento por encima de la integración Django, usa **SQLAlchemy**.
 
 ### P17d. ¿Qué es el patrón “application factory” en Flask y para qué sirve?
 
