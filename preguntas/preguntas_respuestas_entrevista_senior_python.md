@@ -38,6 +38,31 @@ En un servicio que lee de Kafka y escribe en PostgreSQL, **no** conviene tener u
 
 Así, un cambio en el contrato de Kafka solo afecta al adaptador; un cambio en reglas de negocio solo al transformador; un cambio en el esquema de la base solo al repositorio. En Python esto se implementa con módulos o clases pequeñas, inyección de dependencias (para poder testear cada parte con mocks) y, si quieres, un orquestador o pipeline que conecte los tres (por ejemplo en un bucle que lee → transforma → persiste). Esta separación también facilita escalar o sustituir una capa (por ejemplo cambiar de Kafka a otra cola) sin reescribir todo el servicio.
 
+**Ejemplo de estructura (pseudocódigo):**
+
+```python
+# Adaptador: solo lee de Kafka
+class KafkaConsumerAdapter:
+    def poll(self) -> list[DomainEvent]: ...
+
+# Transformador: solo lógica de negocio
+class OrderEventHandler:
+    def handle(self, event: DomainEvent) -> OrderDTO: ...
+
+# Repositorio: solo persiste
+class OrderRepository:
+    def save(self, dto: OrderDTO) -> None: ...
+
+# Orquestador: conecta los tres (inyección de dependencias)
+class OrderIngestionPipeline:
+    def __init__(self, consumer: KafkaConsumerAdapter, handler: OrderEventHandler, repo: OrderRepository):
+        self.consumer, self.handler, self.repo = consumer, handler, repo
+    def run(self):
+        for event in self.consumer.poll():
+            dto = self.handler.handle(event)
+            self.repo.save(dto)
+```
+
 ### P2. Explica la diferencia entre herencia y composición. ¿Cuándo elegirías composición en un diseño orientado a objetos?
 
 **Respuesta:**  
@@ -45,6 +70,21 @@ Así, un cambio en el contrato de Kafka solo afecta al adaptador; un cambio en r
 - **Composición:** un objeto “tiene” otros objetos (por ejemplo `Car` tiene un `Engine` y una lista de `Wheel`). La reutilización se hace por **delegación**: el objeto delega en sus componentes. Hay menor acoplamiento porque puedes sustituir o mockear componentes sin tocar la jerarquía de clases.
 
 Elegiría **composición** cuando: (1) no hay una relación “es un” clara (por ejemplo un `UserService` no “es un” `EmailSender`, sino que “tiene” o “usa” uno); (2) varias clases comparten comportamiento pero no forman una jerarquía natural (en lugar de herencia múltiple, inyecta el comportamiento como dependencia); (3) quiero poder sustituir o probar partes (inyección de dependencias: paso un `EmailSender` real o un mock). El principio “favor composition over inheritance” del libro *Design Patterns* (GoF) aplica sobre todo en dominios donde los requisitos cambian con el tiempo: la herencia tiende a rigidizar el diseño y a crear jerarquías que luego cuesta modificar. La composición permite cambiar el comportamiento cambiando el objeto inyectado sin tocar la clase que lo usa.
+
+**Ejemplo rápido:**
+
+```python
+# Herencia: Dog "es un" Animal (relación clara)
+class Animal: ...
+class Dog(Animal): ...
+
+# Composición: UserService "tiene" un EmailSender (no "es un" EmailSender)
+class UserService:
+    def __init__(self, email_sender: EmailSender):  # inyección
+        self._email_sender = email_sender
+    def register(self, user): ...
+        self._email_sender.send(user.email, "Welcome!")
+```
 
 ### P3. ¿Qué es la programación funcional en Python? Nombra construcciones del lenguaje y de la stdlib que la soportan.
 
@@ -63,6 +103,24 @@ La **programación funcional** enfatiza: **funciones puras** (mismo input → mi
 
 Un senior sabe **cuándo** un estilo funcional mejora la legibilidad (pipelines de datos, transformaciones sobre listas/dicts, lógica sin estado compartido) y **cuándo** un enfoque OOP o imperativo es más claro (cuando hay mucho estado, efectos secundarios o el equipo no está acostumbrado a leer código muy funcional).
 
+**Ejemplo (pipelines funcionales en Python):**
+
+```python
+from functools import reduce
+from itertools import chain
+
+# Funciones puras + higher-order
+nums = [1, 2, 3, 4, 5]
+doubled = list(map(lambda x: x * 2, nums))           # [2, 4, 6, 8, 10]
+evens = list(filter(lambda x: x % 2 == 0, nums))    # [2, 4]
+sum_all = reduce(lambda a, b: a + b, nums)          # 15
+
+# Comprehensions (declarativo)
+squares = [x**2 for x in nums if x % 2 == 1]       # [1, 9, 25]
+# Generador lazy
+gen = (x * 2 for x in range(10**6))                 # no materializa, consume bajo demanda
+```
+
 ### P3b. Explica los cinco principios SOLID con un ejemplo breve de cada uno.
 
 **Respuesta:**  
@@ -74,6 +132,26 @@ Los principios **SOLID** (por Robert C. Martin) guían el diseño orientado a ob
 - **I (Interface Segregation):** Los clientes no deberían depender de interfaces que no usan. En lugar de una interfaz gigante con muchos métodos, define **varios protocolos o interfaces pequeñas**; cada cliente depende solo de los que necesita. Así evitas clases “gordas” y dependencias innecesarias.
 - **D (Dependency Inversion):** Depende de **abstracciones**, no de implementaciones concretas. En lugar de que un servicio instancie directamente `PostgresRepository` o llame a un API concreto, recibe por constructor un `Repository` abstracto (o un protocolo). Así puedes cambiar la base de datos o mockear en tests sin tocar el servicio.
 
+**Ejemplo D (Dependency Inversion):**
+
+```python
+from abc import ABC, abstractmethod
+
+class UserRepository(ABC):
+    @abstractmethod
+    def get_by_id(self, id: int): ...
+
+class PostgresUserRepository(UserRepository):
+    def get_by_id(self, id: int): ...
+
+class UserService:
+    def __init__(self, repo: UserRepository):  # depende de abstracción, no de PostgresUserRepository
+        self._repo = repo
+    def find_user(self, id: int):
+        return self._repo.get_by_id(id)
+# En tests: UserService(MockUserRepository()); en prod: UserService(PostgresUserRepository(...))
+```
+
 ### P3c. ¿Qué es el patrón GRASP “Information Expert” y “Creator”?
 
 **Respuesta:**  
@@ -81,6 +159,28 @@ Los principios **SOLID** (por Robert C. Martin) guían el diseño orientado a ob
 
 - **Information Expert:** asigna la responsabilidad al **objeto que tiene la información necesaria** para cumplirla. Así se evita que un objeto pida datos a otros para hacer un cálculo que podría vivir donde ya están esos datos. Ejemplo: el **carrito de compra** es el experto en los ítems y sus precios, así que es natural que **calcule el total**; no hace falta un “Calculator” externo que reciba el carrito y devuelva el total, porque el carrito ya tiene todo lo necesario. Esto reduce acoplamiento y mantiene la cohesión.
 - **Creator:** responde a “**quién debe crear** una instancia de la clase B”. Los criterios típicos son: (1) quien **contiene** o **agrega** instancias de B (composición); (2) quien **tiene los datos** necesarios para inicializar B; (3) quien **usa** B muy de cerca. Ejemplo: un **Pedido** crea **LineaPedido** porque el pedido contiene las líneas, las agrega a lo largo de su vida y tiene el contexto (pedido_id, etc.) para inicializarlas. Así la creación queda encapsulada y el cliente no conoce los detalles de construcción de `LineaPedido`.
+
+**Ejemplo (Information Expert + Creator):**
+
+```python
+class LineaPedido:
+    def __init__(self, producto_id: str, cantidad: int, precio_unitario: float): ...
+
+class Carrito:
+    def __init__(self):
+        self._items: list[tuple[str, int, float]] = []  # (producto_id, cantidad, precio)
+    def agregar(self, producto_id: str, cantidad: int, precio_unitario: float):
+        self._items.append((producto_id, cantidad, precio_unitario))
+    def total(self) -> float:  # Information Expert: el carrito tiene los datos
+        return sum(cant * precio for _, cant, precio in self._items)
+
+class Pedido:
+    def __init__(self):
+        self._lineas: list[LineaPedido] = []
+    def add_linea(self, producto_id: str, cantidad: int, precio: float):
+        # Creator: Pedido crea LineaPedido porque las contiene
+        self._lineas.append(LineaPedido(producto_id, cantidad, precio))
+```
 
 ### P3d. ¿Qué es programación estructurada y cómo se relaciona con “goto considerado perjudicial”?
 
@@ -90,6 +190,19 @@ La **programación estructurada** es un paradigma que organiza el flujo de contr
 El artículo de **Dijkstra** “Go To Statement Considered Harmful” (1968) argumentaba que el `goto` hacía el código difícil de seguir, de demostrar correcto y de refactorizar; defendía que cualquier programa podía escribirse solo con secuencia, selección y repetición. Hoy la mayoría de lenguajes no incluyen `goto` (o lo restringen); Python **no tiene** `goto`, así que el flujo es estructurado por defecto.
 
 En la práctica, un senior evita **simular** saltos incontrolados: no usar excepciones para control de flujo normal (solo para errores excepcionales), no abusar de `break`/`continue` anidados que oculten la lógica, y preferir funciones pequeñas y early returns en lugar de ramas muy profundas. La idea sigue siendo la misma: flujo claro y predecible.
+
+**Aclaración:** En Python el flujo estructurado es el único disponible; no existe `goto`. Ejemplo de flujo claro con early return:
+
+```python
+def procesar_usuario(user):
+    if not user:
+        return None
+    if not user.is_active:
+        return None
+    # secuencia y selección claras
+    data = validar(user)
+    return guardar(data)
+```
 
 ---
 
@@ -108,6 +221,8 @@ El **GIL** (Global Interpreter Lock) es un mutex a nivel de intérprete en **CPy
 
 En una entrevista senior se espera que propongas la herramienta adecuada al problema: **threading** para I/O con código que no sea async; **multiprocessing** para CPU-bound; **asyncio** para alto I/O concurrente en un solo proceso. También se valora conocer alternativas como **PyPy** (con un GIL más flexible en algunos escenarios) o arquitecturas con múltiples procesos y colas (workers que consumen tareas en paralelo).
 
+**Aclaración:** El GIL es específico de **CPython**; otros intérpretes (Jython, IronPython) pueden no tenerlo. Para comprobar el límite de recursión o inspeccionar hilos: `import sys; sys.getrecursionlimit()` y `threading.current_thread()`.
+
 ### P5. Diferencia entre `__new__` y `__init__`. ¿Cuándo implementarías `__new__`?
 
 **Respuesta:**  
@@ -115,6 +230,20 @@ En una entrevista senior se espera que propongas la herramienta adecuada al prob
 - **`__new__`:** es el **constructor real** a nivel de objeto: es el que **crea** la instancia y la **devuelve**. Recibe la clase (`cls`) y los argumentos; por defecto llama a `object.__new__(cls)` para obtener la instancia. Se ejecuta **antes** que `__init__`; si `__new__` no devuelve una instancia de la clase, `__init__` no se llama.
 
 Se implementa **`__new__`** en casos concretos: (1) **Singleton:** en `__new__` compruebas si ya existe una instancia (por ejemplo en un atributo de clase) y la devuelves; si no, creas una con `super().__new__(cls)` y la guardas. (2) **Subclases de tipos inmutables** (`str`, `int`, `tuple`): no puedes “inicializar” después de creado el objeto, así que la construcción debe hacerse en `__new__` pasando los valores correctos al constructor de la base. (3) **Factory:** devolver una instancia de **otra** clase según los argumentos (aunque a veces es más claro usar una función factory fuera de la clase). En código normal, `__init__` basta; `__new__` es para estos casos especiales.
+
+**Ejemplo (Singleton con `__new__`):**
+
+```python
+class Singleton:
+    _instance = None
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+    def __init__(self, x=0):
+        self.x = x
+# Singleton() siempre devuelve la misma instancia; __init__ se llama cada vez pero el objeto es uno solo
+```
 
 ### P6. ¿Qué son los descriptors? Pon un ejemplo de uso (por ejemplo, validación o lazy attribute).
 
@@ -128,12 +257,51 @@ Un **descriptor** es un objeto que implementa al menos **`__get__(self, obj, typ
 
 Los descriptors son la **base** de `@property`, `@classmethod`, `@staticmethod` y de ORMs como SQLAlchemy (las columnas del modelo son descriptores que traducen acceso a atributos en consultas y escrituras a la base).
 
+**Ejemplo (descriptor de validación + lazy):**
+
+```python
+class Positive:
+    """Descriptor: valida que el valor sea > 0."""
+    def __set_name__(self, owner, name):
+        self._name = name
+    def __get__(self, obj, type=None):
+        return obj.__dict__.get(self._name)
+    def __set__(self, obj, value):
+        if value <= 0:
+            raise ValueError(f"{self._name} must be positive")
+        obj.__dict__[self._name] = value
+
+class LazyAttr:
+    """Descriptor: calcula el valor la primera vez (lazy)."""
+    def __set_name__(self, owner, name):
+        self._name = f"_lazy_{name}"
+    def __get__(self, obj, type=None):
+        if self._name not in obj.__dict__:
+            obj.__dict__[self._name] = 42  # reemplazar por cálculo costoso real; solo 1ª vez
+        return obj.__dict__[self._name]
+
+class Product:
+    price = Positive()   # uso: p.price = 10  -> valida; p.price = -1 -> ValueError
+```
+
 ### P7. Explica el orden de resolución de métodos (MRO) en herencia múltiple. ¿Qué es el “diamond problem”?
 
 **Respuesta:**  
 En herencia múltiple, cuando una clase hereda de varias (por ejemplo `class C(A, B)`), hace falta un **orden** definido para decidir de qué clase se toma un método o atributo si está en más de un antecesor. Python usa **C3 linearization** para calcular el **MRO** (Method Resolution Order). Puedes inspeccionarlo con `Clase.mro()` o `Clase.__mro__`. El orden respeta: (1) la jerarquía de cada padre (un padre antes que sus ancestros); (2) el orden de declaración en la lista de bases (si A y B están en conflicto, gana el que aparece primero en `class C(A, B)`); (3) que no haya ciclos (C3 falla si la jerarquía es inconsistente).
 
 El **diamond problem** aparece cuando `A` es padre de `B` y `C`, y una clase `D` hereda de `B` y `C`; entonces `A` está dos veces en la jerarquía. En Python, `A` solo se visita una vez gracias al MRO (por defecto después de `B` y `C`), así que un `super()` en `D` puede llegar a `A` de forma predecible. Un senior sabe leer el MRO y diseñar mixins y herencia múltiple sin sorpresas.
+
+**Ejemplo (inspeccionar MRO y diamond):**
+
+```python
+class A: pass
+class B(A): pass
+class C(A): pass
+class D(B, C): pass
+
+print(D.mro())  # [D, B, C, A, object]  -> A aparece una sola vez
+# Si B y C definen el mismo método, se usa el de B (aparece antes en las bases de D)
+```
 
 ### P8. ¿Qué son los context managers? ¿Cómo implementas uno con clase y con `contextlib`?
 
@@ -146,6 +314,33 @@ El protocolo requiere **`__enter__(self)`** y **`__exit__(self, exc_type, exc_va
 **Implementación con `contextlib.contextmanager`:**  
 Decoras un **generador** que tiene exactamente un **`yield`**. El código **antes** del `yield` es el setup (equivalente a `__enter__`); el **después** es el teardown (equivalente a `__exit__`). Si se lanza una excepción dentro del `with`, se inyecta en el generador; puedes usar `try/finally` alrededor del `yield` para garantizar limpieza y luego relanzar si quieres. Es más conciso que una clase cuando la lógica es simple.
 
+**Ejemplo (clase vs contextmanager):**
+
+```python
+# Con clase
+class ManagedResource:
+    def __enter__(self):
+        self.resource = open_resource()
+        return self.resource
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.resource.close()
+        return False  # propagar excepción
+
+# Con contextlib
+from contextlib import contextmanager
+@contextmanager
+def managed_resource():
+    resource = open_resource()
+    try:
+        yield resource
+    finally:
+        resource.close()
+
+# Uso en ambos casos:
+with managed_resource() as r:
+    r.do_something()
+```
+
 ### P9. Diferencia entre `iterator` e `iterable`. ¿Cómo harías un iterable perezoso sobre una fuente muy grande?
 
 **Respuesta:**  
@@ -154,12 +349,46 @@ Decoras un **generador** que tiene exactamente un **`yield`**. El código **ante
 
 Para una **fuente muy grande** (archivo enorme, API paginada, stream de Kafka), no quieres materializar todo en memoria. El patrón estándar es un **generador** (función con `yield`): es iterable (al llamarla obtienes un generator-iterator) y cada elemento se calcula o lee **solo cuando se pide** (lazy). Así recorres la fuente en una pasada sin cargar todo. Alternativamente, una **clase** con `__iter__` y `__next__` que internamente lea por chunks o páginas y vaya devolviendo elementos; útil cuando la lógica de “siguiente” es más compleja que un simple yield.
 
+**Ejemplo (iterable perezoso sobre archivo grande):**
+
+```python
+def read_lines_lazy(path: str):  # generador: no carga el archivo entero
+    with open(path) as f:
+        for line in f:
+            yield line.rstrip("\n")
+
+# Uso: for line in read_lines_lazy("huge.log"): process(line)
+# Cada línea se lee bajo demanda; nunca tienes todo el archivo en memoria.
+```
+
 ### P10. ¿Para qué sirven las type hints y `mypy`? ¿Cómo tiparías un decorador que preserva la firma de la función?
 
 **Respuesta:**  
 Las **type hints** (PEP 484) permiten anotar argumentos, retornos y variables con tipos (builtins, `typing`, tipos propios). Sirven para **documentar** el contrato de funciones y clases, y para **análisis estático**: un checker puede detectar errores de tipo sin ejecutar el código. **mypy** es el checker estándar en el ecosistema Python; integrado en CI, reduce bugs de tipo y facilita refactors. Las hints no afectan al runtime por defecto (son solo metadatos), aunque se pueden inspeccionar con `typing.get_type_hints`.
 
 Para un **decorador que preserva la firma** hay dos aspectos: (1) **Runtime:** `functools.wraps(f)` en el decorador para copiar `__name__`, `__doc__`, etc., del decorado. (2) **Tipado:** que el tipo del decorado sea el mismo que el de la función original. Se usa un **TypeVar** acotado a `Callable`: por ejemplo `F = TypeVar('F', bound=Callable[..., Any])` y el decorador se anota como `def decorator(f: F) -> F: ... return f`. Así mypy y los IDEs entienden que el resultado tiene la misma firma que `f`. Para decoradores que **añaden** argumentos (por ejemplo inyectar un request), en Python 3.10+ se usan **ParamSpec** y **Concatenate** para expresar que la función decorada tiene los mismos parámetros que `f` más los extra.
+
+**Ejemplo (decorador que preserva firma):**
+
+```python
+from functools import wraps
+from typing import TypeVar, Callable, Any
+
+F = TypeVar("F", bound=Callable[..., Any])
+
+def log_calls(f: F) -> F:
+    @wraps(f)  # preserva __name__, __doc__
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
+        print(f"Calling {f.__name__}")
+        return f(*args, **kwargs)
+    return wrapper  # type: ignore[return-value]
+
+@log_calls
+def add(a: int, b: int) -> int:
+    """Suma dos números."""
+    return a + b
+# add.__name__ == "add", add.__doc__ preservado; mypy ve add(a: int, b: int) -> int
+```
 
 ### P11. ¿Qué es la recursión y cuándo puede ser problemática en Python? ¿Qué es la cola de llamadas y el límite de recursión?
 
@@ -170,6 +399,25 @@ En Python puede ser **problemática** por dos razones. (1) **Límite de recursi�
 
 **Alternativas:** reescribir a **iterativo** (bucle con pila explícita si hace falta, por ejemplo para recorrer un árbol); en muchos algoritmos la versión iterativa es más eficiente y sin límite de profundidad. Python **no** optimiza la recursión de cola (TCO), así que “tail recursion” igualmente consume pila. Aumentar `sys.setrecursionlimit()` solo en casos muy controlados (por ejemplo tests que intencionadamente profundizan); no es una solución general porque el límite del sistema operativo también puede cortar el proceso.
 
+**Ejemplo (recursión vs iterativo):**
+
+```python
+import sys
+# Recursión: elegante pero limitada por sys.getrecursionlimit() (~1000)
+def factorial_rec(n: int) -> int:
+    if n <= 1:
+        return 1
+    return n * factorial_rec(n - 1)
+
+# Iterativo: sin límite de profundidad
+def factorial_iter(n: int) -> int:
+    acc = 1
+    for i in range(2, n + 1):
+        acc *= i
+    return acc
+# factorial_rec(2000) -> RecursionError; factorial_iter(2000) funciona
+```
+
 ### P12. Diferencia entre list comprehension, generator expression y dict/set comprehension. ¿Cuándo usar cada una?
 
 **Respuesta:**  
@@ -179,12 +427,48 @@ En Python puede ser **problemática** por dos razones. (1) **Límite de recursi�
 
 **Cuándo usar cada una:** generator cuando el flujo es **una pasada** (procesar, agregar, filtrar sin necesitar la colección entera) o cuando el tamaño puede ser muy grande. List (o dict/set) cuando necesitas **múltiples accesos**, índice, longitud o cuando el tamaño es pequeño y la claridad prima.
 
+**Ejemplo (comparación en memoria):**
+
+```python
+# List: materializa todo -> mayor uso de memoria
+big_list = [x * 2 for x in range(1_000_000)]
+
+# Generator: lazy, un elemento cada vez
+big_gen = (x * 2 for x in range(1_000_000))
+total = sum(big_gen)  # una pasada; no guarda los 1M elementos
+
+# Dict/set comprehension
+squares_dict = {x: x**2 for x in range(10)}
+unique_mod = {x % 3 for x in [1, 2, 3, 4, 5]}  # {0, 1, 2}
+```
+
 ### P13. ¿Cómo diseñarías una jerarquía de excepciones personalizadas y cuándo usarías excepciones vs códigos de error?
 
 **Respuesta:**  
 **Jerarquía de excepciones:** conviene una **base de dominio** (por ejemplo `AppError` o `ValidationError`) que herede de `Exception`, y excepciones **más específicas** por tipo de fallo (por ejemplo `PaymentDeclinedError`, `InsufficientFundsError` que hereden de `PaymentError`). Así el llamador puede capturar por granularidad: `except InsufficientFundsError` para un tratamiento concreto, `except PaymentError` para cualquier error de pago, o `except AppError` como red de seguridad. Documenta qué excepciones puede lanzar cada función; en código que captura, ordena los `except` de más específica a más general.
 
 **Excepciones vs códigos de error:** usa **excepciones** cuando el fallo es **excepcional** (error de red, datos inválidos que no deberían llegar, errores de configuración) y cuando el llamador puede reaccionar con try/except o dejar propagar. Usa **códigos de error** o un tipo **Result/Either** (por ejemplo `tuple[bool, T]` o un dataclass con `success` y `error`) cuando el “fallo” es **parte del flujo normal** (por ejemplo “recurso no encontrado”, “validación rechazada”) y quieres que esté explícito en la firma y en el tipo de retorno; así el llamador está obligado a manejar el caso. En APIs REST, las excepciones se traducen a códigos HTTP (404, 422, 500) y mensajes en el cuerpo; la jerarquía interna puede mapear a códigos estándar.
+
+**Ejemplo (jerarquía y captura):**
+
+```python
+class AppError(Exception): pass
+class PaymentError(AppError): pass
+class InsufficientFundsError(PaymentError): pass
+
+def charge(user_id: str, amount: float, balance: float):
+    if balance < amount:
+        raise InsufficientFundsError("balance too low")
+
+try:
+    charge("u1", 100, 50)
+except InsufficientFundsError as e:
+    pass  # manejar: ej. return JSON 402 en API
+except PaymentError:
+    pass
+except AppError:
+    pass  # orden: de más específica a más general
+```
 
 ### P14. ¿Qué son las clases abstractas (ABC) y las interfaces en Python? Diferencia con typing.Protocol.
 
@@ -194,12 +478,52 @@ En Python puede ser **problemática** por dos razones. (1) **Límite de recursi�
 
 **Resumen:** ABC = contrato por **herencia** (subclase explícita); Protocol = contrato por **estructura** (tener los métodos indicados). Ambos permiten polimorfismo y type checking; elige ABC cuando la jerarquía y la herencia son naturales, y Protocol cuando quieres máxima flexibilidad y menos acoplamiento.
 
+**Ejemplo (ABC vs Protocol):**
+
+```python
+from abc import ABC, abstractmethod
+from typing import Protocol
+
+# ABC: herencia explícita
+class Storage(ABC):
+    @abstractmethod
+    def get(self, key: str) -> bytes: ...
+    @abstractmethod
+    def set(self, key: str, value: bytes) -> None: ...
+
+class FileStorage(Storage):  # debe heredar de Storage
+    def get(self, key: str): ...
+    def set(self, key: str, value: bytes): ...
+
+# Protocol: duck typing con tipos; no hace falta heredar
+class Readable(Protocol):
+    def read(self) -> str: ...
+
+def use(r: Readable):  # acepta cualquier objeto con .read() -> str
+    return r.read()
+# use(open("f.txt"))  # file tiene read(); cumple el protocolo
+```
+
 ### P15. Nombra al menos cinco magic methods y su propósito. ¿Qué hace `__slots__` y cuándo usarlo?
 
 **Respuesta:**  
 **Magic methods** (dunder methods) permiten que tus clases se integren con el lenguaje (operadores, `len()`, `with`, etc.). Algunos ejemplos: **`__init__`** — inicialización de la instancia; **`__str__`** / **`__repr__`** — representación en string (usuario vs depuración); **`__len__`** — `len(obj)`; **`__getitem__`** — acceso por índice/slice, base de la iteración por índice; **`__iter__`** y **`__next__`** — iteración; **`__enter__`** y **`__exit__`** — context manager; **`__call__`** — hacer la instancia “llamable”; **`__eq__`**, **`__lt__`** — comparaciones; **`__add__`** — operador `+`.
 
 **`__slots__`:** es un atributo de clase (tupla o lista de nombres de atributos) que **limita** los atributos de instancia a esos nombres. Por defecto cada instancia tiene un **`__dict__`** que consume memoria; con `__slots__` no se crea `__dict__` (salvo que lo incluyas en slots), así que se **ahorra memoria** cuando tienes muchas instancias (por ejemplo millones de objetos de dominio). Además evita crear atributos por typo (asignar `obj.typo` falla si no está en slots). Limitaciones: no se puede añadir atributos dinámicamente; la herencia con clases que mezclan slots y sin slots puede dar problemas; algunas herramientas asumen `__dict__`. Úsalo cuando el número de instancias sea alto y los atributos estén fijos.
+
+**Ejemplo (magic methods y __slots__):**
+
+```python
+class Point:
+    __slots__ = ("x", "y")  # solo estos atributos; sin __dict__
+    def __init__(self, x: float, y: float):
+        self.x, self.y = x, y
+    def __repr__(self):
+        return f"Point({self.x}, {self.y})"
+    def __eq__(self, other):
+        return isinstance(other, Point) and (self.x, self.y) == (other.x, other.y)
+# p = Point(1, 2); p.z = 3  -> AttributeError (z no está en __slots__)
+```
 
 ### P16. ¿Cómo funciona la serialización en Python (pickle, json, Pydantic)? ¿Cuándo no usar pickle?
 
@@ -210,6 +534,27 @@ En Python puede ser **problemática** por dos razones. (1) **Límite de recursi�
 
 **Resumen:** no usar pickle para comunicación entre servicios ni para cualquier dato que no controles por completo; preferir JSON (o similares) y, cuando convenga, Pydantic para validación y salida tipada.
 
+**Ejemplo (json vs Pydantic):**
+
+```python
+import json
+from pydantic import BaseModel
+
+# json: tipos básicos; fechas/bytes a mano
+data = {"name": "Alice", "age": 30}
+s = json.dumps(data)
+loaded = json.load(s)
+
+# Pydantic: validación + serialización
+class User(BaseModel):
+    name: str
+    age: int
+u = User(name="Alice", age=30)
+u.model_dump()        # -> dict
+u.model_dump_json()  # -> str JSON
+# User(age="thirty")  -> ValidationError
+```
+
 ### P17. Explica el modelo de importación de Python: módulos vs paquetes, `__init__.py`, `import` vs `from ... import`, y qué es `sys.path`.
 
 **Respuesta:**  
@@ -217,6 +562,15 @@ En Python puede ser **problemática** por dos razones. (1) **Límite de recursi�
 - **Paquete:** un **directorio** que Python trata como un conjunto de módulos. En Python 3.3+, puede ser un “namespace package” (varios directorios con el mismo nombre en `sys.path`) sin `__init__.py`; si tiene **`__init__.py`** (puede estar vacío), es un “regular package” y `__init__.py` se ejecuta al importar el paquete. Los subpaquetes son subdirectorios con su propio `__init__.py`.
 - **`import foo`** carga el módulo (o paquete) `foo` y lo deja en el namespace con el nombre `foo`; accedes con `foo.bar`. **`from foo import bar`** carga `foo` y pone solo `bar` en el namespace local; **`from foo import *`** no se recomienda (nombres inesperados, difícil de leer).
 - **sys.path:** lista de **directorios** donde el intérprete busca módulos. Incluye el directorio del script que ejecutaste, la variable de entorno **PYTHONPATH** y los directorios de **site-packages** (donde pip instala). El primer nombre que coincida con el módulo pedido gana. Modificar `sys.path` en runtime (por ejemplo añadir la raíz del proyecto) funciona pero es frágil; un senior prefiere estructura de proyecto instalable (`pip install -e .`) y imports absolutos desde el paquete raíz.
+
+**Aclaración (import vs from):**
+
+```python
+import foo          # namespace: foo.bar, foo.qux
+from foo import bar # solo 'bar' en el scope actual
+from foo import *   # no recomendado: nombres inesperados
+# sys.path[0] es el directorio del script; para paquetes: mypkg.subpkg.module
+```
 
 ### P18. ¿Qué es la metaprogramación en Python? Ejemplos: decoradores que modifican clases, o uso de `type()` para crear clases dinámicamente.
 
@@ -230,6 +584,23 @@ En Python puede ser **problemática** por dos razones. (1) **Límite de recursi�
 
 Se usa **con mesura**: cuando herencia, composición o decoradores simples bastan, preferirlos; la metaprogramación puede dificultar la depuración y la lectura si se abusa.
 
+**Ejemplo (type() dinámico y decorador que modifica clase):**
+
+```python
+# Crear clase en runtime
+DynamicClass = type("DynamicClass", (object,), {"attr": 1, "method": lambda self: self.attr})
+obj = DynamicClass()
+print(obj.method())  # 1
+
+# Decorador que añade atributo a la clase
+def register(cls):
+    cls._registered = True
+    return cls
+@register
+class Plugin: pass
+print(Plugin._registered)  # True
+```
+
 ### P19. ¿Cómo implementarías un worker pool con threading y otro con multiprocessing? ¿Cuándo usar cada uno?
 
 **Respuesta:**  
@@ -238,6 +609,23 @@ Se usa **con mesura**: cuando herencia, composición o decoradores simples basta
 
 **Cuándo usar cada uno:** si el cuello de botella es **I/O** (red, disco, BD) → threads o, mejor aún, asyncio si tu código es async. Si el cuello de botella es **CPU** → multiprocessing. No uses muchos procesos si el coste de serialización y arranque es alto; en ese caso valora colas externas (Celery, etc.) con workers en procesos.
 
+**Ejemplo (ThreadPoolExecutor vs ProcessPoolExecutor):**
+
+```python
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+
+def io_task(url): ...   # I/O-bound: HTTP, DB
+def cpu_task(n): ...    # CPU-bound: cálculos
+
+# I/O: threads
+with ThreadPoolExecutor(max_workers=10) as ex:
+    results = list(ex.map(io_task, urls))
+
+# CPU: processes (argumentos/resultados deben ser serializables)
+with ProcessPoolExecutor(max_workers=4) as ex:
+    results = list(ex.map(cpu_task, range(100)))
+```
+
 ### P20. ¿Qué son las coroutines y el event loop en asyncio? Diferencia entre `async def` y una función normal que devuelve una coroutine.
 
 **Respuesta:**  
@@ -245,12 +633,48 @@ Se usa **con mesura**: cuando herencia, composición o decoradores simples basta
 - **Event loop:** es el núcleo de asyncio; **ejecuta** las coroutines, programa callbacks y maneja la I/O (sockets, timers). Cuando una coroutine hace `await`, el loop puede ejecutar otras coroutines; cuando el recurso esperado está listo, el loop reanuda la coroutine. Todo esto ocurre en **un solo hilo** (concurrencia cooperativa).
 - **Diferencia importante:** una **función normal** que devuelve una coroutine (por ejemplo `def f(): return asyncio.sleep(1)`) **no ejecuta** la coroutine al ser llamada; solo devuelve el objeto. Para ejecutarla hay que hacer `await f()` (dentro de un contexto async) o `loop.run_until_complete(f())`. Con **`async def`** y **`await`** se escribe código concurrente legible sin callbacks explícitos; el flujo parece secuencial pero es no bloqueante.
 
+**Ejemplo (async def vs def que devuelve coroutine):**
+
+```python
+import asyncio
+
+async def fetch(url):           # async def: al llamar fetch(u) devuelve coroutine
+    await asyncio.sleep(0.1)    # no se ejecuta hasta await
+    return f"data from {url}"
+
+def wrong():                    # def: devuelve coroutine pero no la ejecuta
+    return asyncio.sleep(1)
+
+async def main():
+    r = await fetch("http://x")  # correcto: await ejecuta la coroutine
+    # wrong()  # solo devuelve objeto; no espera; hay que await wrong() o run_until_complete(wrong())
+asyncio.run(main())
+```
+
 ### P21. ¿Para qué sirven `functools.partial`, `functools.lru_cache` y `functools.wraps`?
 
 **Respuesta:**  
 - **`functools.partial`:** crea una **nueva llamable** fijando algunos argumentos (y palabras clave) de una función. Por ejemplo `partial(int, base=2)` devuelve una función que convierte a entero en binario; útil para callbacks que requieren una firma concreta (p. ej. pasar a `map` una función que ya tiene el primer argumento fijado) o para especializar una función genérica sin definir una nueva.
 - **`functools.lru_cache`:** decorador que **cachea** en memoria los resultados de la función por conjunto de argumentos (hashables). Usa política **LRU** (Least Recently Used); con `maxsize=None` la cache crece sin límite; con `maxsize=N` se descartan las entradas menos usadas. Ideal para funciones **puras** y costosas (cálculos, llamadas a APIs que no cambian); no usar con argumentos mutables o no hashables sin cuidado. En Python 3.9+ se puede usar también `@cache` para cache sin límite.
 - **`functools.wraps`:** decorador que **copia metadatos** de la función decorada al wrapper (`__name__`, `__doc__`, `__module__`, etc.). Sin él, el wrapper tendría el nombre y la documentación del propio wrapper, lo que rompe ayuda, logging y debugging. Es **esencial** usarlo en cualquier decorador que devuelva una función nueva.
+
+**Ejemplo (partial, lru_cache, wraps):**
+
+```python
+from functools import partial, lru_cache, wraps
+
+parse_binary = partial(int, base=2)
+parse_binary("1010")  # 10
+
+@lru_cache(maxsize=128)
+def fib(n): return n if n < 2 else fib(n-1) + fib(n-2)  # memoización
+
+def my_decorator(f):
+    @wraps(f)  # sin esto, wrapper.__name__ sería "wrapper"
+    def wrapper(*args, **kwargs):
+        return f(*args, **kwargs)
+    return wrapper
+```
 
 ### P22. Nombra cinco funciones o generadores de itertools que uses en código real y para qué.
 
