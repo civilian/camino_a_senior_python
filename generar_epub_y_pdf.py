@@ -140,18 +140,20 @@ def generate_epub(files):
         path = os.path.join(CONCEPTOS_DIR, fname)
         with open(path, encoding="utf-8") as f:
             md_content = f.read()
-        
-        # Formatear título de introducción
-        intro_title = format_filename_to_title(fname)
-        
-        # Añadir título de introducción antes del contenido
-        intro_html = f'<h1 style="text-align: center; margin-bottom: 1em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.5em;">Introducción: {intro_title}</h1>'
-        
+
         html_content = md_to_html(md_content)
-        # Combinar título de introducción con el contenido y envolver en div con estilos
-        full_html_content = f'<html><head><style>{epub_css}</style></head><body>{intro_html}{html_content}</body></html>'
+
+        # El archivo de introducción se incluye tal cual, sin encabezado de capítulo
+        if fname == "_introduccion.md":
+            full_html_content = f'<html><head><style>{epub_css}</style></head><body>{html_content}</body></html>'
+        else:
+            # Formatear título de introducción
+            intro_title = format_filename_to_title(fname)
+            intro_html = f'<h1 style="text-align: center; margin-bottom: 1em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.5em;">Introducción: {intro_title}</h1>'
+            full_html_content = f'<html><head><style>{epub_css}</style></head><body>{intro_html}{html_content}</body></html>'
         
-        chapter = epub.EpubHtml(title=fname.replace("_", " ").replace(".md", "").title(),
+        chapter_title = "Introducción" if fname == "_introduccion.md" else fname.replace("_", " ").replace(".md", "").title()
+        chapter = epub.EpubHtml(title=chapter_title,
                                 file_name=fname.replace(".md", ".xhtml"),
                                 lang="es")
         chapter.content = full_html_content
@@ -340,18 +342,18 @@ def generate_pdf(files):
         path = os.path.join(CONCEPTOS_DIR, fname)
         with open(path, encoding="utf-8") as f:
             md_content = f.read()
-        
-        # Formatear título de introducción
-        intro_title = format_filename_to_title(fname)
-        
-        # Agregar salto de página antes de cada capítulo (excepto el primero)
+
+        # Agregar salto de página antes de cada sección (excepto el primero)
         if len(html_parts) > 1:  # Ya hay contenido (portada)
             html_parts.append('<div style="page-break-before: always;"></div>')
-        
-        # Añadir título de introducción
-        html_parts.append(f'<h1 style="text-align: center; margin-top: 2em; margin-bottom: 1.5em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.5em;">Introducción: {intro_title}</h1>')
-        
+
         html_content = md_to_html(md_content)
+
+        # El archivo de introducción se incluye tal cual, sin encabezado de capítulo
+        if fname != "_introduccion.md":
+            intro_title = format_filename_to_title(fname)
+            html_parts.append(f'<h1 style="text-align: center; margin-top: 2em; margin-bottom: 1.5em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.5em;">Introducción: {intro_title}</h1>')
+
         html_parts.append(html_content)
     
     html_parts.append("</body></html>")
