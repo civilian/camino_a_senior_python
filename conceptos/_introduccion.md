@@ -32,6 +32,8 @@ Si en algún momento sientes que un concepto te supera, no te desanimes: márcal
 
 Cada capítulo está pensado como una unidad independiente. Puedes leerlos en orden para construir una visión progresiva, o usarlos como referencia cuando necesitas refrescar un tema específico.
 
+Tambien puedes incluir el libro en notebooklm de google y generar los quizes para aprenderlo por partes y de forma interactiva. Especialmente con la version reducida **[camino_a_senior_python_war_time](https://github.com/civilian/camino_a_senior_python/blob/dev/camino_a_senior_python_war_time.epub)**
+
 Algunas sugerencias:
 
 1. **No intentes leerlo de una sola vez.** Este libro es una referencia, no una novela.

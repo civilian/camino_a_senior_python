@@ -4,8 +4,6 @@ La respuesta no está en la sintaxis, sino en los principios que un matemático 
 
 # diseño de bases de datos
 
-¡Absolutamente! Ponte cómodo, programador. Vamos a embarcarnos en un viaje que trasciende el simple acto de escribir `CREATE TABLE`. Vamos a explorar el arte y la ciencia del **diseño de bases de datos**, una disciplina que es el cimiento silencioso sobre el que se construyen casi todas las aplicaciones robustas y escalables. Esta no es una guía de referencia; es un mapa para pensar como un arquitecto de datos.
-
 ***
 
 ## Guía Exhaustiva de Diseño de Bases de Datos: De Programador a Arquitecto
