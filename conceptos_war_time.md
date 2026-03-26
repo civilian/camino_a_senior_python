@@ -4,6 +4,8 @@ Primero vamos a presentar los conceptos que son más preguntados en las entrevis
 
 # conceptos
 python_core.md
+preguntas_entrevista_python.md
+problemas_comunes_de_python_en_produccion.md
 arquitectura_de_software.md
 diseño_de_bases_de_datos.md
 microservices.md
@@ -12,6 +14,9 @@ docker.md
 aws.md
 pandas.md
 kubernetes_k8s.md
+llm.md
+rag.md
+langgraph.md
 terraform_infraestructura_como_código.md
 
 # Conceptos Avanzados y de Referencia

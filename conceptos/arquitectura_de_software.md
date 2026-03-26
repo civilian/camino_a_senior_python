@@ -8,7 +8,7 @@ Es un problema de arquitectura.
 
 ## Guía Definitiva de Arquitectura de Software: De Programador a Arquitecto
 
-Hola. Me alegra que estés aquí. Durante mis años enseñando y construyendo sistemas, he visto a muchos programadores talentosos chocar contra un muro invisible. Pueden escribir algoritmos complejos y dominar cualquier framework, pero sus sistemas se vuelven frágiles y costosos de mantener con el tiempo. Ese muro, amigo mío, es la falta de una comprensión profunda de la arquitectura.
+Hola. Me alegra que estés aquí. Durante mis años construyendo sistemas, he visto a muchos programadores talentosos chocar contra un muro invisible. Pueden escribir algoritmos complejos y dominar cualquier framework, pero sus sistemas se vuelven frágiles y costosos de mantener con el tiempo. Ese muro, amigo mío, es la falta de una comprensión profunda de la arquitectura.
 
 La arquitectura no es sobre frameworks de moda o diagramas complicados. Es el arte y la ciencia de tomar las decisiones de diseño más importantes, aquellas que son difíciles y costosas de cambiar. Es la estructura fundamental de un sistema, el esqueleto que soporta todo lo demás. Hoy, vamos a construir ese esqueleto en tu mente.
 
