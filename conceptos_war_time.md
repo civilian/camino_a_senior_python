@@ -11,6 +11,7 @@ diseño_de_bases_de_datos.md
 microservices.md
 tdd_bdd_ddd.md
 docker.md
+patrones_de_diseño_con_ejemplos.md
 aws.md
 pandas.md
 kubernetes_k8s.md
